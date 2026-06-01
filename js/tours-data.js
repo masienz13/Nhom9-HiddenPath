@@ -1,0 +1,88 @@
+const hiddenPathTours = [
+  {
+    id: "phu-sa-phin",
+    name: "Tour leo nui Phu Sa Phin (Ta Xua) - huong Hang Chu",
+    displayName: "Tour leo núi Phu Sa Phin (Tà Xùa) - hướng Hang Chú",
+    location: "Yen Bai",
+    altitude: "2868m",
+    duration: "2N1D",
+    difficulty: "Nang cao",
+    price: 4500000,
+    image: "img/tour-phu-sa-phin.jpg",
+    description:
+      "Đỉnh Tà Xùa cao 2865m thuộc Bản Công - Trạm Tấu - Yên Bái, nổi bật với sống núi nguyên sơ và biển mây dày đặc.",
+    tags: ["bestSeller"],
+  },
+  {
+    id: "nhiu-co-san",
+    name: "Tour leo nui Nhiu Co San (Xuat phat tu Ha Noi)",
+    displayName: "Tour leo núi Nhìu Cồ San (Xuất phát từ Hà Nội)",
+    location: "Lao Cai",
+    altitude: "2965m",
+    duration: "2N1D",
+    difficulty: "Thach thuc",
+    price: 4150000,
+    image: "img/tour-nhiu-co-san.jpg",
+    description:
+      "Nhìu Cồ San là vùng núi cao thuộc Bát Xát, Lào Cai với địa hình phức tạp, rừng rậm và mây phủ quanh năm.",
+    tags: ["bestSeller"],
+  },
+  {
+    id: "pu-ta-leng",
+    name: "Tour leo nui Pu Ta Leng (Xuat phat tu Ha Noi)",
+    displayName: "Tour leo núi Pu Ta Leng (Xuất phát từ Hà Nội)",
+    location: "Lai Chau",
+    altitude: "3049m",
+    duration: "3N2D",
+    difficulty: "Thach thuc",
+    price: 4850000,
+    image: "img/tour-pu-ta-leng.jpg",
+    description:
+      "Pu Ta Leng có thảm thực vật đa dạng, rêu và địa y phủ kín thân cây cổ thụ, dẫn qua những tầng đá dốc.",
+    tags: ["bestSeller"],
+  },
+  {
+    id: "ta-lien-son",
+    name: "Tour leo nui Ta Lien Son (Xuat phat tu Ha Noi)",
+    displayName: "Tour leo núi Tả Liên Sơn (Xuất phát từ Hà Nội)",
+    location: "Lai Chau",
+    altitude: "2996m",
+    duration: "2N1D",
+    difficulty: "Nang cao",
+    price: 4100000,
+    image: "img/tour-ta-lien-son.jpg",
+    description:
+      "Độ cao ghi nhận trên đỉnh Tả Liên là 2996m. Từ trên cao có thể nhìn thấy thành phố Lai Châu nhỏ bé giữa núi rừng.",
+    tags: ["hot"],
+  },
+  {
+    id: "ky-quan-san",
+    name: "Tour leo nui Ky Quan San (Xuat phat tu Ha Noi)",
+    displayName: "Tour leo núi Ky Quan San (Xuất phát từ Hà Nội)",
+    location: "Lao Cai",
+    altitude: "3046m",
+    duration: "3N2D",
+    difficulty: "Thach thuc",
+    price: 4900000,
+    image: "img/tour-ky-quan-san.jpg",
+    description:
+      "Ky Quan San, còn gọi là Bạch Mộc Lương Tử, là một trong những địa điểm săn mây đẹp nhất Tây Bắc.",
+    tags: ["hot"],
+  },
+  {
+    id: "fansipan",
+    name: "Tour leo nui Fansipan 2N1D (Xuat phat tu Ha Noi)",
+    displayName: "Tour leo núi Fansipan 2N1D (Xuất phát từ Hà Nội)",
+    location: "Lao Cai",
+    altitude: "3143m",
+    duration: "2N1D",
+    difficulty: "Co ban",
+    price: 3550000,
+    image: "img/tour-fansipan.jpg",
+    description:
+      "Đỉnh Fansipan là khao khát chinh phục của những trái tim nồng nhiệt muốn vươn tới nóc nhà Đông Dương.",
+    tags: ["hot"],
+  },
+];
+
+window.hiddenPathTours = hiddenPathTours;
