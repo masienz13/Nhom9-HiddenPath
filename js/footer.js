@@ -31,10 +31,8 @@ class FooterPlaceholder extends HTMLElement {
 
           <section>
             <h3>Thông tin hữu ích</h3>
-            <a href="#">Team Building</a>
-            <a href="#">Thông tin & Hướng dẫn</a>
-            <a href="#">Mức độ mạo hiểm</a>
-            <a href="#">Lý do chọn Hidden Path</a>
+            <a href="#">Về chúng tôi</a>
+            <a href="#">Liên hệ</a>
             <a href="blog.html">Tin tức</a>
           </section>
 
