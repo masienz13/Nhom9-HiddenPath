@@ -31,8 +31,8 @@ class FooterPlaceholder extends HTMLElement {
 
           <section>
             <h3>Thông tin hữu ích</h3>
-            <a href="#">Tour Trekking</a>
-            <a href="#">Thông tin & Hướng dẫn</a>
+            <a href="#">Về chúng tôi</a>
+            <a href="#">Liên hệ</a>
             <a href="blog.html">Tin tức</a>
           </section>
 
