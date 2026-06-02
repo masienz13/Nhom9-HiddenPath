@@ -334,10 +334,7 @@
 }
 
 .benefit-card {
-  display: grid;
-  grid-template-columns: 60px 1fr;
-  gap: 20px;
-  padding: 30px;
+  padding: 34px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: rgba(255, 255, 255, .65);

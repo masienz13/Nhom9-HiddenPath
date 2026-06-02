@@ -13,10 +13,10 @@ class FooterPlaceholder extends HTMLElement {
             <p>Tổng đài dịch vụ: 1900 2869</p>
             <p>Hotline đặt tour: 0345846390</p>
             <div class="social-list" aria-label="Mạng xã hội">
-              <a href="#" aria-label="Facebook">f</a>
-              <a href="#" aria-label="Instagram">ig</a>
-              <a href="#" aria-label="YouTube">yt</a>
-              <a href="#" aria-label="TikTok">tt</a>
+              <a href="#" aria-label="Facebook"><img src="img/fb.png" alt="fb"></a>
+              <a href="#" aria-label="Instagram"><img src="img/ins.png" alt="ig"></a>
+              <a href="#" aria-label="YouTube"><img src="img/yt.png" alt="yt"></a>
+              <a href="#" aria-label="TikTok"><img src="img/tiktok.png" alt="tiktok"></a>
             </div>
           </section>
 
@@ -31,10 +31,8 @@ class FooterPlaceholder extends HTMLElement {
 
           <section>
             <h3>Thông tin hữu ích</h3>
-            <a href="#">Team Building</a>
+            <a href="#">Tour Trekking</a>
             <a href="#">Thông tin & Hướng dẫn</a>
-            <a href="#">Mức độ mạo hiểm</a>
-            <a href="#">Lý do chọn Hidden Path</a>
             <a href="blog.html">Tin tức</a>
           </section>
 

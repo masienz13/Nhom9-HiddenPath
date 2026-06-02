@@ -4,31 +4,31 @@
 
   const heroSlides = [
     {
-      label: "Daily Tour",
-      eyebrow: "Rong ruổi",
-      title: "Tây Bắc",
+      label: "Trekking",
+      eyebrow: "Khám phá",
+      title: "Pu Ta Leng",
       subtitle:
-        "Khám phá bản làng, check-in ruộng bậc thang và chạm vào những cung mây đẹp nhất miền núi phía Bắc.",
-      meta: "Khởi hành hằng ngày | Ghép tour linh hoạt | Đa dạng trải nghiệm",
-      image: "img/hero-tay-bac-1.jpg",
+        "Trải nghiệm hành trình đi xuyên qua cánh rừng nguyên sinh,đắm mình trong màu xanh của thiên nhiên, nghe tiếng gió reo, ngắm dòng suối chảy, trượt lên những mỏm đá cũ kĩ nhuốm màu rêu phong của thời gian.",
+      meta: "3N2D | HDV bản địa | Đa dạng trải nghiệm",
+      image: "img/tours/putaleng.png",
     },
     {
-      label: "Cloud Hunt",
+      label: "Trekking",
       eyebrow: "Săn mây",
       title: "Ky Quan San",
       subtitle:
         "Cung đường thử thách với biển mây bồng bềnh, rừng trúc và bình minh trên sống núi.",
       meta: "3N2D | HDV bản địa | Porter hỗ trợ",
-      image: "img/hero-tay-bac-2.jpg",
+      image: "img/tours/ky quan san.png",
     },
     {
-      label: "Peak Season",
+      label: "Trekking",
       eyebrow: "Chinh phục",
       title: "Fansipan",
       subtitle:
         "Hành trình chạm nóc nhà Đông Dương dành cho người mới bắt đầu và nhóm bạn yêu trải nghiệm.",
       meta: "2N1D | Lịch trình tối ưu | Đảm bảo an toàn",
-      image: "img/hero-tay-bac-3.jpg",
+      image: "img/tours/fansipan.png",
     },
   ];
 

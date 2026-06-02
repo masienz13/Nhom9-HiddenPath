@@ -5,7 +5,7 @@ class HeaderPlaceholder extends HTMLElement {
         <div class="header-inner">
           <a class="brand" href="index.html" aria-label="Hidden Path trang chủ">
             <span class="brand-logo-wrap">
-              <img class="brand-logo" src="img/logo-hidden-path.png" alt="Hidden Path logo">
+              <img class="brand-logo" src="img/logo.png" alt="Hidden Path logo">
             </span>
             <span class="brand-copy">
               <span class="brand-name">Hidden Path</span>

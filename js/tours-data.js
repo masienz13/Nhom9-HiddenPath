@@ -8,7 +8,7 @@ const hiddenPathTours = [
     duration: "2N1D",
     difficulty: "Nang cao",
     price: 4500000,
-    image: "img/tour-phu-sa-phin.jpg",
+    image: "img/tours/phu sa phin.png",
     description:
       "Đỉnh Tà Xùa cao 2865m thuộc Bản Công - Trạm Tấu - Yên Bái, nổi bật với sống núi nguyên sơ và biển mây dày đặc.",
     tags: ["bestSeller"],
@@ -22,7 +22,7 @@ const hiddenPathTours = [
     duration: "2N1D",
     difficulty: "Thach thuc",
     price: 4150000,
-    image: "img/tour-nhiu-co-san.jpg",
+    image: "img/tours/nhiu co san.png",
     description:
       "Nhìu Cồ San là vùng núi cao thuộc Bát Xát, Lào Cai với địa hình phức tạp, rừng rậm và mây phủ quanh năm.",
     tags: ["bestSeller"],
@@ -36,7 +36,7 @@ const hiddenPathTours = [
     duration: "3N2D",
     difficulty: "Thach thuc",
     price: 4850000,
-    image: "img/tour-pu-ta-leng.jpg",
+    image: "img/tours/putaleng.png",
     description:
       "Pu Ta Leng có thảm thực vật đa dạng, rêu và địa y phủ kín thân cây cổ thụ, dẫn qua những tầng đá dốc.",
     tags: ["bestSeller"],
@@ -50,7 +50,7 @@ const hiddenPathTours = [
     duration: "2N1D",
     difficulty: "Nang cao",
     price: 4100000,
-    image: "img/tour-ta-lien-son.jpg",
+    image: "img/tours/ta lien son.png",
     description:
       "Độ cao ghi nhận trên đỉnh Tả Liên là 2996m. Từ trên cao có thể nhìn thấy thành phố Lai Châu nhỏ bé giữa núi rừng.",
     tags: ["hot"],
@@ -64,7 +64,7 @@ const hiddenPathTours = [
     duration: "3N2D",
     difficulty: "Thach thuc",
     price: 4900000,
-    image: "img/tour-ky-quan-san.jpg",
+    image: "img/tours/ky quan san.png",
     description:
       "Ky Quan San, còn gọi là Bạch Mộc Lương Tử, là một trong những địa điểm săn mây đẹp nhất Tây Bắc.",
     tags: ["hot"],
@@ -78,7 +78,7 @@ const hiddenPathTours = [
     duration: "2N1D",
     difficulty: "Co ban",
     price: 3550000,
-    image: "img/tour-fansipan.jpg",
+    image: "img/tours/fansipan.png",
     description:
       "Đỉnh Fansipan là khao khát chinh phục của những trái tim nồng nhiệt muốn vươn tới nóc nhà Đông Dương.",
     tags: ["hot"],

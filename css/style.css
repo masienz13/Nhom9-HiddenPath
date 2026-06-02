@@ -353,20 +353,32 @@ select {
 .social-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 11px;
   margin-top: 24px;
+  
 }
 
 .social-list a {
   width: 42px;
   height: 42px;
-  display: grid;
-  place-items: center;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
   margin: 0;
+  padding: 0;
   border-radius: 8px;
-  background: rgba(255, 255, 255, .09);
+  background: rgba(255, 255, 255, .08);
   color: var(--white);
   font-weight: 800;
+  line-height: 1;
+}
+
+.social-list img {
+  display: block;
+  width: 31px;
+  height: 31px;
+  object-fit: cover;
+  object-position: center;
 }
 
 @media (max-width: 1180px) {
