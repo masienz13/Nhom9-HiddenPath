@@ -25,7 +25,6 @@ class FooterPlaceholder extends HTMLElement {
             <a href="#">Hướng dẫn đặt tour</a>
             <a href="#">Chính sách hoàn hủy</a>
             <a href="#">Hình thức thanh toán</a>
-            <a href="#">Điều khoản website</a>
             <a href="#">Chính sách bảo mật</a>
           </section>
 
