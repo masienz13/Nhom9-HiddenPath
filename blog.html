@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Hidden Path</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/page.css">
+</head>
+
+<body>
+    <header-placeholder></header-placeholder>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <span>Hidden Path Blog</span>
+                <h1>Kinh nghiệm trekking và khám phá núi rừng</h1>
+                <p>Tổng hợp bài viết về kinh nghiệm, cung đường và trang bị cần thiết cho mỗi chuyến đi.</p>
+            </div>
+        </section>
+
+        <section class="page-section">
+            <div class="container">
+                <div class="blog-toolbar">
+                    <input type="text" id="searchInput" placeholder="Tìm bài viết...">
+
+                    <div class="blog-tabs">
+                        <button class="active" data-filter="all">Tất cả</button>
+                        <button data-filter="Kinh nghiệm">Kinh nghiệm</button>
+                        <button data-filter="Cung đường">Cung đường</button>
+                        <button data-filter="Trang bị">Trang bị</button>
+                    </div>
+                </div>
+
+                <div class="blog-grid" id="blogGrid">
+                    <article class="blog-card" data-category="Kinh nghiệm">
+                        <img src="img/tours/putaleng.png" alt="Pu Ta Leng">
+                        <div class="blog-content">
+                            <span class="blog-tag">Kinh nghiệm</span>
+                            <h3>Kinh nghiệm trekking Pu Ta Leng lần đầu</h3>
+                            <p>Chuẩn bị thể lực, đồ dùng cá nhân và tinh thần trước khi bước vào hành trình leo núi dài
+                                ngày.</p>
+                            <a class="btn btn-primary" href="blog-detail.html?id=bai-1">Đọc thêm</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card" data-category="Trang bị">
+                        <img src="img/tours/lao than.png" alt="Trang bị trekking">
+                        <div class="blog-content">
+                            <span class="blog-tag">Trang bị</span>
+                            <h3>Đồ cần mang khi leo núi</h3>
+                            <p>Danh sách các vật dụng quan trọng giúp chuyến trekking an toàn, gọn nhẹ và thoải mái hơn.
+                            </p>
+                            <a class="btn btn-primary" href="blog-detail.html?id=bai-2">Đọc thêm</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card" data-category="Cung đường">
+                        <img src="img/tours/Fansipan.png" alt="Fansipan">
+                        <div class="blog-content">
+                            <span class="blog-tag">Cung đường</span>
+                            <h3>Top 3 cung đường đẹp Tây Bắc</h3>
+                            <p>Gợi ý những cung trekking nổi bật dành cho người yêu thiên nhiên và thích thử thách bản
+                                thân.</p>
+                            <a class="btn btn-primary" href="blog-detail.html?id=bai-3">Đọc thêm</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card" data-category="Kinh nghiệm">
+                        <img src="img/tours/ta lien son.png" alt="Tả Liên Sơn">
+                        <div class="blog-content">
+                            <span class="blog-tag">Kinh nghiệm</span>
+                            <h3>Lưu ý an toàn khi đi trekking</h3>
+                            <p>Các nguyên tắc cơ bản giúp bạn hạn chế rủi ro khi di chuyển trong rừng núi.</p>
+                            <a class="btn btn-primary" href="blog-detail.html?id=bai-4">Đọc thêm</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card" data-category="Trang bị">
+                        <img src="img/tours/Ky quan san.png" alt="Balo trekking">
+                        <div class="blog-content">
+                            <span class="blog-tag">Trang bị</span>
+                            <h3>Cách chọn balo trekking phù hợp</h3>
+                            <p>Balo phù hợp giúp phân bổ trọng lượng tốt và giảm mệt mỏi khi leo núi nhiều giờ.</p>
+                            <a class="btn btn-primary" href="blog-detail.html?id=bai-5">Đọc thêm</a>
+                        </div>
+                    </article>
+
+                    <article class="blog-card" data-category="Cung đường">
+                        <img src="img/tours/nhiu co san.png" alt="Nhìu Cồ San">
+                        <div class="blog-content">
+                            <span class="blog-tag">Cung đường</span>
+                            <h3>Nhìu Cồ San có gì đặc biệt?</h3>
+                            <p>Cung đường nổi bật với biển mây, rừng già và khung cảnh nguyên sơ đặc trưng vùng Tây Bắc.
+                            </p>
+                            <a class="btn btn-primary" href="blog-detail.html?id=bai-6">Đọc thêm</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer-placeholder></footer-placeholder>
+
+    <script src="js/header.js"></script>
+    <script src="js/footer.js"></script>
+    <script>
+        const cards = document.querySelectorAll(".blog-card");
+        const buttons = document.querySelectorAll(".blog-tabs button");
+        const searchInput = document.getElementById("searchInput");
+
+        buttons.forEach(button => {
+            button.addEventListener("click", () => {
+                buttons.forEach(btn => btn.classList.remove("active"));
+                button.classList.add("active");
+
+                const filter = button.dataset.filter;
+
+                cards.forEach(card => {
+                    card.style.display = filter === "all" || card.dataset.category === filter ? "block" : "none";
+                });
+            });
+        });
+
+        searchInput.addEventListener("keyup", () => {
+            const keyword = searchInput.value.toLowerCase();
+
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                card.style.display = text.includes(keyword) ? "block" : "none";
+            });
+        });
+    </script>
+</body>
+
+</html>
