@@ -5,12 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog | Hidden Path</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
+
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/page.css">
+    <link rel="stylesheet" href="css/blog.css">
 </head>
 
 <body>
@@ -38,7 +40,7 @@
                     </div>
                 </div>
 
-                <div class="blog-grid" id="blogGrid">
+                <div class="blog-grid">
                     <article class="blog-card" data-category="Kinh nghiệm">
                         <img src="img/tours/putaleng.png" alt="Pu Ta Leng">
                         <div class="blog-content">
@@ -111,33 +113,7 @@
 
     <script src="js/header.js"></script>
     <script src="js/footer.js"></script>
-    <script>
-        const cards = document.querySelectorAll(".blog-card");
-        const buttons = document.querySelectorAll(".blog-tabs button");
-        const searchInput = document.getElementById("searchInput");
-
-        buttons.forEach(button => {
-            button.addEventListener("click", () => {
-                buttons.forEach(btn => btn.classList.remove("active"));
-                button.classList.add("active");
-
-                const filter = button.dataset.filter;
-
-                cards.forEach(card => {
-                    card.style.display = filter === "all" || card.dataset.category === filter ? "block" : "none";
-                });
-            });
-        });
-
-        searchInput.addEventListener("keyup", () => {
-            const keyword = searchInput.value.toLowerCase();
-
-            cards.forEach(card => {
-                const text = card.innerText.toLowerCase();
-                card.style.display = text.includes(keyword) ? "block" : "none";
-            });
-        });
-    </script>
+    <script src="js/blog.js"></script>
 </body>
 
 </html>
