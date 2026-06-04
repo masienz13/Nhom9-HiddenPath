@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danh mục Tour Trekking | Hidden Path</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ===== TOUR CATALOG PAGE ===== */
+    .catalog-hero {
+      background: linear-gradient(135deg, var(--forest) 0%, #1a4a2c 60%, #0d2918 100%);
+      padding: 70px 0 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .catalog-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .catalog-hero-inner {
+      width: min(calc(100% - 80px), 1750px);
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .catalog-hero h1 {
+      color: var(--gold);
+      font-size: 56px;
+      margin: 0 0 12px;
+      line-height: 1.05;
+    }
+    .catalog-hero p {
+      color: rgba(255,255,255,0.75);
+      font-size: 18px;
+      margin: 0 0 28px;
+      max-width: 560px;
+    }
+    .catalog-stats {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .catalog-stat {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.85);
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .catalog-stat-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--gold);
+    }
+
+    /* ===== FILTER BAR ===== */
+    .filter-bar {
+      background: var(--white);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 86px;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(20,51,31,0.08);
+    }
+    .filter-bar-inner {
+      width: min(calc(100% - 80px), 1750px);
+      margin: 0 auto;
+      padding: 16px 0;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .filter-label {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--muted);
+      text-transform: uppercase;
+      white-space: nowrap;
+      margin-right: 4px;
+    }
+    .filter-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .filter-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 16px;
+      border: 1.5px solid var(--line);
+      border-radius: 100px;
+      background: var(--white);
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .2s;
+      white-space: nowrap;
+    }
+    .filter-chip:hover { border-color: var(--forest-3); color: var(--forest-3); }
+    .filter-chip.active {
+      background: var(--forest);
+      border-color: var(--forest);
+      color: var(--white);
+    }
+    .filter-chip .chip-count {
+      background: rgba(255,255,255,0.25);
+      border-radius: 100px;
+      padding: 1px 6px;
+      font-size: 11px;
+    }
+    .filter-chip:not(.active) .chip-count {
+      background: var(--line);
+      color: var(--muted);
+    }
+    .filter-divider { width: 1px; height: 28px; background: var(--line); flex-shrink: 0; }
+    .filter-select-wrap { position: relative; }
+    .filter-select {
+      appearance: none;
+      padding: 7px 32px 7px 14px;
+      border: 1.5px solid var(--line);
+      border-radius: 8px;
+      background: var(--white);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink);
+      cursor: pointer;
+      transition: border-color .2s;
+    }
+    .filter-select:focus { outline: none; border-color: var(--forest-3); }
+    .filter-select-wrap::after {
+      content: '';
+      position: absolute;
+      right: 12px; top: 50%;
+      transform: translateY(-50%);
+      width: 0; height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid var(--muted);
+      pointer-events: none;
+    }
+    .filter-search {
+      flex: 1;
+      min-width: 200px;
+      max-width: 320px;
+      position: relative;
+    }
+    .filter-search input {
+      width: 100%;
+      padding: 8px 16px 8px 38px;
+      border: 1.5px solid var(--line);
+      border-radius: 8px;
+      font: inherit;
+      font-size: 13px;
+      background: var(--paper);
+      transition: border-color .2s;
+    }
+    .filter-search input:focus { outline: none; border-color: var(--forest-3); background: var(--white); }
+    .filter-search-icon {
+      position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+      color: var(--muted); pointer-events: none;
+    }
+    .filter-clear {
+      margin-left: auto;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--forest-3);
+      cursor: pointer;
+      text-decoration: underline;
+      white-space: nowrap;
+      border: none; background: none; padding: 0;
+    }
+    .filter-clear:hover { color: var(--forest); }
+
+    /* ===== RESULTS BAR ===== */
+    .results-bar {
+      width: min(calc(100% - 80px), 1750px);
+      margin: 0 auto;
+      padding: 28px 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .results-count {
+      font-size: 15px;
+      color: var(--muted);
+    }
+    .results-count strong { color: var(--ink); }
+    .sort-wrap { display: flex; align-items: center; gap: 10px; }
+    .sort-label { font-size: 13px; font-weight: 700; color: var(--muted); }
+    .sort-btn {
+      padding: 6px 14px;
+      border: 1.5px solid var(--line);
+      border-radius: 6px;
+      background: var(--white);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .sort-btn.active { background: var(--forest); color: var(--white); border-color: var(--forest); }
+    .view-toggle { display: flex; gap: 4px; }
+    .view-btn {
+      width: 34px; height: 34px;
+      border: 1.5px solid var(--line);
+      border-radius: 6px;
+      background: var(--white);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: all .2s;
+    }
+    .view-btn.active { background: var(--forest); border-color: var(--forest); }
+    .view-btn svg { pointer-events: none; }
+    .view-btn.active svg { stroke: white; }
+
+    /* ===== TOUR GRID & LIST ===== */
+    .catalog-body {
+      width: min(calc(100% - 80px), 1750px);
+      margin: 0 auto;
+      padding-bottom: 80px;
+    }
+    #tourGrid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      transition: opacity .25s;
+    }
+    #tourGrid.list-mode {
+      grid-template-columns: 1fr;
+    }
+
+    /* Tour Card */
+    .tour-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--white);
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .tour-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(47,112,76,.35);
+      box-shadow: 0 20px 50px rgba(20,51,31,.11);
+    }
+    .tour-image {
+      position: relative;
+      height: 240px;
+      background-color: #d9e3da;
+      background-position: center;
+      background-size: cover;
+      flex-shrink: 0;
+    }
+    .tour-image::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.35));
+    }
+    .tour-badge {
+      position: absolute; z-index: 2; left: 16px; top: 16px;
+      padding: 5px 12px;
+      border-radius: 4px;
+      background: var(--gold);
+      color: var(--ink);
+      font-size: 11px; font-weight: 900; text-transform: uppercase;
+    }
+    .tour-badge.hot { background: #f45d35; color: #fff; }
+    .tour-slots {
+      position: absolute; z-index: 2; right: 16px; top: 16px;
+      padding: 5px 10px;
+      border-radius: 4px;
+      background: rgba(0,0,0,0.6);
+      color: #fff; font-size: 11px; font-weight: 700;
+    }
+    .tour-slots.urgent { background: #dc2626; }
+    .tour-slots.full { background: #6b7280; }
+    .tour-rating {
+      position: absolute; z-index: 2; right: 16px; bottom: 14px;
+      display: flex; align-items: center; gap: 4px;
+      background: rgba(0,0,0,0.55); backdrop-filter: blur(4px);
+      padding: 4px 10px; border-radius: 100px;
+      color: #fff; font-size: 12px; font-weight: 700;
+    }
+    .star-icon { color: #fbbf24; font-size: 13px; }
+    .tour-card-body { padding: 20px 22px 24px; flex: 1; display: flex; flex-direction: column; }
+    .tour-meta {
+      display: flex; flex-wrap: wrap; gap: 12px;
+      margin-bottom: 8px; color: var(--leaf); font-size: 13px; font-weight: 800;
+    }
+    .tour-meta-item { display: flex; align-items: center; gap: 5px; }
+    .tour-card h3 {
+      margin: 0 0 8px; color: var(--forest);
+      font-size: 18px; line-height: 1.35;
+      flex: 1;
+    }
+    .tour-card-desc {
+      margin: 0 0 14px; color: var(--muted); font-size: 14px;
+      line-height: 1.5; display: -webkit-box;
+      -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .tour-card-footer {
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 12px;
+      margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line);
+    }
+    .tour-price { color: #e53e3e; font-size: 24px; font-weight: 800; line-height: 1; }
+    .tour-price small { font-size: 12px; font-weight: 700; color: var(--muted); display: block; margin-bottom: 2px; }
+    .tour-price sup { font-size: 13px; }
+    .btn-book {
+      padding: 9px 20px;
+      background: var(--forest);
+      color: #fff; border: none;
+      border-radius: 7px; font: inherit;
+      font-size: 13px; font-weight: 800;
+      cursor: pointer; transition: all .2s;
+      white-space: nowrap;
+      text-decoration: none;
+      display: inline-flex; align-items: center;
+    }
+    .btn-book:hover { background: var(--forest-3); transform: translateY(-1px); }
+    .btn-book.disabled { background: #9ca3af; cursor: not-allowed; pointer-events: none; }
+
+    /* Difficulty badge */
+    .diff-badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 8px; border-radius: 4px;
+      font-size: 11px; font-weight: 800;
+    }
+    .diff-1,.diff-2 { background: #dcfce7; color: #166534; }
+    .diff-3 { background: #fef9c3; color: #854d0e; }
+    .diff-4 { background: #fee2e2; color: #991b1b; }
+    .diff-5 { background: #4a044e; color: #fff; }
+
+    /* LIST MODE */
+    #tourGrid.list-mode .tour-card {
+      flex-direction: row; max-height: 220px;
+    }
+    #tourGrid.list-mode .tour-image {
+      width: 300px; height: 220px; flex-shrink: 0; border-radius: 0;
+    }
+    #tourGrid.list-mode .tour-card-body { padding: 20px 24px; }
+    #tourGrid.list-mode .tour-card h3 { font-size: 20px; }
+
+    /* EMPTY STATE */
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 80px 0;
+    }
+    .empty-state-icon { font-size: 60px; margin-bottom: 16px; }
+    .empty-state h3 { color: var(--forest); font-size: 24px; margin: 0 0 8px; }
+    .empty-state p { color: var(--muted); margin: 0 0 24px; }
+
+    /* PAGINATION */
+    .pagination {
+      display: flex; justify-content: center; align-items: center; gap: 8px;
+      padding: 48px 0 0;
+    }
+    .page-btn {
+      width: 42px; height: 42px;
+      border: 1.5px solid var(--line);
+      border-radius: 8px; background: var(--white);
+      font: inherit; font-size: 14px; font-weight: 700;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: all .2s; color: var(--ink);
+    }
+    .page-btn:hover { border-color: var(--forest-3); color: var(--forest-3); }
+    .page-btn.active { background: var(--forest); border-color: var(--forest); color: #fff; }
+    .page-btn.prev-next { width: auto; padding: 0 16px; gap: 6px; }
+    .page-btn:disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+    .page-dots { color: var(--muted); padding: 0 4px; }
+
+    /* FILTER ACTIVE TAGS */
+    .active-filters {
+      width: min(calc(100% - 80px), 1750px);
+      margin: 0 auto 0;
+      padding: 14px 0 0;
+      display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+    }
+    .active-filters:empty { display: none; }
+    .active-filter-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 10px 4px 12px;
+      background: #e6f4ec; color: var(--forest);
+      border-radius: 100px; font-size: 12px; font-weight: 700;
+    }
+    .active-filter-tag button {
+      width: 16px; height: 16px; border-radius: 50%; border: none;
+      background: var(--forest); color: #fff; cursor: pointer;
+      font-size: 10px; display: flex; align-items: center; justify-content: center; padding: 0;
+    }
+
+    /* LOADING SKELETON */
+    @keyframes shimmer {
+      0% { background-position: -700px 0; }
+      100% { background-position: 700px 0; }
+    }
+    .skeleton {
+      animation: shimmer 1.4s infinite linear;
+      background: linear-gradient(to right, #f0f4f0 8%, #e4ece4 18%, #f0f4f0 33%);
+      background-size: 700px 100%;
+      border-radius: 8px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1100px) {
+      #tourGrid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 760px) {
+      .catalog-hero h1 { font-size: 38px; }
+      #tourGrid { grid-template-columns: 1fr; }
+      #tourGrid.list-mode .tour-card { flex-direction: column; max-height: none; }
+      #tourGrid.list-mode .tour-image { width: 100%; height: 220px; }
+      .filter-bar-inner { gap: 8px; overflow-x: auto; flex-wrap: nowrap; }
+      .catalog-hero-inner, .filter-bar-inner, .results-bar, .active-filters, .catalog-body {
+        width: min(calc(100% - 36px), 1750px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header-placeholder></header-placeholder>
+
+  <!-- HERO -->
+  <section class="catalog-hero">
+    <div class="catalog-hero-inner">
+      <h1>Khám phá Tour Trekking</h1>
+      <p>Chinh phục những đỉnh núi hùng vĩ nhất Việt Nam cùng đội ngũ hướng dẫn viên chuyên nghiệp.</p>
+      <div class="catalog-stats">
+        <div class="catalog-stat"><div class="catalog-stat-dot"></div><span id="totalToursCount">12 tour</span> đang mở đăng ký</div>
+        <div class="catalog-stat"><div class="catalog-stat-dot"></div>Độ khó từ cơ bản đến chuyên nghiệp</div>
+        <div class="catalog-stat"><div class="catalog-stat-dot"></div>Khởi hành từ Hà Nội hàng tuần</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <div class="filter-bar-inner">
+      <span class="filter-label">Lọc:</span>
+
+      <div class="filter-group" id="tagFilters">
+        <button class="filter-chip active" data-filter="tag" data-value="all">
+          Tất cả <span class="chip-count" id="countAll">12</span>
+        </button>
+        <button class="filter-chip" data-filter="tag" data-value="bestSeller">
+          🏆 Bán chạy <span class="chip-count" id="countBS">6</span>
+        </button>
+        <button class="filter-chip" data-filter="tag" data-value="hot">
+          🔥 HOT <span class="chip-count" id="countHot">7</span>
+        </button>
+      </div>
+
+      <div class="filter-divider"></div>
+
+      <div class="filter-group" id="diffFilters">
+        <button class="filter-chip" data-filter="diff" data-value="all-diff">Mọi độ khó</button>
+        <button class="filter-chip" data-filter="diff" data-value="1,2">🟢 Dễ</button>
+        <button class="filter-chip" data-filter="diff" data-value="3">🟡 Nâng cao</button>
+        <button class="filter-chip" data-filter="diff" data-value="4,5">🔴 Thách thức</button>
+      </div>
+
+      <div class="filter-divider"></div>
+
+      <div class="filter-select-wrap">
+        <select class="filter-select" id="durationFilter">
+          <option value="all">Mọi thời gian</option>
+          <option value="2">2 ngày 1 đêm</option>
+          <option value="3">3 ngày 2 đêm</option>
+        </select>
+      </div>
+
+      <div class="filter-select-wrap">
+        <select class="filter-select" id="locationFilter">
+          <option value="all">Mọi tỉnh thành</option>
+          <option value="lao-cai">Lào Cai</option>
+          <option value="lai-chau">Lai Châu</option>
+          <option value="yen-bai">Yên Bái</option>
+          <option value="ha-giang">Hà Giang</option>
+        </select>
+      </div>
+
+      <div class="filter-select-wrap">
+        <select class="filter-select" id="priceFilter">
+          <option value="all">Mọi mức giá</option>
+          <option value="0-4000000">Dưới 4 triệu</option>
+          <option value="4000000-5000000">4 - 5 triệu</option>
+          <option value="5000000-99999999">Trên 5 triệu</option>
+        </select>
+      </div>
+
+      <div class="filter-search">
+        <span class="filter-search-icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </span>
+        <input type="search" id="searchInput" placeholder="Tìm tên tour, địa điểm...">
+      </div>
+
+      <button class="filter-clear" id="clearFilters">Xóa bộ lọc</button>
+    </div>
+  </div>
+
+  <!-- ACTIVE FILTER TAGS -->
+  <div class="active-filters" id="activeFilterTags"></div>
+
+  <!-- RESULTS BAR -->
+  <div class="results-bar">
+    <div class="results-count" id="resultsCount">Hiển thị <strong>6</strong> / 12 tour</div>
+    <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;">
+      <div class="sort-wrap">
+        <span class="sort-label">Sắp xếp:</span>
+        <button class="sort-btn active" data-sort="default">Nổi bật</button>
+        <button class="sort-btn" data-sort="price-asc">Giá thấp</button>
+        <button class="sort-btn" data-sort="price-desc">Giá cao</button>
+        <button class="sort-btn" data-sort="altitude">Độ cao</button>
+        <button class="sort-btn" data-sort="rating">Đánh giá</button>
+      </div>
+      <div class="view-toggle">
+        <button class="view-btn active" id="gridViewBtn" title="Dạng lưới">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#14331f" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </button>
+        <button class="view-btn" id="listViewBtn" title="Dạng danh sách">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#14331f" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOUR GRID -->
+  <div class="catalog-body">
+    <div id="tourGrid"></div>
+    <div class="pagination" id="pagination"></div>
+  </div>
+
+  <footer-placeholder></footer-placeholder>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/tours-data.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/footer.js"></script>
+  <script>
+  (function() {
+    const TOURS_PER_PAGE = 6;
+    let currentPage = 1;
+    let filteredTours = [];
+    let viewMode = 'grid'; // grid | list
+
+    let filters = {
+      tag: 'all',
+      diff: 'all-diff',
+      duration: 'all',
+      location: 'all',
+      price: 'all',
+      search: ''
+    };
+    let sortBy = 'default';
+    const formatter = new Intl.NumberFormat('vi-VN');
+
+    const diffLabels = { 2: 'Cơ bản', 3: 'Nâng cao', 4: 'Thách thức', 5: 'Chuyên nghiệp' };
+    const diffColors = { 2: 'diff-2', 3: 'diff-3', 4: 'diff-4', 5: 'diff-5' };
+
+    function formatPrice(p) {
+      return p.toLocaleString('vi-VN') + '₫';
+    }
+
+    function renderStars(rating) {
+      return '★'.repeat(Math.floor(rating)) + (rating % 1 >= 0.5 ? '½' : '');
+    }
+
+    function getSlotLabel(slots) {
+      if (slots === 0) return { text: 'Hết chỗ', cls: 'full' };
+      if (slots <= 3) return { text: `Còn ${slots} chỗ`, cls: 'urgent' };
+      return { text: `Còn ${slots} chỗ`, cls: '' };
+    }
+
+    function buildCard(tour) {
+      const slot = getSlotLabel(tour.slots);
+      const tagBadge = tour.tags.includes('bestSeller')
+        ? '<span class="tour-badge">🏆 Bán chạy</span>'
+        : tour.tags.includes('hot')
+        ? '<span class="tour-badge hot">🔥 HOT</span>'
+        : '';
+
+      const slotBadge = `<span class="tour-slots ${slot.cls}">${slot.text}</span>`;
+
+      const bookBtn = tour.slots === 0
+        ? `<span class="btn-book disabled">Hết chỗ</span>`
+        : `<a href="thanh-toan.html?tour=${tour.id}" class="btn-book">Đặt ngay →</a>`;
+
+      return `
+        <article class="tour-card" data-id="${tour.id}" data-aos>
+          <a href="tours/${tour.id}.html" style="text-decoration:none;display:block;">
+            <div class="tour-image" style="background-image:url('${tour.image}')">
+              ${tagBadge}
+              ${slotBadge}
+              <div class="tour-rating">
+                <span class="star-icon">★</span>
+                ${tour.rating} <span style="opacity:0.7;font-size:10px">(${tour.reviewCount})</span>
+              </div>
+            </div>
+          </a>
+          <div class="tour-card-body">
+            <div class="tour-meta">
+              <span class="tour-meta-item">📍 ${tour.location}</span>
+              <span class="tour-meta-item">⏱ ${tour.duration}</span>
+              <span class="tour-meta-item">⛰ ${tour.altitude}</span>
+              <span class="diff-badge ${diffColors[tour.difficultyLevel]}">${tour.difficulty}</span>
+            </div>
+            <h3>${tour.displayName}</h3>
+            <p class="tour-card-desc">${tour.description}</p>
+            <div class="tour-card-footer">
+              <div class="tour-price">
+                <small>Từ / người</small>
+                ${formatter.format(tour.price)}đ
+              </div>
+              ${bookBtn}
+            </div>
+          </div>
+        </article>`;
+    }
+
+    function applyFilters() {
+      let tours = [...window.hiddenPathTours];
+
+      // Tag filter
+      if (filters.tag !== 'all') {
+        tours = tours.filter(t => t.tags.includes(filters.tag));
+      }
+
+      // Difficulty
+      if (filters.diff !== 'all-diff') {
+        const levels = filters.diff.split(',').map(Number);
+        tours = tours.filter(t => levels.includes(t.difficultyLevel));
+      }
+
+      // Duration
+      if (filters.duration !== 'all') {
+        tours = tours.filter(t => t.durationNum === parseInt(filters.duration));
+      }
+
+      // Location
+      if (filters.location !== 'all') {
+        tours = tours.filter(t => t.province === filters.location);
+      }
+
+      // Price
+      if (filters.price !== 'all') {
+        const [min, max] = filters.price.split('-').map(Number);
+        tours = tours.filter(t => t.price >= min && t.price <= max);
+      }
+
+      // Search
+      if (filters.search) {
+        const q = filters.search.toLowerCase();
+        tours = tours.filter(t =>
+          t.displayName.toLowerCase().includes(q) ||
+          t.location.toLowerCase().includes(q) ||
+          t.description.toLowerCase().includes(q)
+        );
+      }
+
+      // Sort
+      if (sortBy === 'price-asc') tours.sort((a, b) => a.price - b.price);
+      else if (sortBy === 'price-desc') tours.sort((a, b) => b.price - a.price);
+      else if (sortBy === 'altitude') tours.sort((a, b) => b.altitudeNum - a.altitudeNum);
+      else if (sortBy === 'rating') tours.sort((a, b) => b.rating - a.rating || b.reviewCount - a.reviewCount);
+
+      filteredTours = tours;
+      currentPage = 1;
+      render();
+    }
+
+    function render() {
+      const grid = document.getElementById('tourGrid');
+      const total = filteredTours.length;
+      const start = (currentPage - 1) * TOURS_PER_PAGE;
+      const pageTours = filteredTours.slice(start, start + TOURS_PER_PAGE);
+
+      // Results count
+      document.getElementById('resultsCount').innerHTML =
+        `Hiển thị <strong>${pageTours.length}</strong> / ${total} tour`;
+
+      if (pageTours.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">🏔️</div>
+            <h3>Không tìm thấy tour phù hợp</h3>
+            <p>Hãy thử thay đổi hoặc xóa bộ lọc để xem thêm tour.</p>
+            <button class="btn btn-dark" onclick="clearAllFilters()">Xóa bộ lọc</button>
+          </div>`;
+        document.getElementById('pagination').innerHTML = '';
+        return;
+      }
+
+      grid.innerHTML = pageTours.map(buildCard).join('');
+
+      // Animate cards
+      grid.querySelectorAll('.tour-card').forEach((c, i) => {
+        c.style.opacity = '0';
+        c.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          c.style.transition = 'opacity .35s ease, transform .35s ease, box-shadow .22s ease, border-color .22s ease';
+          c.style.opacity = '1';
+          c.style.transform = '';
+        }, i * 60);
+      });
+
+      renderPagination(total);
+      renderActiveFilterTags();
+    }
+
+    function renderPagination(total) {
+      const totalPages = Math.ceil(total / TOURS_PER_PAGE);
+      const pag = document.getElementById('pagination');
+
+      if (totalPages <= 1) { pag.innerHTML = ''; return; }
+
+      let html = `<button class="page-btn prev-next" onclick="goPage(${currentPage-1})" ${currentPage===1?'disabled':''}>← Trước</button>`;
+
+      for (let i = 1; i <= totalPages; i++) {
+        if (totalPages > 7 && i > 2 && i < totalPages - 1 && Math.abs(i - currentPage) > 1) {
+          if (i === 3 || i === totalPages - 2) html += `<span class="page-dots">…</span>`;
+          continue;
+        }
+        html += `<button class="page-btn ${i===currentPage?'active':''}" onclick="goPage(${i})">${i}</button>`;
+      }
+
+      html += `<button class="page-btn prev-next" onclick="goPage(${currentPage+1})" ${currentPage===totalPages?'disabled':''}>Tiếp →</button>`;
+      pag.innerHTML = html;
+    }
+
+    window.goPage = function(p) {
+      currentPage = p;
+      render();
+      window.scrollTo({ top: document.querySelector('.filter-bar').offsetTop - 100, behavior: 'smooth' });
+    };
+
+    function renderActiveFilterTags() {
+      const container = document.getElementById('activeFilterTags');
+      const tags = [];
+
+      if (filters.tag !== 'all') tags.push({ key: 'tag', label: filters.tag === 'bestSeller' ? '🏆 Bán chạy' : '🔥 HOT' });
+      if (filters.diff !== 'all-diff') tags.push({ key: 'diff', label: `Độ khó: ${filters.diff === '1,2' ? 'Dễ' : filters.diff === '3' ? 'Nâng cao' : 'Thách thức'}` });
+      if (filters.duration !== 'all') tags.push({ key: 'duration', label: `${filters.duration}N${filters.duration-1}D` });
+      if (filters.location !== 'all') tags.push({ key: 'location', label: document.getElementById('locationFilter').options[document.getElementById('locationFilter').selectedIndex].text });
+      if (filters.price !== 'all') tags.push({ key: 'price', label: document.getElementById('priceFilter').options[document.getElementById('priceFilter').selectedIndex].text });
+      if (filters.search) tags.push({ key: 'search', label: `"${filters.search}"` });
+
+      container.innerHTML = tags.map(t =>
+        `<span class="active-filter-tag">${t.label}<button onclick="removeFilter('${t.key}')">×</button></span>`
+      ).join('');
+    }
+
+    window.removeFilter = function(key) {
+      if (key === 'tag') { filters.tag = 'all'; document.querySelectorAll('[data-filter=tag]').forEach(b => b.classList.toggle('active', b.dataset.value === 'all')); }
+      if (key === 'diff') { filters.diff = 'all-diff'; document.querySelectorAll('[data-filter=diff]').forEach(b => b.classList.toggle('active', b.dataset.value === 'all-diff')); }
+      if (key === 'duration') { filters.duration = 'all'; document.getElementById('durationFilter').value = 'all'; }
+      if (key === 'location') { filters.location = 'all'; document.getElementById('locationFilter').value = 'all'; }
+      if (key === 'price') { filters.price = 'all'; document.getElementById('priceFilter').value = 'all'; }
+      if (key === 'search') { filters.search = ''; document.getElementById('searchInput').value = ''; }
+      applyFilters();
+    };
+
+    window.clearAllFilters = function() {
+      filters = { tag: 'all', diff: 'all-diff', duration: 'all', location: 'all', price: 'all', search: '' };
+      document.getElementById('searchInput').value = '';
+      document.getElementById('durationFilter').value = 'all';
+      document.getElementById('locationFilter').value = 'all';
+      document.getElementById('priceFilter').value = 'all';
+      document.querySelectorAll('[data-filter=tag]').forEach(b => b.classList.toggle('active', b.dataset.value === 'all'));
+      document.querySelectorAll('[data-filter=diff]').forEach(b => b.classList.toggle('active', b.dataset.value === 'all-diff'));
+      applyFilters();
+    };
+
+    // Event listeners
+    document.getElementById('clearFilters').addEventListener('click', clearAllFilters);
+
+    document.querySelectorAll('[data-filter=tag]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        filters.tag = btn.dataset.value;
+        document.querySelectorAll('[data-filter=tag]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        applyFilters();
+      });
+    });
+
+    document.querySelectorAll('[data-filter=diff]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        filters.diff = btn.dataset.value;
+        document.querySelectorAll('[data-filter=diff]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        applyFilters();
+      });
+    });
+
+    document.getElementById('durationFilter').addEventListener('change', e => {
+      filters.duration = e.target.value; applyFilters();
+    });
+    document.getElementById('locationFilter').addEventListener('change', e => {
+      filters.location = e.target.value; applyFilters();
+    });
+    document.getElementById('priceFilter').addEventListener('change', e => {
+      filters.price = e.target.value; applyFilters();
+    });
+
+    let searchTimer;
+    document.getElementById('searchInput').addEventListener('input', e => {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(() => { filters.search = e.target.value.trim(); applyFilters(); }, 300);
+    });
+
+    document.querySelectorAll('.sort-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        sortBy = btn.dataset.sort;
+        document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        applyFilters();
+      });
+    });
+
+    // View toggle
+    document.getElementById('gridViewBtn').addEventListener('click', () => {
+      viewMode = 'grid';
+      document.getElementById('tourGrid').classList.remove('list-mode');
+      document.getElementById('gridViewBtn').classList.add('active');
+      document.getElementById('listViewBtn').classList.remove('active');
+    });
+    document.getElementById('listViewBtn').addEventListener('click', () => {
+      viewMode = 'list';
+      document.getElementById('tourGrid').classList.add('list-mode');
+      document.getElementById('listViewBtn').classList.add('active');
+      document.getElementById('gridViewBtn').classList.remove('active');
+    });
+
+    // Update counts
+    function updateCounts() {
+      const all = window.hiddenPathTours;
+      document.getElementById('countAll').textContent = all.length;
+      document.getElementById('countBS').textContent = all.filter(t => t.tags.includes('bestSeller')).length;
+      document.getElementById('countHot').textContent = all.filter(t => t.tags.includes('hot')).length;
+      document.getElementById('totalToursCount').textContent = all.length + ' tour';
+    }
+
+    // Init
+    updateCounts();
+    applyFilters();
+  })();
+  </script>
+</body>
+</html>

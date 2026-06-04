@@ -138,19 +138,37 @@
   }
 
   function createTourCard(tour, badge) {
+    const badgeHtml = badge === 'Tour bán chạy'
+      ? '<span class="tour-badge">🏆 Bán chạy</span>'
+      : '<span class="tour-badge hot">🔥 HOT</span>';
+
     return `
       <article class="tour-card" data-tour-name="${tour.displayName.toLowerCase()}">
-        <a class="tour-image" href="chi-tiet-tour-trekking.html?tour=${tour.id}" data-bg="${tour.image}" aria-label="${tour.displayName}">
-          <span>${badge}</span>
+        <a class="tour-image" href="tours/${tour.id}.html" data-bg="${tour.image}" aria-label="${tour.displayName}">
+          ${badgeHtml}
+          <div class="tour-rating">
+            <span class="star-icon">★</span>
+            ${tour.rating || '4.9'} <span style="opacity:0.7;font-size:10px">(${tour.reviewCount || '12'})</span>
+          </div>
         </a>
         <div class="tour-card-body">
           <div class="tour-meta">
-            <span>${tour.duration}</span>
-            <span>${tour.difficulty}</span>
+            <span class="tour-meta-item">📍 ${tour.location}</span>
+            <span class="tour-meta-item">⏱ ${tour.duration}</span>
+            <span class="tour-meta-item">⛰ ${tour.altitude}</span>
           </div>
-          <h3><a href="chi-tiet-tour-trekking.html?tour=${tour.id}">${tour.displayName}</a></h3>
-          <p class="tour-price">${formatter.format(tour.price)}<sup>đ</sup></p>
-          <p>${tour.description}</p>
+          <h3><a href="tours/${tour.id}.html">${tour.displayName}</a></h3>
+          <p class="tour-card-desc">${tour.description}</p>
+          <div class="tour-card-footer">
+            <div class="tour-price">
+              <small>Từ / người</small>
+              ${formatter.format(tour.price)}đ
+            </div>
+            <div class="tour-card-actions">
+              <button class="btn-add-cart" data-tour-id="${tour.id}" title="Thêm vào giỏ hàng" aria-label="Thêm ${tour.displayName} vào giỏ hàng">🛒</button>
+              <a href="thanh-toan.html?tour=${tour.id}" class="btn-book">Đặt ngay →</a>
+            </div>
+          </div>
         </div>
       </article>
     `;
@@ -181,6 +199,31 @@
       tours
         .map((tour) => `<option value="${tour.id}">${tour.displayName}</option>`)
         .join("");
+
+    // Inject add-to-cart button styles
+    if (!document.getElementById('hp-cart-btn-style')) {
+      const st = document.createElement('style');
+      st.id = 'hp-cart-btn-style';
+      st.textContent = `.tour-card-actions{display:flex;align-items:center;gap:8px;}.btn-add-cart{background:#fff;border:2px solid #2d6a4f;color:#2d6a4f;border-radius:8px;width:38px;height:38px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s;flex-shrink:0;}.btn-add-cart:hover{background:#2d6a4f;color:#fff;}.btn-add-cart.added{background:#2d6a4f;color:#fff;}`;
+      document.head.appendChild(st);
+    }
+
+    // Add to cart click handler
+    document.querySelectorAll('.btn-add-cart').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const tourId = btn.dataset.tourId;
+        const today = new Date().toLocaleDateString('vi-VN');
+        if (window.HiddenCart) {
+          window.HiddenCart.add(tourId, today, 1);
+          btn.classList.add('added');
+          btn.title = 'Đã thêm vào giỏ!';
+          setTimeout(() => { btn.classList.remove('added'); btn.title = 'Thêm vào giỏ hàng'; }, 1500);
+        } else {
+          window.location.href = `thanh-toan.html?tour=${tourId}`;
+        }
+      });
+    });
   }
 
   function renderBlogs() {

@@ -32,6 +32,11 @@ class HeaderPlaceholder extends HTMLElement {
               <span aria-hidden="true"></span>
             </button>
           </form>
+
+          <a class="cart-icon-btn" href="cart.html" aria-label="Giỏ hàng">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+            <span class="cart-badge" style="display:none;">0</span>
+          </a>
         </div>
       </header>
     `;
@@ -42,6 +47,21 @@ class HeaderPlaceholder extends HTMLElement {
     const input = this.querySelector("#globalTourSearch");
     const logo = this.querySelector(".brand-logo");
     const logoWrap = this.querySelector(".brand-logo-wrap");
+    const cartBadge = this.querySelector(".cart-badge");
+
+    // Inject cart icon styles once
+    if (!document.getElementById('hp-cart-icon-style')) {
+      const st = document.createElement('style');
+      st.id = 'hp-cart-icon-style';
+      st.textContent = `.cart-icon-btn{position:relative;display:flex;align-items:center;color:inherit;text-decoration:none;margin-left:8px;padding:4px;}.cart-icon-btn svg{width:22px;height:22px;}.cart-badge{position:absolute;top:-6px;right:-8px;background:#e53e3e;color:#fff;border-radius:50%;min-width:18px;height:18px;font-size:11px;font-weight:700;display:flex!important;align-items:center;justify-content:center;padding:0 3px;line-height:1;}`;
+      document.head.appendChild(st);
+    }
+
+    // Init badge count from cart
+    if (window.HiddenCart) {
+      const c = window.HiddenCart.count();
+      if (c > 0) { cartBadge.textContent = c; cartBadge.style.display = 'flex'; }
+    }
 
     logo.addEventListener("error", () => {
       logo.remove();

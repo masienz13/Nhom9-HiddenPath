@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đặt tour & Thanh toán | Hidden Path</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/thanh-toan.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    /* ── STEP PANEL ── */
+    .step-panel { display: none; }
+    .step-panel.active { display: block; }
+
+    /* ── PAYMENT STEP LAYOUT ── */
+    #panelStep2 .checkout-layout {
+      grid-template-columns: 1fr 380px;
+    }
+
+    /* ── PAYMENT METHOD TABS ── */
+    .pay-tabs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .pay-tab {
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      padding: 14px 8px;
+      border: 2px solid var(--line);
+      border-radius: 12px;
+      cursor: pointer;
+      background: var(--white);
+      transition: all .2s;
+      font: inherit;
+      text-align: center;
+    }
+    .pay-tab:hover { border-color: var(--forest-3); }
+    .pay-tab.active { border-color: var(--forest); background: #f0f9f4; }
+    .pay-tab-icon { font-size: 26px; }
+    .pay-tab-label { font-size: 12px; font-weight: 700; color: var(--ink); line-height: 1.3; }
+    .pay-tab.active .pay-tab-label { color: var(--forest); }
+
+    /* ── PAYMENT PANELS ── */
+    .pay-panel { display: none; }
+    .pay-panel.active { display: block; }
+
+    /* ── QR BLOCK ── */
+    .qr-block {
+      background: #f0f9f4;
+      border: 1.5px solid #c6e8d0;
+      border-radius: 16px;
+      padding: 28px;
+      display: flex; gap: 28px; align-items: flex-start;
+    }
+    .qr-left { display: flex; flex-direction: column; align-items: center; gap: 10px; flex-shrink: 0; }
+    .qr-canvas-wrap {
+      background: #fff;
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    .qr-canvas-wrap canvas, .qr-canvas-wrap img { display: block; border-radius: 4px; }
+    .qr-badge {
+      background: var(--forest);
+      color: #fff; border-radius: 100px;
+      padding: 4px 12px; font-size: 11px; font-weight: 800;
+      letter-spacing: .5px;
+    }
+    .qr-right { flex: 1; }
+    .qr-right h3 { font-size: 16px; font-weight: 800; color: var(--forest); margin: 0 0 14px; }
+    .info-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 9px 0; border-bottom: 1px solid rgba(47,112,76,0.12);
+      font-size: 13px;
+    }
+    .info-row:last-child { border-bottom: none; }
+    .info-row .lbl { color: var(--muted); font-weight: 600; }
+    .info-row .val { font-weight: 800; color: var(--ink); display: flex; align-items: center; gap: 8px; }
+    .info-row .val.highlight { color: #e53e3e; font-size: 15px; }
+    .copy-btn {
+      padding: 3px 10px; border: 1px solid var(--forest-3); border-radius: 5px;
+      color: var(--forest-3); font-size: 11px; font-weight: 700; cursor: pointer;
+      background: none; transition: background .15s;
+    }
+    .copy-btn:hover { background: #e6f4ec; }
+    .copy-btn.copied { background: var(--forest); color: #fff; border-color: var(--forest); }
+
+    /* ── NOTICE BOXES ── */
+    .notice-box {
+      border-radius: 10px; padding: 14px 16px;
+      display: flex; gap: 10px; align-items: flex-start;
+      margin-top: 16px; font-size: 13px; line-height: 1.55;
+    }
+    .notice-box.orange { background: #fff7ed; border: 1px solid #fed7aa; color: #92400e; }
+    .notice-box.blue { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; }
+    .notice-box.green { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
+    .notice-box-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── COD PANEL ── */
+    .cod-steps { list-style: none; padding: 0; margin: 16px 0 0; display: flex; flex-direction: column; gap: 12px; }
+    .cod-step { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; line-height: 1.5; }
+    .cod-step-num {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--forest); color: #fff;
+      font-size: 12px; font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 1px;
+    }
+
+    /* ── CONFIRM SUMMARY (step2 sidebar) ── */
+    .confirm-summary-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 24px;
+      position: sticky; top: 110px;
+    }
+    .confirm-summary-card h3 { font-size: 16px; font-weight: 800; color: var(--forest); margin: 0 0 16px; }
+    .cs-row { display: flex; justify-content: space-between; font-size: 13px; padding: 7px 0; border-bottom: 1px solid var(--line); }
+    .cs-row:last-of-type { border-bottom: none; }
+    .cs-row .lbl { color: var(--muted); }
+    .cs-row .val { font-weight: 700; color: var(--ink); }
+    .cs-total { display: flex; justify-content: space-between; padding: 14px 0 0; margin-top: 4px; }
+    .cs-total .lbl { font-size: 15px; font-weight: 800; }
+    .cs-total .val { font-size: 22px; font-weight: 800; color: #e53e3e; }
+    .cs-deposit { display: flex; justify-content: space-between; font-size: 13px; padding: 4px 0 12px; }
+    .cs-deposit .val { color: var(--forest); font-weight: 700; }
+
+    .confirm-btn {
+      width: 100%; padding: 15px; margin-top: 16px;
+      background: var(--forest); color: #fff;
+      border: none; border-radius: 10px;
+      font: inherit; font-size: 16px; font-weight: 800;
+      cursor: pointer; transition: all .2s;
+    }
+    .confirm-btn:hover { background: var(--forest-3); transform: translateY(-2px); }
+    .confirm-btn:disabled { background: #9ca3af; cursor: not-allowed; transform: none; }
+
+    .back-link {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; color: var(--forest-3); font-weight: 700;
+      cursor: pointer; margin-bottom: 20px; background: none; border: none;
+      padding: 0; font: inherit; text-decoration: none;
+    }
+    .back-link:hover { color: var(--forest); }
+
+    @media (max-width: 900px) {
+      #panelStep2 .checkout-layout { grid-template-columns: 1fr; }
+      .pay-tabs { grid-template-columns: repeat(2, 1fr); }
+      .qr-block { flex-direction: column; align-items: center; }
+      .qr-right { width: 100%; }
+    }
+    @media (max-width: 600px) {
+      .pay-tabs { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body class="checkout-page">
+  <header-placeholder></header-placeholder>
+
+  <!-- STEPS BAR -->
+  <div class="checkout-steps">
+    <div class="steps-inner">
+      <div class="step active" id="step1">
+        <div class="step-num">1</div>
+        <span>Thông tin đặt tour</span>
+      </div>
+      <span class="step-arrow">›</span>
+      <div class="step" id="step2">
+        <div class="step-num">2</div>
+        <span>Thanh toán</span>
+      </div>
+      <span class="step-arrow">›</span>
+      <div class="step" id="step3">
+        <div class="step-num">3</div>
+        <span>Xác nhận</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════
+       PANEL 1 — THÔNG TIN ĐẶT TOUR
+  ══════════════════════════════════════ -->
+  <div class="step-panel active" id="panelStep1">
+    <div class="checkout-layout">
+      <div class="checkout-main">
+
+        <!-- Tour info -->
+        <div class="checkout-section" id="sectionTour">
+          <h2><span class="section-icon">🏔️</span> Tour đã chọn</h2>
+          <div class="tour-summary-card" id="tourSummaryCard">
+            <div class="tour-summary-img" id="tourSummaryImg"></div>
+            <div class="tour-summary-info">
+              <h3 id="tourSummaryName">Đang tải thông tin tour...</h3>
+              <div class="tour-summary-meta">
+                <span id="tourSummaryLoc">📍 --</span>
+                <span id="tourSummaryDur">⏱ --</span>
+                <span id="tourSummaryAlt">⛰ --</span>
+                <span id="tourSummaryDiff">--</span>
+              </div>
+              <a class="tour-summary-change" href="chi-tiet-tour-trekking.html">Đổi tour khác</a>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Ngày khởi hành <span>*</span></label>
+            <div class="date-options" id="dateOptions"></div>
+          </div>
+          <div class="form-group" style="margin-top:20px;">
+            <label>Số người tham gia <span>*</span></label>
+            <div class="people-counter" style="margin-top:8px;">
+              <button class="counter-btn" id="minusBtn" disabled>−</button>
+              <span class="counter-value" id="peopleCount">1</span>
+              <span style="color:var(--muted);font-size:14px;">người</span>
+              <button class="counter-btn" id="plusBtn">+</button>
+              <span style="font-size:13px;color:var(--muted);">Tối đa 12 người/đoàn</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Thông tin liên hệ -->
+        <div class="checkout-section">
+          <h2><span class="section-icon">👤</span> Thông tin liên hệ</h2>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Họ và tên <span>*</span></label>
+              <input class="form-input" id="fullName" type="text" placeholder="Nguyễn Văn A" autocomplete="name">
+              <span class="form-error" id="errName">Vui lòng nhập họ tên.</span>
+            </div>
+            <div class="form-group">
+              <label>Số điện thoại <span>*</span></label>
+              <input class="form-input" id="phone" type="tel" placeholder="0912 345 678" autocomplete="tel">
+              <span class="form-error" id="errPhone">Vui lòng nhập số điện thoại hợp lệ.</span>
+            </div>
+            <div class="form-group">
+              <label>Email <span>*</span></label>
+              <input class="form-input" id="email" type="email" placeholder="email@example.com" autocomplete="email">
+              <span class="form-error" id="errEmail">Vui lòng nhập email hợp lệ.</span>
+            </div>
+            <div class="form-group">
+              <label>Số CCCD / Hộ chiếu</label>
+              <input class="form-input" id="idCard" type="text" placeholder="001234567890">
+              <span class="form-hint">Dùng để lập danh sách đoàn (không bắt buộc)</span>
+            </div>
+            <div class="form-group full">
+              <label>Yêu cầu đặc biệt</label>
+              <textarea class="form-textarea" id="notes" placeholder="Dị ứng thực phẩm, yêu cầu đặc biệt về phòng nghỉ, v.v..."></textarea>
+            </div>
+            <div class="form-group full">
+              <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
+                <input type="checkbox" id="agreeTerms" style="width:16px;height:16px;accent-color:var(--forest);">
+                Tôi đã đọc và đồng ý với <a href="#" style="color:var(--forest-3);text-decoration:underline;">điều khoản dịch vụ</a> và <a href="#" style="color:var(--forest-3);text-decoration:underline;">chính sách hủy tour</a>.
+              </label>
+              <span class="form-error" id="errTerms">Vui lòng đồng ý với điều khoản dịch vụ.</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Sidebar step 1 -->
+      <div class="checkout-sidebar">
+        <div class="order-summary">
+          <h3>Tóm tắt đơn hàng</h3>
+          <div class="summary-row">
+            <span class="label">Tour</span>
+            <span class="value" id="summaryTourName" style="text-align:right;max-width:180px;font-size:13px;">--</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">Ngày khởi hành</span>
+            <span class="value" id="summaryDate">--</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">Số người</span>
+            <span class="value" id="summaryPeople">1 người</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">Đơn giá / người</span>
+            <span class="value" id="summaryUnitPrice">--</span>
+          </div>
+
+          <div class="promo-row">
+            <div class="promo-input-wrap">
+              <input class="promo-input" id="promoInput" type="text" placeholder="Mã giảm giá">
+              <button class="promo-btn" onclick="applyPromo()">Áp dụng</button>
+            </div>
+            <div class="promo-result" id="promoResult"></div>
+          </div>
+
+          <div class="summary-row" id="discountRow" style="display:none;">
+            <span class="label" style="color:#16a34a;">🎉 Giảm giá</span>
+            <span class="value" id="summaryDiscount" style="color:#16a34a;">-0₫</span>
+          </div>
+
+          <div class="summary-total">
+            <span class="label">Tổng cộng</span>
+            <span class="value" id="summaryTotal">--</span>
+          </div>
+
+          <button class="submit-btn" id="btnNext" onclick="goToStep2()">
+            Tiếp tục → Chọn thanh toán
+          </button>
+          <div class="secure-note">🔒 Giao dịch được bảo mật SSL</div>
+          <div class="trust-badges">
+            <span class="trust-badge">✅ Hoàn tiền 100% nếu hủy trước 7 ngày</span>
+            <span class="trust-badge">📞 Hỗ trợ 24/7: 0345 846 390</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /panelStep1 -->
+
+
+  <!-- ══════════════════════════════════════
+       PANEL 2 — THANH TOÁN
+  ══════════════════════════════════════ -->
+  <div class="step-panel" id="panelStep2">
+    <div class="checkout-layout">
+      <div class="checkout-main">
+
+        <button class="back-link" onclick="goBack()">← Quay lại thông tin đặt tour</button>
+
+        <div class="checkout-section">
+          <h2><span class="section-icon">💳</span> Chọn hình thức thanh toán</h2>
+
+          <!-- Tabs -->
+          <div class="pay-tabs">
+            <button class="pay-tab active" data-method="transfer" onclick="switchMethod('transfer', this)">
+              <span class="pay-tab-icon">🏦</span>
+              <span class="pay-tab-label">Chuyển khoản</span>
+            </button>
+            <button class="pay-tab" data-method="momo" onclick="switchMethod('momo', this)">
+              <span class="pay-tab-icon">📱</span>
+              <span class="pay-tab-label">Ví MoMo</span>
+            </button>
+            <button class="pay-tab" data-method="cod" onclick="switchMethod('cod', this)">
+              <span class="pay-tab-icon">💵</span>
+              <span class="pay-tab-label">Tiền mặt</span>
+            </button>
+          </div>
+
+          <!-- Panel: Chuyển khoản -->
+          <div class="pay-panel active" id="panel-transfer">
+            <div class="qr-block">
+              <div class="qr-left">
+                <div class="qr-canvas-wrap">
+                  <img src="img/QR mb bank.jpg" alt="QR MB Bank" style="width:160px;height:160px;object-fit:contain;border-radius:8px;">
+                </div>
+                <span class="qr-badge">QR MB Bank</span>
+              </div>
+              <div class="qr-right">
+                <h3>Chuyển khoản ngân hàng — Nhân viên sẽ gọi xác nhận</h3>
+                <div class="info-row"><span class="lbl">Ngân hàng</span><span class="val">MB Bank (MB)</span></div>
+                <div class="info-row">
+                  <span class="lbl">Số tài khoản</span>
+                  <span class="val">0828861205 <button class="copy-btn" onclick="copyVal('0828861205', this)">Copy</button></span>
+                </div>
+                <div class="info-row"><span class="lbl">Tên tài khoản</span><span class="val">ĐẶNG THỊ GIANG</span></div>
+                <div class="info-row">
+                  <span class="lbl">Số tiền</span>
+                  <span class="val highlight" id="transferAmt">--</span>
+                </div>
+                <div class="info-row">
+                  <span class="lbl">Nội dung CK</span>
+                  <span class="val"><span id="transferNote">HP-[Tên]-[SĐT]</span> <button class="copy-btn" onclick="copyVal(document.getElementById('transferNote').textContent, this)">Copy</button></span>
+                </div>
+              </div>
+            </div>
+            <div class="notice-box green" style="margin-top:12px;">
+              <span class="notice-box-icon">⚡</span>
+              <div>Sau khi chuyển khoản, nhân viên Hidden Path sẽ <strong>gọi điện xác nhận</strong> trong 2 giờ làm việc. Vui lòng giữ máy và ghi đúng nội dung chuyển khoản.</div>
+            </div>
+          </div>
+
+          <!-- Panel: MoMo -->
+          <div class="pay-panel" id="panel-momo">
+            <div class="qr-block" style="background:linear-gradient(135deg,#fff0f6,#fce4ec);border-color:#f48fb1;">
+              <div class="qr-left">
+                <div class="qr-canvas-wrap"><div id="qrMomo"></div></div>
+                <span class="qr-badge" style="background:#d82d8b;">QR MoMo</span>
+              </div>
+              <div class="qr-right">
+                <h3 style="color:#a0003e;">Thanh toán qua Ví MoMo — Xác nhận tức thì</h3>
+                <div class="info-row">
+                  <span class="lbl">Số điện thoại MoMo</span>
+                  <span class="val">0345 846 390 <button class="copy-btn" onclick="copyVal('0345846390', this)">Copy</button></span>
+                </div>
+                <div class="info-row"><span class="lbl">Tên tài khoản</span><span class="val">HIDDEN PATH</span></div>
+                <div class="info-row">
+                  <span class="lbl">Số tiền</span>
+                  <span class="val highlight" id="momoAmt">--</span>
+                </div>
+                <div class="info-row">
+                  <span class="lbl">Nội dung</span>
+                  <span class="val"><span id="momoNote">HP-[Tên]-[SĐT]</span> <button class="copy-btn" onclick="copyVal(document.getElementById('momoNote').textContent, this)">Copy</button></span>
+                </div>
+              </div>
+            </div>
+            <div class="notice-box green" style="margin-top:12px;">
+              <span class="notice-box-icon">⚡</span>
+              <div>Quét mã QR hoặc nhập số điện thoại MoMo, nhập đúng <strong>số tiền và nội dung</strong> rồi xác nhận. Đặt tour được xác nhận <strong>ngay lập tức</strong> sau giao dịch thành công.</div>
+            </div>
+          </div>
+
+          <!-- Panel: Tiền mặt -->
+          <div class="pay-panel" id="panel-cod">
+            <div class="notice-box orange">
+              <span class="notice-box-icon">📍</span>
+              <div>
+                <strong>Thanh toán tiền mặt — Gặp nhân viên</strong><br>
+                Thanh toán trực tiếp bằng tiền mặt tại văn phòng hoặc điểm tập kết. Nhân viên sẽ gọi xác nhận lịch hẹn.
+              </div>
+            </div>
+            <ul class="cod-steps">
+              <li class="cod-step"><span class="cod-step-num">1</span><div>Xác nhận đơn → nhân viên Hidden Path gọi tới <strong id="codPhone">số điện thoại của bạn</strong> trong 2 giờ làm việc.</div></li>
+              <li class="cod-step"><span class="cod-step-num">2</span><div>Đến <strong>văn phòng Hidden Path</strong> hoặc <strong>điểm tập kết</strong> trước ngày khởi hành để nộp tiền mặt.</div></li>
+              <li class="cod-step"><span class="cod-step-num">3</span><div>Nhận <strong>biên lai xác nhận đặt tour</strong> và đầy đủ thông tin lịch trình.</div></li>
+            </ul>
+            <div class="notice-box blue" style="margin-top:16px;">
+              <span class="notice-box-icon">📞</span>
+              <div>Hotline hỗ trợ: <strong>0345 846 390</strong> · Email: <strong>hiddenpathbooking@gmail.com</strong></div>
+            </div>
+          </div>
+
+        </div><!-- /checkout-section -->
+      </div><!-- /checkout-main -->
+
+      <!-- Sidebar step 2 -->
+      <div class="checkout-sidebar">
+        <div class="confirm-summary-card">
+          <h3>📋 Xác nhận đơn hàng</h3>
+          <div class="cs-row"><span class="lbl">Tour</span><span class="val" id="cs-tour" style="max-width:160px;text-align:right;font-size:12px;">--</span></div>
+          <div class="cs-row"><span class="lbl">Ngày khởi hành</span><span class="val" id="cs-date">--</span></div>
+          <div class="cs-row"><span class="lbl">Số người</span><span class="val" id="cs-people">--</span></div>
+          <div class="cs-row"><span class="lbl">Đơn giá</span><span class="val" id="cs-unit">--</span></div>
+          <div class="cs-row" id="cs-discount-row" style="display:none;"><span class="lbl" style="color:#16a34a;">Giảm giá</span><span class="val" id="cs-discount" style="color:#16a34a;">--</span></div>
+          <div class="cs-total">
+            <span class="lbl">Tổng cộng</span>
+            <span class="val" id="cs-total">--</span>
+          </div>
+          <div class="cs-deposit" id="cs-deposit-row">
+            <span class="lbl" style="color:var(--muted);font-size:12px;">Đặt cọc ngay (30%)</span>
+            <span class="val" id="cs-deposit">--</span>
+          </div>
+
+          <hr style="border:none;border-top:1px solid var(--line);margin:4px 0 16px;">
+
+          <div class="cs-row"><span class="lbl">Họ tên</span><span class="val" id="cs-name">--</span></div>
+          <div class="cs-row"><span class="lbl">SĐT</span><span class="val" id="cs-phone">--</span></div>
+          <div class="cs-row"><span class="lbl">Hình thức</span><span class="val" id="cs-method" style="font-size:12px;">--</span></div>
+
+          <button class="confirm-btn" id="btnConfirm" onclick="submitBooking()">
+            ✅ Xác nhận đặt tour
+          </button>
+          <div class="secure-note" style="margin-top:10px;">🔒 Giao dịch bảo mật SSL</div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /panelStep2 -->
+
+  <!-- SUCCESS MODAL -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal-box">
+      <span class="modal-icon" id="modalIcon">✅</span>
+      <h2 id="modalTitle">Đặt tour thành công!</h2>
+      <p id="modalDesc">Cảm ơn bạn đã tin tưởng Hidden Path.</p>
+      <div class="modal-booking-id" id="modalBookingId">HP-000000</div>
+      <div class="modal-actions">
+        <a href="index.html" class="modal-btn modal-btn-secondary">← Về trang chủ</a>
+        <a href="chi-tiet-tour-trekking.html" class="modal-btn modal-btn-primary">Xem thêm tour</a>
+      </div>
+    </div>
+  </div>
+
+  <footer-placeholder></footer-placeholder>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/tours-data.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/footer.js"></script>
+  <script>
+  (function(){
+    /* ── STATE ── */
+    let selectedTour = null;
+    let numPeople    = 1;
+    let selectedDate = null;
+    let discount     = 0;
+    let payMethod    = 'deposit';
+    let qrGenerated  = { transfer: false, momo: false };
+
+    const PROMO = { 'HIDDEN10': 0.10, 'TREKKING20': 0.20, 'NEWMEMBER': 0.15 };
+    const METHOD_LABEL = {
+      deposit:  'Đặt cọc 30% — Nhân viên gọi xác nhận',
+      transfer: 'Chuyển khoản ngân hàng',
+      momo:     'Ví MoMo',
+      cod:      'Thanh toán tiền mặt',
+    };
+
+    /* ── INIT ── */
+    const params  = new URLSearchParams(window.location.search);
+    const tourId  = params.get('tour');
+
+    function init() {
+      const tours = window.hiddenPathTours || [];
+      selectedTour = tours.find(t => t.id === tourId) || tours[0];
+      if (!selectedTour) return;
+
+      document.getElementById('tourSummaryImg').style.backgroundImage = `url('${selectedTour.image}')`;
+      document.getElementById('tourSummaryName').textContent  = selectedTour.displayName;
+      document.getElementById('tourSummaryLoc').textContent   = '📍 ' + selectedTour.location;
+      document.getElementById('tourSummaryDur').textContent   = '⏱ ' + selectedTour.duration;
+      document.getElementById('tourSummaryAlt').textContent   = '⛰ ' + selectedTour.altitude;
+      document.getElementById('tourSummaryDiff').textContent  = selectedTour.difficulty;
+      document.getElementById('summaryTourName').textContent  = selectedTour.displayName;
+      document.getElementById('summaryUnitPrice').textContent = fmt(selectedTour.price);
+
+      renderDates();
+      updateSummary();
+    }
+
+    /* ── DATES ── */
+    function renderDates() {
+      const container = document.getElementById('dateOptions');
+      const days = ['CN','T2','T3','T4','T5','T6','T7'];
+      const base = new Date(2025, 6, 12);
+      const dates = Array.from({length: 6}, (_, i) => {
+        const d = new Date(base); d.setDate(base.getDate() + i * 7);
+        return { label: `${d.getDate()}/${d.getMonth()+1}`, day: days[d.getDay()], slots: Math.floor(Math.random()*12) };
+      });
+      container.innerHTML = dates.map((d, i) => {
+        const full = d.slots === 0, urgent = d.slots > 0 && d.slots <= 3;
+        return `<div class="date-opt ${full?'sold-out':''} ${i===0&&!full?'selected':''}"
+          data-date="${d.label}" onclick="${full?'':'selectDate(this)'}" title="${full?'Hết chỗ':''}">
+          <span class="date-day">${d.day}</span>
+          <span class="date-full">${d.label}</span>
+          <span class="date-slots" style="color:${urgent?'#f97316':'inherit'}">${full?'Hết chỗ':'Còn '+d.slots+' chỗ'}</span>
+        </div>`;
+      }).join('');
+      const first = container.querySelector('.date-opt:not(.sold-out)');
+      if (first) selectedDate = first.dataset.date;
+      updateSummary();
+    }
+
+    window.selectDate = function(el) {
+      document.querySelectorAll('.date-opt').forEach(d => d.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedDate = el.dataset.date;
+      updateSummary();
+    };
+
+    /* ── COUNTER ── */
+    document.getElementById('minusBtn').addEventListener('click', () => { if(numPeople>1){numPeople--;refreshCounter();} });
+    document.getElementById('plusBtn').addEventListener('click',  () => { if(numPeople<12){numPeople++;refreshCounter();} });
+    function refreshCounter() {
+      document.getElementById('peopleCount').textContent   = numPeople;
+      document.getElementById('minusBtn').disabled = numPeople <= 1;
+      document.getElementById('plusBtn').disabled  = numPeople >= 12;
+      updateSummary();
+    }
+
+    /* ── FORMAT ── */
+    function fmt(n) { return Number(n).toLocaleString('vi-VN') + '₫'; }
+
+    /* ── SUMMARY ── */
+    function updateSummary() {
+      if (!selectedTour) return;
+      const base = selectedTour.price * numPeople;
+      const disc = Math.round(base * discount);
+      const total = base - disc;
+      const dep   = Math.round(total * 0.3);
+
+      document.getElementById('summaryPeople').textContent = numPeople + ' người';
+      document.getElementById('summaryDate').textContent   = selectedDate || '--';
+      document.getElementById('summaryTotal').textContent  = fmt(total);
+
+      if (disc > 0) {
+        document.getElementById('discountRow').style.display = '';
+        document.getElementById('summaryDiscount').textContent = '-' + fmt(disc);
+      } else {
+        document.getElementById('discountRow').style.display = 'none';
+      }
+
+      // transfer notes
+      const name  = document.getElementById('fullName').value.trim().split(' ').pop() || 'HoTen';
+      const phone = document.getElementById('phone').value.trim() || 'SoDienThoai';
+      const note  = `HP-${name}-${phone}`;
+
+      ['depositNote','transferNote','momoNote'].forEach(id => {
+        const el = document.getElementById(id); if(el) el.textContent = note;
+      });
+      const depositEl = document.getElementById('depositAmt');
+      if (depositEl) depositEl.textContent = fmt(dep);
+      const transferAmtEl = document.getElementById('transferAmt');
+      if (transferAmtEl) transferAmtEl.textContent = fmt(total);
+      const momoAmtEl = document.getElementById('momoAmt');
+      if (momoAmtEl) momoAmtEl.textContent = fmt(total);
+
+      // sidebar step2
+      document.getElementById('cs-tour').textContent   = selectedTour.displayName;
+      document.getElementById('cs-date').textContent   = selectedDate || '--';
+      document.getElementById('cs-people').textContent = numPeople + ' người';
+      document.getElementById('cs-unit').textContent   = fmt(selectedTour.price);
+      document.getElementById('cs-total').textContent  = fmt(total);
+      document.getElementById('cs-deposit').textContent = fmt(dep);
+      document.getElementById('cs-method').textContent = METHOD_LABEL[payMethod];
+      document.getElementById('cs-name').textContent   = document.getElementById('fullName').value || '--';
+      document.getElementById('cs-phone').textContent  = document.getElementById('phone').value || '--';
+
+      const isDeposit = payMethod === 'deposit';
+      document.getElementById('cs-deposit-row').style.display = isDeposit ? '' : 'none';
+      if (disc > 0) {
+        document.getElementById('cs-discount-row').style.display = '';
+        document.getElementById('cs-discount').textContent = '-' + fmt(disc);
+      } else {
+        document.getElementById('cs-discount-row').style.display = 'none';
+      }
+
+      const codPhoneEl = document.getElementById('codPhone');
+      if (codPhoneEl) codPhoneEl.textContent = document.getElementById('phone').value || 'số điện thoại của bạn';
+
+      return { total, dep, note };
+    }
+
+    document.getElementById('fullName').addEventListener('input', () => { updateSummary(); qrGenerated = {deposit:false,transfer:false,momo:false}; });
+    document.getElementById('phone').addEventListener('input',    () => { updateSummary(); qrGenerated = {deposit:false,transfer:false,momo:false}; });
+
+    /* ── PROMO ── */
+    window.applyPromo = function() {
+      const code = document.getElementById('promoInput').value.trim().toUpperCase();
+      const res  = document.getElementById('promoResult');
+      if (PROMO[code]) {
+        discount = PROMO[code];
+        res.className = 'promo-result promo-ok';
+        res.textContent = `✅ Mã "${code}" — Giảm ${discount*100}%!`;
+      } else {
+        discount = 0;
+        res.className = 'promo-result promo-err';
+        res.textContent = `❌ Mã "${code}" không hợp lệ.`;
+      }
+      updateSummary();
+      qrGenerated = {deposit:false,transfer:false,momo:false};
+    };
+
+    /* ── COPY ── */
+    window.copyVal = function(text, btn) {
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = '✓ Đã copy';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+      });
+    };
+
+    /* ── QR GENERATION ── */
+    function makeQR(elId, text, size) {
+      const el = document.getElementById(elId);
+      if (!el) return;
+      el.innerHTML = '';
+      new QRCode(el, { text: text || 'HIDDEN PATH', width: size||160, height: size||160, correctLevel: QRCode.CorrectLevel.M });
+    }
+
+    function generateQRs() {
+      const vals = updateSummary();
+      const { total, dep, note } = vals || {};
+      const base  = selectedTour ? selectedTour.price * numPeople : 0;
+      const disc  = Math.round(base * discount);
+      const totalN = base - disc;
+      const depN   = Math.round(totalN * 0.3);
+      const n = document.getElementById('fullName').value.trim().split(' ').pop() || 'HoTen';
+      const p = document.getElementById('phone').value.trim() || 'SoDienThoai';
+      const noteStr = `HP-${n}-${p}`;
+
+      // MB Bank QR format
+      const vcbTransfer = `STK:0828861205|STN:CONG TY CP HIDDEN PATH|NH:MB Bank|ST:${totalN}|ND:${noteStr}`;
+      const momoStr     = `MOMO:0345846390|STN:HIDDEN PATH|ST:${totalN}|ND:${noteStr}`;
+
+      if (!qrGenerated.transfer) { makeQR('qrTransfer', vcbTransfer, 160); qrGenerated.transfer = true; }
+      if (!qrGenerated.momo)     { makeQR('qrMomo',     momoStr,     160); qrGenerated.momo     = true; }
+    }
+
+    /* ── METHOD SWITCH ── */
+    window.switchMethod = function(method, btn) {
+      payMethod = method;
+      document.querySelectorAll('.pay-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.pay-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('panel-' + method).classList.add('active');
+      updateSummary();
+    };
+
+    /* ── VALIDATE ── */
+    function validateStep1() {
+      let ok = true;
+      const show = (id, v) => document.getElementById(id).classList.toggle('show', v);
+      const name  = document.getElementById('fullName');
+      const phone = document.getElementById('phone');
+      const email = document.getElementById('email');
+      const terms = document.getElementById('agreeTerms');
+
+      if (!name.value.trim() || name.value.trim().length < 2)
+        { name.classList.add('error'); show('errName',true); ok=false; }
+      else { name.classList.remove('error'); show('errName',false); }
+
+      if (!phone.value.trim() || !/^[0-9]{9,11}$/.test(phone.value.replace(/\s/g,'')))
+        { phone.classList.add('error'); show('errPhone',true); ok=false; }
+      else { phone.classList.remove('error'); show('errPhone',false); }
+
+      if (!email.value.trim() || !email.value.includes('@'))
+        { email.classList.add('error'); show('errEmail',true); ok=false; }
+      else { email.classList.remove('error'); show('errEmail',false); }
+
+      if (!terms.checked) { show('errTerms',true); ok=false; }
+      else { show('errTerms',false); }
+
+      if (!selectedDate) { alert('Vui lòng chọn ngày khởi hành.'); ok=false; }
+      return ok;
+    }
+
+    /* ── STEP NAVIGATION ── */
+    window.goToStep2 = function() {
+      if (!validateStep1()) return;
+
+      // Activate step 2 UI
+      document.getElementById('panelStep1').classList.remove('active');
+      document.getElementById('panelStep2').classList.add('active');
+
+      document.getElementById('step1').classList.remove('active');
+      document.getElementById('step1').classList.add('done');
+      document.getElementById('step1').querySelector('.step-num').textContent = '✓';
+      document.getElementById('step2').classList.add('active');
+
+      updateSummary();
+      setTimeout(generateQRs, 100); // generate QRs after render
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    window.goBack = function() {
+      document.getElementById('panelStep2').classList.remove('active');
+      document.getElementById('panelStep1').classList.add('active');
+
+      document.getElementById('step2').classList.remove('active');
+      document.getElementById('step1').classList.remove('done');
+      document.getElementById('step1').classList.add('active');
+      document.getElementById('step1').querySelector('.step-num').textContent = '1';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    /* ── SUBMIT ── */
+    window.submitBooking = function() {
+      const btn = document.getElementById('btnConfirm');
+      btn.disabled = true;
+      btn.textContent = '⏳ Đang xử lý...';
+
+      setTimeout(() => {
+        const base  = selectedTour ? selectedTour.price * numPeople : 0;
+        const disc  = Math.round(base * discount);
+        const total = base - disc;
+        const dep   = Math.round(total * 0.3);
+
+        const bookingData = {
+          bookingId:    'HP-' + Math.floor(100000 + Math.random()*900000),
+          method:       payMethod,
+          tourId:       selectedTour ? selectedTour.id : '',
+          tourName:     selectedTour ? selectedTour.displayName : '',
+          name:         document.getElementById('fullName').value,
+          phone:        document.getElementById('phone').value,
+          email:        document.getElementById('email').value,
+          total:        fmt(total),
+          deposit:      fmt(dep),
+          unitPrice:    selectedTour ? fmt(selectedTour.price) : '--',
+          numPeople,
+          selectedDate: selectedDate || '',
+        };
+        sessionStorage.setItem('hiddenpath_booking', JSON.stringify(bookingData));
+        window.location.href = 'xac-nhan-dat-tour.html';
+      }, 1500);
+    };
+
+    init();
+  })();
+  </script>
+</body>
+</html>
