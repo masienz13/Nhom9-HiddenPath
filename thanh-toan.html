@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/thanh-toan.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>emailjs.init("W5leNjpoV5qV5P4Kv");</script>
   <style>
     /* ── STEP PANEL ── */
     .step-panel { display: none; }
@@ -250,7 +252,7 @@
             <div class="form-group full">
               <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
                 <input type="checkbox" id="agreeTerms" style="width:16px;height:16px;accent-color:var(--forest);">
-                Tôi đã đọc và đồng ý với <a href="#" style="color:var(--forest-3);text-decoration:underline;">điều khoản dịch vụ</a> và <a href="#" style="color:var(--forest-3);text-decoration:underline;">chính sách hủy tour</a>.
+                Tôi đã đọc và đồng ý với <a href="#" style="color:var(--forest-3);text-decoration:underline;">chính sách hoàn hủy</a>.
               </label>
               <span class="form-error" id="errTerms">Vui lòng đồng ý với điều khoản dịch vụ.</span>
             </div>
@@ -345,7 +347,7 @@
             <div class="qr-block">
               <div class="qr-left">
                 <div class="qr-canvas-wrap">
-                  <img src="img/QR mb bank.jpg" alt="QR MB Bank" style="width:160px;height:160px;object-fit:contain;border-radius:8px;">
+                  <img src="img/qr-mb-bank.png" alt="QR MB Bank" style="width:160px;height:160px;object-fit:contain;border-radius:8px;">
                 </div>
                 <span class="qr-badge">QR MB Bank</span>
               </div>
@@ -750,31 +752,61 @@
     window.submitBooking = function() {
       const btn = document.getElementById('btnConfirm');
       btn.disabled = true;
-      btn.textContent = '⏳ Đang xử lý...';
+      btn.textContent = '⏳ Đang gửi xác nhận...';
 
-      setTimeout(() => {
-        const base  = selectedTour ? selectedTour.price * numPeople : 0;
-        const disc  = Math.round(base * discount);
-        const total = base - disc;
-        const dep   = Math.round(total * 0.3);
+      const base  = selectedTour ? selectedTour.price * numPeople : 0;
+      const disc  = Math.round(base * discount);
+      const total = base - disc;
+      const dep   = Math.round(total * 0.3);
 
-        const bookingData = {
-          bookingId:    'HP-' + Math.floor(100000 + Math.random()*900000),
-          method:       payMethod,
-          tourId:       selectedTour ? selectedTour.id : '',
-          tourName:     selectedTour ? selectedTour.displayName : '',
-          name:         document.getElementById('fullName').value,
-          phone:        document.getElementById('phone').value,
-          email:        document.getElementById('email').value,
-          total:        fmt(total),
-          deposit:      fmt(dep),
-          unitPrice:    selectedTour ? fmt(selectedTour.price) : '--',
-          numPeople,
-          selectedDate: selectedDate || '',
-        };
-        sessionStorage.setItem('hiddenpath_booking', JSON.stringify(bookingData));
-        window.location.href = 'xac-nhan-dat-tour.html';
-      }, 1500);
+      const methodLabel = {
+        transfer: 'Chuyển khoản ngân hàng',
+        momo:     'Ví MoMo',
+        cod:      'Thanh toán tiền mặt',
+      };
+
+      const bookingData = {
+        bookingId:    'HP-' + Math.floor(100000 + Math.random()*900000),
+        method:       payMethod,
+        tourId:       selectedTour ? selectedTour.id : '',
+        tourName:     selectedTour ? selectedTour.displayName : '',
+        name:         document.getElementById('fullName').value,
+        phone:        document.getElementById('phone').value,
+        email:        document.getElementById('email').value,
+        total:        fmt(total),
+        deposit:      fmt(dep),
+        unitPrice:    selectedTour ? fmt(selectedTour.price) : '--',
+        numPeople,
+        selectedDate: selectedDate || '',
+      };
+
+      const customerEmail = document.getElementById('email').value.trim();
+
+      // Gửi email xác nhận qua EmailJS
+      const sendEmail = customerEmail
+        ? emailjs.send('service_wkjxt9v', 'template_dujlt8p', {
+            to_email:        customerEmail,
+            customer_name:   bookingData.name,
+            customer_phone:  bookingData.phone,
+            tour_name:       bookingData.tourName,
+            departure_date:  bookingData.selectedDate || 'Chưa chọn',
+            num_people:      bookingData.numPeople,
+            total_amount:    bookingData.total + 'đ',
+            payment_method:  methodLabel[payMethod] || payMethod,
+          })
+        : Promise.resolve();
+
+      sendEmail
+        .then(() => {
+          sessionStorage.setItem('hiddenpath_booking', JSON.stringify(bookingData));
+          window.location.href = 'xac-nhan-dat-tour.html';
+        })
+        .catch((err) => {
+          console.warn('EmailJS error:', err);
+          // Vẫn chuyển trang dù gửi mail thất bại
+          sessionStorage.setItem('hiddenpath_booking', JSON.stringify(bookingData));
+          window.location.href = 'xac-nhan-dat-tour.html';
+        });
     };
 
     init();
