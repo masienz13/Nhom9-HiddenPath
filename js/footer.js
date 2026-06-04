@@ -24,7 +24,7 @@ class FooterPlaceholder extends HTMLElement {
             <h3>Điều khoản - Chính sách</h3>
             <a href="#">Hướng dẫn đặt tour</a>
             <a href="#">Chính sách hoàn hủy</a>
-            <a href="#">Hình thức thanh toán</a>
+            <a href="hinh-thuc-thanh-toan.html">Hình thức thanh toán</a>
             <a href="#">Chính sách bảo mật</a>
           </section>
 

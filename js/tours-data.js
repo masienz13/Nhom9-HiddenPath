@@ -83,6 +83,66 @@ const hiddenPathTours = [
       "Đỉnh Fansipan là khao khát chinh phục của những trái tim nồng nhiệt muốn vươn tới nóc nhà Đông Dương.",
     tags: ["hot"],
   },
+  { 
+    id: "khang-su-van",
+    name: "Tour leo nui Fansipan 2N1D (Xuat phat tu Ha Noi)",
+    displayName: "Tour leo núi Fansipan 2N1D (Xuất phát từ Hà Nội)",
+    location: "Lao Cai",
+    altitude: "3143m",
+    duration: "2N1D",
+    difficulty: "Co ban",
+    price: 3550000,
+    image: "img/tours/fansipan.png",
+    description:
+      "Đỉnh Fansipan là khao khát chinh phục của những trái tim nồng nhiệt muốn vươn tới nóc nhà Đông Dương.",
+    tags: ["hot"],
+
+  },
+  { 
+    id: "lao-than",
+    name: "Tour leo nui Fansipan 2N1D (Xuat phat tu Ha Noi)",
+    displayName: "Tour leo núi Fansipan 2N1D (Xuất phát từ Hà Nội)",
+    location: "Lao Cai",
+    altitude: "3143m",
+    duration: "2N1D",
+    difficulty: "Co ban",
+    price: 3550000,
+    image: "img/tours/fansipan.png",
+    description:
+      "Đỉnh Fansipan là khao khát chinh phục của những trái tim nồng nhiệt muốn vươn tới nóc nhà Đông Dương.",
+    tags: ["hot"],
+
+  },
+  { 
+    id: "ngu-chi-son",
+    name: "Tour leo nui Fansipan 2N1D (Xuat phat tu Ha Noi)",
+    displayName: "Tour leo núi Fansipan 2N1D (Xuất phát từ Hà Nội)",
+    location: "Lao Cai",
+    altitude: "3143m",
+    duration: "2N1D",
+    difficulty: "Co ban",
+    price: 3550000,
+    image: "img/tours/fansipan.png",
+    description:
+      "Đỉnh Fansipan là khao khát chinh phục của những trái tim nồng nhiệt muốn vươn tới nóc nhà Đông Dương.",
+    tags: ["hot"],
+
+  },
+  { 
+    id: "phu-sa-phin",
+    name: "Tour leo nui Fansipan 2N1D (Xuat phat tu Ha Noi)",
+    displayName: "Tour leo núi Fansipan 2N1D (Xuất phát từ Hà Nội)",
+    location: "Lao Cai",
+    altitude: "3143m",
+    duration: "2N1D",
+    difficulty: "Co ban",
+    price: 3550000,
+    image: "img/tours/fansipan.png",
+    description:
+      "Đỉnh Fansipan là khao khát chinh phục của những trái tim nồng nhiệt muốn vươn tới nóc nhà Đông Dương.",
+    tags: ["hot"],
+
+  }
 ];
 
 window.hiddenPathTours = hiddenPathTours;
