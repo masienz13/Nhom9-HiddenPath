@@ -314,13 +314,13 @@
       sendEmail
         .then(() => {
           sessionStorage.setItem('hiddenpath_booking', JSON.stringify(bookingData));
-          window.location.href = 'xac-nhan-dat-tour.html';
+          window.location.href = 'xac-nhan.html';
         })
         .catch((err) => {
           console.warn('EmailJS error:', err);
           // Vẫn chuyển trang dù gửi mail thất bại
           sessionStorage.setItem('hiddenpath_booking', JSON.stringify(bookingData));
-          window.location.href = 'xac-nhan-dat-tour.html';
+          window.location.href = 'xac-nhan.html';
         });
     };
 
