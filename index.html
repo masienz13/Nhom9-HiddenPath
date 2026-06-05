@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Hidden Path tổ chức tour trekking Tây Bắc, tour leo núi, săn mây và trải nghiệm thiên nhiên theo nhóm nhỏ.">
+  <title>Hidden Path | Mountain Tours</title>
+  <link rel="preconnect" href="https://code.jquery.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/index.css">
+</head>
+<body class="home-page">
+  <header-placeholder></header-placeholder>
+
+  <main>
+    <section class="mountain-ticker" aria-label="Các cung núi nổi bật">
+      <div class="ticker-track">
+        <span>Fansipan <strong>3143m</strong></span>
+        <span>Ky Quan San <strong>3046m</strong></span>
+        <span>Pu Ta Leng <strong>3049m</strong></span>
+        <span>Tả Liên Sơn <strong>2996m</strong></span>
+        <span>Tả Chì Nhù <strong>2979m</strong></span>
+        <span>Lảo Thẩn <strong>2860m</strong></span>
+        <span>Nhìu Cồ San <strong>2965m</strong></span>
+        <span>Fansipan <strong>3143m</strong></span>
+        <span>Ky Quan San <strong>3046m</strong></span>
+        <span>Pu Ta Leng <strong>3049m</strong></span>
+        <span>Tả Liên Sơn <strong>2996m</strong></span>
+        <span>Tả Chì Nhù <strong>2979m</strong></span>
+        <span>Lảo Thẩn <strong>2860m</strong></span>
+        <span>Nhìu Cồ San <strong>2965m</strong></span>
+      </div>
+    </section>
+
+    <section class="hero" aria-label="Hidden Path hero slider">
+      <div class="hero-track"></div>
+      <button class="hero-arrow hero-prev" type="button" aria-label="Slide trước"></button>
+      <button class="hero-arrow hero-next" type="button" aria-label="Slide sau"></button>
+      <div class="hero-dots" aria-label="Chọn slide"></div>
+    </section>
+
+    <section class="quick-booking-section section-pad">
+      <div class="container">
+        <form class="quick-booking" id="quickBooking">
+          <h2>Đặt tour nhanh</h2>
+          <div class="booking-grid">
+            <label>
+              <span>Chọn tour</span>
+              <select id="tourSelect" name="tour"></select>
+            </label>
+            <label>
+              <span>Ngày khởi hành</span>
+              <input id="departureDate" name="date" type="text" placeholder="Chọn ngày..." autocomplete="off">
+            </label>
+            <label>
+              <span>Số người</span>
+              <select id="peopleSelect" name="people">
+                <option value="1">1 người</option>
+                <option value="2">2 người</option>
+                <option value="3">3 người</option>
+                <option value="4">4 người</option>
+                <option value="5">5 người</option>
+                <option value="6">6+ người</option>
+              </select>
+            </label>
+            <button class="btn btn-dark" type="submit">Tìm tour</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="stats-section" aria-label="Số liệu Hidden Path">
+      <div class="container stats-grid">
+        <div class="stat-item">
+          <strong class="stat-number" data-target="5000">0+</strong>
+          <span>Khách hàng hài lòng</span>
+        </div>
+        <div class="stat-item">
+          <strong class="stat-number" data-target="12">0+</strong>
+          <span>Năm kinh nghiệm</span>
+        </div>
+        <div class="stat-item">
+          <strong class="stat-number" data-target="48">0+</strong>
+          <span>Cung leo núi</span>
+        </div>
+        <div class="stat-item">
+          <strong class="stat-number" data-target="200">0+</strong>
+          <span>HDV chuyên nghiệp</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-section section-pad">
+      <div class="container about-grid">
+        <div class="about-copy">
+          <span class="section-kicker">Chào mừng bạn tới</span>
+          <h2>Hidden Path</h2>
+          <p>Hidden Path tiên phong trong hành trình chinh phục núi cao, khám phá thiên nhiên nguyên sơ và lan tỏa tinh thần trekking tại Việt Nam.</p>
+        </div>
+        <div class="benefit-grid">
+          <article class="benefit-card">
+            <div>
+              <h3>Chu cấp đầy đủ cho chuyến đi</h3>
+              <p>Cung cấp bữa ăn, phương tiện đi lại và vật tư cần thiết như ba lô, mũ, gậy leo núi, nước uống.</p>
+            </div>
+          </article>
+          <article class="benefit-card">
+            <div>
+              <h3>Đội ngũ HDV chuyên nghiệp</h3>
+              <p>Hướng dẫn viên nhiều năm kinh nghiệm, được đào tạo kỹ năng sinh tồn và sơ cấp cứu.</p>
+            </div>
+          </article>
+          <article class="benefit-card">
+            <div>
+              <h3>Đội ngũ hậu cần riêng</h3>
+              <p>Porter địa phương hỗ trợ tỉ lệ 1:1 cùng đầu bếp chuyên nghiệp chuẩn bị đồ ăn tận nơi.</p>
+            </div>
+          </article>
+          <article class="benefit-card">
+            <div>
+              <h3>Du lịch theo nhóm nhỏ</h3>
+              <p>Trung bình 12 người mỗi đoàn, đảm bảo kết nối, an toàn và không gian trải nghiệm riêng tư.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="tour-section section-pad" id="featuredToursSection">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Tour nổi bật</h2>
+          <a href="chi-tiet-tour-trekking.html">Xem tất cả</a>
+        </div>
+        <div class="tour-grid" id="featuredTours"></div>
+        <div class="center-action">
+          <a class="btn btn-primary" href="chi-tiet-tour-trekking.html">Xem tất cả tour</a>
+        </div>
+      </div>
+    </section>
+    <section class="blog-section section-pad">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker">Cẩm nang trekking</span>
+            <h2>Bài viết mới nhất</h2>
+          </div>
+          <a href="blog.html">Xem blog</a>
+        </div>
+        <div class="blog-grid" id="blogPreview"></div>
+      </div>
+    </section>
+
+    <section class="faq-section section-pad">
+      <div class="container faq-grid">
+        <div class="faq-copy">
+          <span class="section-kicker">Hỏi đáp</span>
+          <h2>Giải Đáp Thắc Mắc</h2>
+          <p>Tìm câu trả lời nhanh cho những câu hỏi phổ biến nhất của khách hàng trước khi đặt tour.</p>
+          <a class="faq-topic">Chuẩn bị trước tour</a>
+        </div>
+        <div class="faq-accordion" id="faqAccordion">
+          <h3>Thời tiết phù hợp để leo núi là như thế nào?</h3>
+          <div>
+            <p>Thời tiết lý tưởng để leo núi là mùa khô, từ tháng 10 đến tháng 4 năm sau. Nhiệt độ mát mẻ, ít mưa, tầm nhìn xa và đường đi khô ráo sẽ giúp chuyến đi an toàn hơn.</p>
+          </div>
+          <h3>Nếu tôi đi một mình, có thể tham gia tour leo núi không?</h3>
+          <div>
+            <p>Hoàn toàn có thể. Hidden Path tổ chức ghép tour linh hoạt cho khách đi một mình, giúp bạn gặp gỡ và kết bạn với những người cùng đam mê.</p>
+          </div>
+          <h3>Khi tham gia tour nhiều ngày thì sẽ nghỉ qua đêm như thế nào?</h3>
+          <div>
+            <p>Khách sẽ nghỉ ngơi tại lán trại được dựng sẵn, điểm cắm trại trên đường leo hoặc nhà dân địa phương tùy cung. Lều và túi ngủ đã được tính vào gói tour.</p>
+          </div>
+          <h3>Trong chuyến đi tôi sẽ được ăn gì?</h3>
+          <div>
+            <p>Hidden Path cung cấp đầy đủ các bữa ăn trong tour với đội ngũ đầu bếp chuyên nghiệp. Thực đơn có thể điều chỉnh theo nhu cầu ăn mặn, chay hoặc dị ứng thực phẩm.</p>
+          </div>
+          <h3>Tôi cần chuẩn bị gì cho chuyến đi leo núi?</h3>
+          <div>
+            <p>Bạn cần chuẩn bị giày leo núi, quần áo chống thấm, đèn đầu và thuốc cá nhân. Danh sách chi tiết sẽ được gửi sau khi đặt tour.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="container cta-inner">
+        <div>
+          <h2>Cùng Hidden Path Chinh Phục Những Đỉnh Núi Cao Nhất Việt Nam</h2>
+          <p>Hidden Path tiên phong trong hành trình chinh phục núi cao, khám phá thiên nhiên nguyên sơ và lan tỏa tinh thần trekking tại Việt Nam.</p>
+        </div>
+        <a class="btn btn-primary" href="#quickBooking">Đặt tour ngay</a>
+      </div>
+    </section>
+  </main>
+
+  <footer-placeholder></footer-placeholder>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js"></script>
+  <script src="js/tours-data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/blog-data.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/footer.js"></script>
+  <script src="js/index.js"></script>
+</body>
+</html>

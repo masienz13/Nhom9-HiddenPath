@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Hidden Path</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/blog.css">
+</head>
+
+<body>
+    <header-placeholder></header-placeholder>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <span>Hidden Path Blog</span>
+                <h1>Kinh nghiệm trekking và khám phá núi rừng</h1>
+                <p>Tổng hợp bài viết về kinh nghiệm, cung đường và trang bị cần thiết cho mỗi chuyến đi.</p>
+            </div>
+        </section>
+
+        <section class="page-section">
+            <div class="container">
+                <div class="blog-toolbar">
+                    <input type="text" id="searchInput" placeholder="Tìm bài viết...">
+
+                    <div class="blog-tabs">
+                        <button class="active" data-filter="all">Tất cả</button>
+                        <button data-filter="Kinh nghiệm">Kinh nghiệm</button>
+                        <button data-filter="Cung đường">Cung đường</button>
+                        <button data-filter="Trang bị">Trang bị</button>
+                    </div>
+                </div>
+                <div class="blog-grid"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer-placeholder></footer-placeholder>
+
+    <script src="js/header.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/blog-data.js"></script>
+    <script src="js/blog.js"></script>
+</body>
+
+</html>

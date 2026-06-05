@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danh mục Tour Trekking | Hidden Path</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/chi-tiet-tour-trekking.css">
+</head>
+<body>
+  <header-placeholder></header-placeholder>
+
+  <!-- HERO -->
+  <section class="catalog-hero">
+    <div class="catalog-hero-inner">
+      <h1>Khám phá Tour Trekking</h1>
+      <p>Chinh phục những đỉnh núi hùng vĩ nhất Việt Nam cùng đội ngũ hướng dẫn viên chuyên nghiệp.</p>
+      <div class="catalog-stats">
+        <div class="catalog-stat"><div class="catalog-stat-dot"></div><span id="totalToursCount">10 tour</span> đang mở đăng ký</div>
+        <div class="catalog-stat"><div class="catalog-stat-dot"></div>Độ khó từ cơ bản đến chuyên nghiệp</div>
+        <div class="catalog-stat"><div class="catalog-stat-dot"></div>Khởi hành từ Hà Nội hàng tuần</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <div class="filter-bar-inner">
+      <span class="filter-label">Lọc:</span>
+
+      <div class="filter-group" id="tagFilters">
+        <button class="filter-chip active" data-filter="tag" data-value="all">
+          Tất cả <span class="chip-count" id="countAll">10</span>
+        </button>
+        <button class="filter-chip" data-filter="tag" data-value="featured">
+          Nổi bật <span class="chip-count" id="countFeatured">10</span>
+        </button>
+      </div>
+
+      <div class="filter-divider"></div>
+
+      <div class="filter-group" id="diffFilters">
+        <button class="filter-chip" data-filter="diff" data-value="all-diff">Mọi độ khó</button>
+        <button class="filter-chip" data-filter="diff" data-value="1,2">🟢 Dễ</button>
+        <button class="filter-chip" data-filter="diff" data-value="3">🟡 Nâng cao</button>
+        <button class="filter-chip" data-filter="diff" data-value="4,5">🔴 Thách thức</button>
+      </div>
+
+      <div class="filter-divider"></div>
+
+      <div class="filter-select-wrap">
+        <select class="filter-select" id="durationFilter">
+          <option value="all">Mọi thời gian</option>
+          <option value="2">2 ngày 1 đêm</option>
+          <option value="3">3 ngày 2 đêm</option>
+        </select>
+      </div>
+
+      <div class="filter-select-wrap">
+        <select class="filter-select" id="locationFilter">
+          <option value="all">Mọi tỉnh thành</option>
+          <option value="lao-cai">Lào Cai</option>
+          <option value="lai-chau">Lai Châu</option>
+          <option value="yen-bai">Yên Bái</option>
+          <option value="ha-giang">Hà Giang</option>
+        </select>
+      </div>
+
+      <div class="filter-select-wrap">
+        <select class="filter-select" id="priceFilter">
+          <option value="all">Mọi mức giá</option>
+          <option value="0-4000000">Dưới 4 triệu</option>
+          <option value="4000000-5000000">4 - 5 triệu</option>
+          <option value="5000000-99999999">Trên 5 triệu</option>
+        </select>
+      </div>
+
+      <div class="filter-search">
+        <span class="filter-search-icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </span>
+        <input type="search" id="searchInput" placeholder="Tìm tên tour, địa điểm...">
+      </div>
+
+      <button class="filter-clear" id="clearFilters">Xóa bộ lọc</button>
+    </div>
+  </div>
+
+  <!-- ACTIVE FILTER TAGS -->
+  <div class="active-filters" id="activeFilterTags"></div>
+
+  <!-- RESULTS BAR -->
+  <div class="results-bar">
+    <div class="results-count" id="resultsCount">Hiển thị <strong>6</strong> / 10 tour</div>
+    <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;">
+      <div class="sort-wrap">
+        <span class="sort-label">Sắp xếp:</span>
+        <button class="sort-btn active" data-sort="default">Nổi bật</button>
+        <button class="sort-btn" data-sort="price-asc">Giá thấp</button>
+        <button class="sort-btn" data-sort="price-desc">Giá cao</button>
+        <button class="sort-btn" data-sort="altitude">Độ cao</button>
+        <button class="sort-btn" data-sort="rating">Đánh giá</button>
+      </div>
+      <div class="view-toggle">
+        <button class="view-btn active" id="gridViewBtn" title="Dạng lưới">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#14331f" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </button>
+        <button class="view-btn" id="listViewBtn" title="Dạng danh sách">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#14331f" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOUR GRID -->
+  <div class="catalog-body">
+    <div id="tourGrid"></div>
+    <div class="pagination" id="pagination"></div>
+  </div>
+
+  <footer-placeholder></footer-placeholder>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/tours-data.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/footer.js"></script>
+  <script src ="js/chi-tiet-tour-trekking.js"></script>
+  
+</body>
+</html>

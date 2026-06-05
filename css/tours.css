@@ -1,0 +1,521 @@
+:root {
+  --tour-dark: #15281c;
+  --tour-blue: #1a73e8;
+  --tour-orange: #f05123;
+  --tour-text: #333333;
+  --tour-muted: #555555;
+  --tour-soft: #fafafa;
+}
+
+body {
+  background: var(--tour-soft);
+}
+
+.tour-page {
+  color: var(--tour-text);
+  font-family: "Inter", "Lexend Deca", Arial, sans-serif;
+}
+
+.tour-page * {
+  box-sizing: border-box;
+}
+
+.ticker-wrap {
+  background: var(--tour-dark);
+  border-top: 1px solid rgba(255, 255, 255, .05);
+  overflow: hidden;
+  padding: 12px 0;
+}
+
+.ticker {
+  color: #99a89e;
+  display: flex;
+  gap: 40px;
+  padding: 0 5%;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.ticker strong {
+  color: #f1c40f;
+  margin-left: 5px;
+}
+
+.tour-hero {
+  position: relative;
+  min-height: 500px;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  padding: 50px 5%;
+  background: #222;
+}
+
+.hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: .82;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, .82), rgba(0, 0, 0, .05));
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  width: min(900px, 100%);
+}
+
+.badge-featured {
+  display: inline-block;
+  margin-bottom: 15px;
+  padding: 6px 12px;
+  border-radius: 3px;
+  background: var(--tour-orange);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.hero-content h1 {
+  color: #fff;
+  margin: 0;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
+.tab-bar {
+  position: sticky;
+  top: var(--header-height, 86px);
+  z-index: 40;
+  background: #fff;
+  border-bottom: 1px solid #eaeaea;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .03);
+}
+
+.tab-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 5%;
+  overflow-x: auto;
+}
+
+.tab-link {
+  position: relative;
+  flex: 0 0 auto;
+  padding: 20px 25px;
+  color: #888;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  border-bottom: 3px solid transparent;
+}
+
+.tab-link.active {
+  color: var(--tour-text);
+}
+
+.tab-underline {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 0;
+  background: var(--tour-blue);
+  transition: transform .24s ease, width .24s ease;
+}
+
+.tour-detail-layout {
+  width: min(90%, 1400px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 50px;
+  align-items: start;
+  padding: 40px 0 80px;
+}
+
+.tour-quick-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 40px;
+  scroll-margin-top: 170px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: var(--tour-text);
+  font-size: 15px;
+}
+
+.info-icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--tour-blue);
+}
+
+.info-icon svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.section-box {
+  margin-bottom: 40px;
+  scroll-margin-top: 170px;
+}
+
+.section-box p {
+  color: var(--tour-muted);
+  margin: 0 0 15px;
+  font-size: 14.5px;
+  line-height: 1.8;
+}
+
+.section-box em {
+  color: #888;
+  font-size: 13.5px;
+}
+
+.section-title {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 0 0 25px;
+  padding-bottom: 12px;
+  color: var(--tour-dark);
+  border-bottom: 2px solid #eaeaea;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.section-title::before {
+  content: "";
+  width: 6px;
+  height: 24px;
+  display: block;
+  flex: 0 0 auto;
+  margin-right: 12px;
+  border-radius: 4px;
+  background: var(--tour-blue);
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 60px;
+  height: 4px;
+  border-radius: 4px;
+  background: var(--tour-orange);
+}
+
+.check-grid,
+.inc-exc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.inc-exc-grid {
+  gap: 30px;
+}
+
+.check-item,
+.inc-col li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--tour-muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.check-item::before,
+.inc-col.yes li::before {
+  content: "✓";
+  color: var(--tour-blue);
+  font-weight: 800;
+}
+
+.inc-col.no li::before {
+  content: "×";
+  color: #d32f2f;
+  font-weight: 800;
+}
+
+.inc-col h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 15px;
+  color: var(--tour-text);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.inc-col ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.inc-col li {
+  margin-bottom: 12px;
+}
+
+.timeline-block {
+  margin-bottom: 25px;
+}
+
+.timeline-header {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--tour-blue);
+  color: #fff;
+}
+
+.timeline-day {
+  padding: 14px 24px;
+  background: #1557b0;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .04em;
+}
+
+.timeline-title {
+  flex: 1;
+  padding: 14px 20px;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.timeline-body {
+  padding: 20px 20px 10px 60px;
+}
+
+.timeline-body strong {
+  color: var(--tour-text);
+}
+
+.diff-bar {
+  display: flex;
+  gap: 6px;
+  max-width: 500px;
+  margin: 15px 0 10px;
+}
+
+.diff-step {
+  height: 6px;
+  flex: 1;
+  border-radius: 3px;
+  background: #e0e0e0;
+}
+
+.diff-step.active {
+  background: #e05433;
+}
+
+.diff-label {
+  color: #888;
+  font-size: 12px;
+}
+
+.sidebar {
+  position: sticky;
+  top: 170px;
+}
+
+.booking-card {
+  padding: 30px;
+  border: 1px solid #f0f0f0;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, .06);
+}
+
+.price-label {
+  margin-bottom: 8px;
+  color: var(--tour-blue);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.price-val {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  margin-bottom: 25px;
+  color: #d32f2f;
+  font-family: "Bebas Neue", "Inter", sans-serif;
+  font-size: 56px;
+  line-height: 1;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 4px rgba(211, 47, 47, .2);
+}
+
+.price-val sup {
+  margin-top: 8px;
+  font-family: "Inter", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.form-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  color: #666;
+  font-size: 13px;
+}
+
+.form-label svg,
+.contact-box svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  outline: none;
+  color: var(--tour-text);
+  font-size: 14px;
+}
+
+.slots {
+  margin-top: 6px;
+  color: #888;
+  font-size: 12px;
+}
+
+.btn-submit {
+  width: 100%;
+  margin-top: 10px;
+  padding: 15px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--tour-blue);
+  color: #fff;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  transition: background .2s;
+}
+
+.btn-submit:hover {
+  background: #1557b0;
+}
+
+.booking-note {
+  margin-top: 15px;
+  color: #888;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.contact-box {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+  color: var(--tour-muted);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.contact-box span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.contact-box span:first-child {
+  margin-bottom: 5px;
+  color: #d32f2f;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+@media (max-width: 1020px) {
+  .tour-detail-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+  }
+}
+
+@media (max-width: 760px) {
+  .tour-hero {
+    min-height: 420px;
+  }
+
+  .hero-content h1 {
+    font-size: 26px;
+  }
+
+  .tour-quick-info,
+  .check-grid,
+  .inc-exc-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .timeline-body {
+    padding: 18px 0 6px;
+  }
+
+  .tab-link {
+    padding: 18px 18px;
+  }
+}

@@ -1,0 +1,163 @@
+/* ===== CHECKOUT STEPS (shared with thanh-toan) ===== */
+.checkout-steps {
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+  padding: 20px 0;
+}
+.steps-inner {
+  width: min(calc(100% - 80px), 900px);
+  margin: 0 auto;
+  display: flex; align-items: center; justify-content: center;
+}
+.step {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 20px;
+  border-radius: 100px;
+  font-size: 13px; font-weight: 700;
+  color: var(--muted); transition: all .3s;
+}
+.step.active { background: #e6f4ec; color: var(--forest); }
+.step.done   { color: var(--forest-3); }
+.step-num {
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 2px solid currentColor;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 800; flex-shrink: 0;
+}
+.step.active .step-num { background: var(--forest); border-color: var(--forest); color: #fff; }
+.step.done   .step-num { background: var(--forest-3); border-color: var(--forest-3); color: #fff; }
+.step-arrow { color: var(--line); font-size: 18px; padding: 0 4px; }
+
+/* ===== PAGE WRAPPER ===== */
+.xn-page { background: var(--cream); min-height: 100vh; padding-bottom: 80px; }
+
+/* ===== BANNER ===== */
+.xn-banner {
+  background: linear-gradient(135deg, var(--forest) 0%, #1a4a2c 60%, #0d2918 100%);
+  padding: 52px 0 44px;
+  text-align: center;
+}
+.xn-banner-inner { width: min(calc(100% - 80px), 700px); margin: 0 auto; }
+.xn-icon { font-size: 60px; display: block; margin-bottom: 14px;
+  animation: xnPop .5s cubic-bezier(.36,.07,.19,.97) both; }
+@keyframes xnPop {
+  0%   { transform: scale(.5); opacity: 0; }
+  70%  { transform: scale(1.15); }
+  100% { transform: scale(1); opacity: 1; }
+}
+.xn-banner h1 { color: var(--gold); font-size: 38px; margin: 0 0 10px; line-height: 1.1; }
+.xn-banner p  { color: rgba(255,255,255,.75); font-size: 16px; margin: 0 0 20px; }
+.xn-booking-id {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,.12);
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 100px;
+  padding: 8px 22px;
+  color: #fff; font-size: 13px; font-weight: 700;
+}
+.xn-booking-id strong { font-size: 16px; color: var(--gold); }
+
+/* ===== CONTENT GRID ===== */
+.xn-content {
+  width: min(calc(100% - 80px), 1100px);
+  margin: 40px auto 0;
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 28px;
+  align-items: start;
+}
+
+/* ===== CARDS ===== */
+.xn-left { display: flex; flex-direction: column; gap: 20px; }
+.xn-card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 24px 28px;
+}
+.xn-card-title {
+  font-size: 15px; font-weight: 800; color: var(--forest);
+  margin-bottom: 18px; padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+/* ===== INFO ROWS ===== */
+.xn-rows { display: flex; flex-direction: column; }
+.xn-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 9px 0; border-bottom: 1px solid #f3f4f0; font-size: 14px; gap: 16px;
+}
+.xn-row:last-child { border-bottom: none; }
+.xn-lbl { color: var(--muted); font-weight: 500; flex-shrink: 0; }
+.xn-val { font-weight: 700; color: var(--ink); text-align: right; }
+.xn-total  { color: #e53e3e; font-size: 20px; }
+.xn-deposit { color: var(--forest); font-size: 16px; }
+
+/* ===== BANK BOX ===== */
+.xn-bank-box {
+  background: linear-gradient(135deg, #f0f9f4, #e6f4ec);
+  border: 1.5px solid rgba(47,112,76,.2);
+  border-radius: 10px;
+  padding: 16px 20px;
+}
+.xn-bank-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 0; border-bottom: 1px solid rgba(47,112,76,.1);
+  font-size: 13px;
+}
+.xn-bank-row:last-of-type { border-bottom: none; }
+.xn-bank-row span  { color: var(--muted); }
+.xn-bank-row strong { font-weight: 800; color: var(--ink); display: flex; align-items: center; gap: 6px; }
+.xn-copy {
+  background: var(--forest); color: #fff; border: none; cursor: pointer;
+  font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 5px;
+  transition: background .2s;
+}
+.xn-copy:hover { background: var(--forest-3); }
+.xn-bank-warn {
+  font-size: 12px; color: #7c5c1a;
+  background: #fef3c7; border-radius: 8px;
+  padding: 10px 14px; margin-top: 12px;
+}
+
+/* ===== NEXT STEPS LIST ===== */
+.xn-steps { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+.xn-step {
+  display: flex; align-items: flex-start; gap: 14px;
+  background: var(--paper); border: 1px solid var(--line);
+  border-radius: 10px; padding: 14px 16px;
+}
+.xn-step-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+.xn-step div { display: flex; flex-direction: column; gap: 3px; }
+.xn-step strong { font-size: 14px; font-weight: 800; color: var(--ink); }
+.xn-step span   { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+/* ===== RIGHT SIDEBAR ===== */
+.xn-sticky { position: sticky; top: 110px; }
+.xn-trust { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
+.xn-trust-item { font-size: 12px; color: var(--muted); }
+
+.xn-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+.xn-btn {
+  width: 100%; padding: 13px;
+  border-radius: 10px; text-align: center;
+  font: inherit; font-size: 14px; font-weight: 800;
+  text-decoration: none; cursor: pointer; border: none;
+  transition: all .2s; display: block;
+}
+.xn-btn-primary  { background: var(--forest); color: #fff; }
+.xn-btn-primary:hover  { background: var(--forest-3); transform: translateY(-2px); }
+.xn-btn-outline  { background: var(--white); color: var(--forest); border: 2px solid var(--forest); }
+.xn-btn-outline:hover  { background: #f0f9f4; transform: translateY(-2px); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 860px) {
+  .xn-content { grid-template-columns: 1fr; }
+  .xn-sticky  { position: static; }
+  .xn-actions { flex-direction: row; }
+  .steps-inner { width: calc(100% - 32px); }
+}
+@media (max-width: 500px) {
+  .xn-banner h1 { font-size: 26px; }
+  .step span    { display: none; }
+}

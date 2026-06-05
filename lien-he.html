@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liên hệ | Hidden Path</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/page.css">
+</head>
+
+<body>
+    <header-placeholder></header-placeholder>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <span>Contact us</span>
+                <h1>Liên hệ với Hidden Path</h1>
+                <p>Để lại thông tin, đội ngũ Hidden Path sẽ tư vấn lịch trình trekking phù hợp nhất cho bạn.</p>
+            </div>
+        </section>
+
+        <section class="page-section">
+            <div class="container contact-grid">
+                <div class="page-card">
+                    <h2>Gửi yêu cầu tư vấn</h2>
+
+                    <form class="form-grid" id="contactForm">
+                        <input type="text" id="name" placeholder="Họ và tên" required>
+                        <input type="email" id="email" placeholder="Email" required>
+                        <input type="tel" id="phone" placeholder="Số điện thoại" required>
+                        <textarea id="message" placeholder="Bạn muốn tư vấn tour nào?" required></textarea>
+                        <button class="btn btn-dark" type="submit">Gửi liên hệ</button>
+                    </form>
+                </div>
+
+                <div class="page-card">
+                    <h2>Thông tin liên hệ</h2>
+
+                    <div class="info-list">
+                        <div class="info-item">
+                            <strong>Địa chỉ</strong>
+                            Số 27, Ngụy Như Kon Tum, Thanh Xuân, Hà Nội
+                        </div>
+
+                        <div class="info-item">
+                            <strong>Email</strong>
+                            hiddenpathbooking@gmail.com
+                        </div>
+
+                        <div class="info-item">
+                            <strong>Hotline đặt tour</strong>
+                            0345846390
+                        </div>
+
+                        <div class="info-item">
+                            <strong>Thời gian hỗ trợ</strong>
+                            08:00 - 21:00 hằng ngày
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer-placeholder></footer-placeholder>
+
+    <script src="js/header.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="js/contact.js"></script>
+</body>
+
+</html>

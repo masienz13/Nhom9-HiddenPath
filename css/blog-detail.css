@@ -1,0 +1,137 @@
+.detail-hero {
+    min-height: 520px;
+    display: flex;
+    align-items: center;
+    color: var(--white);
+    background: linear-gradient(rgba(8, 28, 16, .48), rgba(8, 28, 16, .58)),
+        url("../img/blog/putaleng-1.jpg") center/cover no-repeat;
+}
+
+.detail-hero .section-kicker {
+    color: var(--gold);
+}
+
+.detail-hero h1 {
+    max-width: 950px;
+    margin: 0 0 18px;
+    color: var(--gold);
+    font-size: clamp(46px, 7vw, 92px);
+    line-height: .95;
+}
+
+.detail-meta {
+    color: rgba(255, 255, 255, .86);
+    font-weight: 700;
+}
+
+.detail-section {
+    background: var(--paper);
+}
+
+.detail-layout {
+    display: grid;
+    grid-template-columns: 2fr .85fr;
+    gap: 34px;
+    align-items: start;
+}
+
+.detail-article,
+.detail-sidebar {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    padding: 42px;
+}
+
+.detail-article h2 {
+    margin: 34px 0 12px;
+    color: var(--forest);
+    font-size: 34px;
+    line-height: 1.15;
+}
+
+.detail-article p {
+    color: var(--muted);
+    font-size: 17px;
+    text-align: justify;
+}
+
+.article-image {
+    width: 100%;
+    height: 390px;
+    object-fit: cover;
+    border-radius: 16px;
+    margin: 28px 0 10px;
+    box-shadow: var(--shadow);
+}
+
+.article-caption {
+    margin: 0 0 28px;
+    color: var(--muted);
+    font-size: 14px;
+    text-align: center !important;
+    font-style: italic;
+}
+
+.image-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin: 28px 0;
+}
+
+.image-row img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+}
+
+.detail-sidebar h3 {
+    margin: 0 0 20px;
+    color: var(--forest);
+    font-size: 28px;
+}
+
+.related-post {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.related-post:last-child {
+    border-bottom: 0;
+}
+
+.related-post a {
+    color: var(--forest);
+    font-weight: 800;
+}
+
+.related-post a:hover {
+    color: var(--gold-2);
+}
+
+@media (max-width: 900px) {
+    .detail-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-article,
+    .detail-sidebar {
+        padding: 28px;
+    }
+
+    .article-image {
+        height: 300px;
+    }
+
+    .image-row {
+        grid-template-columns: 1fr;
+    }
+
+    .image-row img {
+        height: 260px;
+    }
+}
