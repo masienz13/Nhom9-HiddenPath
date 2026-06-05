@@ -21,23 +21,49 @@
     return p.toLocaleString('vi-VN') + '₫';
   }
 
-  
+  // Inject style cho nút giỏ hàng (chỉ inject 1 lần)
+  function injectCartBtnStyle() {
+    if (document.getElementById('hp-cart-btn-style')) return;
+    const st = document.createElement('style');
+    st.id = 'hp-cart-btn-style';
+    st.textContent = `.tour-card-actions{display:flex;align-items:center;gap:8px;}.btn-add-cart{background:#fff;border:2px solid #2d6a4f;color:#2d6a4f;border-radius:8px;width:38px;height:38px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s;flex-shrink:0;}.btn-add-cart:hover{background:#2d6a4f;color:#fff;}.btn-add-cart.added{background:#2d6a4f;color:#fff;}`;
+    document.head.appendChild(st);
+  }
+
+  // Gắn click handler cho tất cả nút .btn-add-cart trong grid
+  function bindCartButtons() {
+    document.querySelectorAll('#tourGrid .btn-add-cart').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const tourId = btn.dataset.tourId;
+        const today = new Date().toLocaleDateString('vi-VN');
+        if (window.HiddenCart) {
+          window.HiddenCart.add(tourId, today, 1);
+          btn.classList.add('added');
+          btn.title = 'Đã thêm vào giỏ!';
+          setTimeout(() => {
+            btn.classList.remove('added');
+            btn.title = 'Thêm vào giỏ hàng';
+          }, 1500);
+        } else {
+          window.location.href = `thanh-toan.html?tour=${tourId}`;
+        }
+      });
+    });
+  }
 
   function buildCard(tour) {
-    
-    const tagBadge = tour.tags.includes('featured')
-      ? '<span class="tour-badge">Nổi bật</span>'
+    const tagBadge = tour.tags.includes('bestSeller')
+      ? '<span class="tour-badge">🏆 Bán chạy</span>'
+      : tour.tags.includes('hot')
+      ? '<span class="tour-badge hot">🔥 HOT</span>'
       : '';
-
-    
 
     return `
       <article class="tour-card" data-id="${tour.id}" data-aos>
         <a href="tours/${tour.id}.html" style="text-decoration:none;display:block;">
           <div class="tour-image" style="background-image:url('${tour.image}')">
             ${tagBadge}
-           
-
           </div>
         </a>
         <div class="tour-card-body">
@@ -55,8 +81,8 @@
               ${formatter.format(tour.price)}đ
             </div>
             <div class="tour-card-actions">
-             <button class="btn-add-cart" data-tour-id="${tour.id}" title="Thêm vào giỏ hàng">🛒</button>
-             <a href="thanh-toan.html?tour=${tour.id}" class="btn-book">Đặt ngay →</a>
+              <button class="btn-add-cart" data-tour-id="${tour.id}" title="Thêm vào giỏ hàng">🛒</button>
+              <a href="thanh-toan.html?tour=${tour.id}" class="btn-book">Đặt ngay →</a>
             </div>
           </div>
         </div>
@@ -125,6 +151,9 @@
 
     grid.innerHTML = pageTours.map(buildCard).join('');
 
+    // Gắn click handler cho nút giỏ hàng sau khi render xong
+    bindCartButtons();
+
     grid.querySelectorAll('.tour-card').forEach((c, i) => {
       c.style.opacity = '0';
       c.style.transform = 'translateY(20px)';
@@ -169,7 +198,7 @@
     const container = document.getElementById('activeFilterTags');
     const tags = [];
 
-    if (filters.tag !== 'all') tags.push({ key: 'tag', label: 'Nổi bật' });
+    if (filters.tag !== 'all') tags.push({ key: 'tag', label: filters.tag === 'bestSeller' ? '🏆 Bán chạy' : '🔥 HOT' });
     if (filters.diff !== 'all-diff') tags.push({ key: 'diff', label: `Độ khó: ${filters.diff === '1,2' ? 'Dễ' : filters.diff === '3' ? 'Nâng cao' : 'Thách thức'}` });
     if (filters.duration !== 'all') tags.push({ key: 'duration', label: `${filters.duration}N${filters.duration-1}D` });
     if (filters.location !== 'all') tags.push({ key: 'location', label: document.getElementById('locationFilter').options[document.getElementById('locationFilter').selectedIndex].text });
@@ -264,9 +293,13 @@
   function updateCounts() {
     const all = window.hiddenPathTours;
     document.getElementById('countAll').textContent = all.length;
-    document.getElementById('countFeatured').textContent = all.filter(t => t.tags.includes('featured')).length;
+    document.getElementById('countBS').textContent = all.filter(t => t.tags.includes('bestSeller')).length;
+    document.getElementById('countHot').textContent = all.filter(t => t.tags.includes('hot')).length;
     document.getElementById('totalToursCount').textContent = all.length + ' tour';
   }
+
+  // Inject style ngay khi script chạy
+  injectCartBtnStyle();
 
   updateCounts();
   applyFilters();

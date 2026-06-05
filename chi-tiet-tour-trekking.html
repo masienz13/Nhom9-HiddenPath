@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
    <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/chi-tiet-tour-trekking.css">
+  <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
   <header-placeholder></header-placeholder>
@@ -17,7 +18,7 @@
       <h1>Khám phá Tour Trekking</h1>
       <p>Chinh phục những đỉnh núi hùng vĩ nhất Việt Nam cùng đội ngũ hướng dẫn viên chuyên nghiệp.</p>
       <div class="catalog-stats">
-        <div class="catalog-stat"><div class="catalog-stat-dot"></div><span id="totalToursCount">10 tour</span> đang mở đăng ký</div>
+        <div class="catalog-stat"><div class="catalog-stat-dot"></div><span id="totalToursCount">12 tour</span> đang mở đăng ký</div>
         <div class="catalog-stat"><div class="catalog-stat-dot"></div>Độ khó từ cơ bản đến chuyên nghiệp</div>
         <div class="catalog-stat"><div class="catalog-stat-dot"></div>Khởi hành từ Hà Nội hàng tuần</div>
       </div>
@@ -31,10 +32,13 @@
 
       <div class="filter-group" id="tagFilters">
         <button class="filter-chip active" data-filter="tag" data-value="all">
-          Tất cả <span class="chip-count" id="countAll">10</span>
+          Tất cả <span class="chip-count" id="countAll">12</span>
         </button>
-        <button class="filter-chip" data-filter="tag" data-value="featured">
-          Nổi bật <span class="chip-count" id="countFeatured">10</span>
+        <button class="filter-chip" data-filter="tag" data-value="bestSeller">
+          🏆 Bán chạy <span class="chip-count" id="countBS">6</span>
+        </button>
+        <button class="filter-chip" data-filter="tag" data-value="hot">
+          🔥 HOT <span class="chip-count" id="countHot">7</span>
         </button>
       </div>
 
@@ -42,9 +46,9 @@
 
       <div class="filter-group" id="diffFilters">
         <button class="filter-chip" data-filter="diff" data-value="all-diff">Mọi độ khó</button>
-        <button class="filter-chip" data-filter="diff" data-value="1,2">🟢 Dễ</button>
-        <button class="filter-chip" data-filter="diff" data-value="3">🟡 Nâng cao</button>
-        <button class="filter-chip" data-filter="diff" data-value="4,5">🔴 Thách thức</button>
+        <button class="filter-chip" data-filter="diff" data-value="1,2"> Dễ</button>
+        <button class="filter-chip" data-filter="diff" data-value="3"> Nâng cao</button>
+        <button class="filter-chip" data-filter="diff" data-value="4,5">Thách thức</button>
       </div>
 
       <div class="filter-divider"></div>
@@ -92,7 +96,7 @@
 
   <!-- RESULTS BAR -->
   <div class="results-bar">
-    <div class="results-count" id="resultsCount">Hiển thị <strong>6</strong> / 10 tour</div>
+    <div class="results-count" id="resultsCount">Hiển thị <strong>6</strong> / 12 tour</div>
     <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;">
       <div class="sort-wrap">
         <span class="sort-label">Sắp xếp:</span>
@@ -123,6 +127,7 @@
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="js/tours-data.js"></script>
+   <script src="js/cart.js"></script>
   <script src="js/header.js"></script>
   <script src="js/footer.js"></script>
   <script src ="js/chi-tiet-tour-trekking.js"></script>
