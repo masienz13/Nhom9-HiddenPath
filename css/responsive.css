@@ -1,0 +1,298 @@
+/* ============================================
+   RESPONSIVE.CSS
+   Breakpoints:
+   - Mobile (iPhone):     < 768px
+   - Tablet:              768px – 1024px
+   - Laptop:              1025px – 1440px
+   - Desktop:             > 1440px
+   ============================================ */
+
+/* ============================================
+   MOBILE – max-width: 767px
+   Dành cho iPhone và điện thoại nhỏ
+   ============================================ */
+@media (max-width: 767px) {
+  /* Container */
+  .container {
+    width: 100%;
+    padding: 0 16px;
+  }
+
+  /* Navigation */
+  .navbar {
+    flex-direction: column;
+    padding: 12px 16px;
+  }
+
+  .nav-menu {
+    display: none; /* Ẩn menu, hiện hamburger */
+    flex-direction: column;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .nav-menu.open {
+    display: flex;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  /* Grid – về 1 cột */
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+
+  /* Typography */
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.4rem;  }
+  h3 { font-size: 1.2rem;  }
+  p  { font-size: 0.95rem; }
+
+  /* Flexbox – xếp dọc */
+  .flex-row {
+    flex-direction: column;
+  }
+
+  /* Ảnh full width */
+  img {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Card */
+  .card {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  /* Button */
+  .btn {
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+  }
+
+  /* Sidebar – ẩn hoặc xếp dọc */
+  .sidebar {
+    width: 100%;
+    margin-bottom: 24px;
+  }
+
+  .content-area {
+    width: 100%;
+  }
+
+  /* Hero section */
+  .hero {
+    padding: 40px 16px;
+    text-align: center;
+  }
+
+  /* Table – cho phép cuộn ngang */
+  .table-wrapper {
+    overflow-x: auto;
+  }
+
+  /* Footer */
+  .footer {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
+}
+
+/* ============================================
+   TABLET – 768px đến 1024px
+   Dành cho iPad, máy tính bảng
+   ============================================ */
+@media (min-width: 768px) and (max-width: 1024px) {
+  /* Container */
+  .container {
+    width: 100%;
+    padding: 0 24px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  /* Navigation */
+  .navbar {
+    padding: 14px 24px;
+  }
+
+  .hamburger {
+    display: block; /* Vẫn dùng hamburger trên tablet đứng */
+  }
+
+  /* Grid – về 2 cột */
+  .grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Typography */
+  h1 { font-size: 2rem;   }
+  h2 { font-size: 1.6rem; }
+  h3 { font-size: 1.3rem; }
+  p  { font-size: 1rem;   }
+
+  /* Sidebar layout */
+  .sidebar {
+    width: 240px;
+  }
+
+  .content-area {
+    flex: 1;
+  }
+
+  /* Card */
+  .card {
+    width: calc(50% - 16px);
+  }
+
+  /* Hero section */
+  .hero {
+    padding: 60px 24px;
+  }
+
+  /* Button */
+  .btn {
+    padding: 10px 24px;
+  }
+}
+
+/* ============================================
+   LAPTOP – 1025px đến 1440px
+   Dành cho laptop 13" – 15"
+   ============================================ */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  /* Container */
+  .container {
+    max-width: 1200px;
+    padding: 0 32px;
+    margin: 0 auto;
+  }
+
+  /* Navigation */
+  .navbar {
+    padding: 16px 32px;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .nav-menu {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+  }
+
+  .hamburger {
+    display: none;
+  }
+
+  /* Grid */
+  .grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* Typography */
+  h1 { font-size: 2.5rem; }
+  h2 { font-size: 2rem;   }
+  h3 { font-size: 1.5rem; }
+  p  { font-size: 1rem;   }
+
+  /* Sidebar layout */
+  .sidebar {
+    width: 260px;
+  }
+
+  /* Hero section */
+  .hero {
+    padding: 80px 32px;
+  }
+
+  /* Button */
+  .btn {
+    padding: 10px 28px;
+  }
+}
+
+/* ============================================
+   DESKTOP – > 1440px
+   Dành cho màn hình lớn, 4K
+   ============================================ */
+@media (min-width: 1441px) {
+  /* Container */
+  .container {
+    max-width: 1400px;
+    padding: 0 48px;
+    margin: 0 auto;
+  }
+
+  /* Navigation */
+  .navbar {
+    padding: 20px 48px;
+  }
+
+  .nav-menu {
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+  }
+
+  .hamburger {
+    display: none;
+  }
+
+  /* Grid */
+  .grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* Typography */
+  h1 { font-size: 3rem;   }
+  h2 { font-size: 2.4rem; }
+  h3 { font-size: 1.75rem;}
+  p  { font-size: 1.1rem; }
+
+  /* Sidebar */
+  .sidebar {
+    width: 300px;
+  }
+
+  /* Hero section */
+  .hero {
+    padding: 100px 48px;
+  }
+
+  /* Button */
+  .btn {
+    padding: 12px 36px;
+  }
+}

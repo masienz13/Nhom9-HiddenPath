@@ -7,9 +7,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/thanh-toan.css">
+  <link rel="stylesheet" href="css/responsive.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script>emailjs.init("W5leNjpoV5qV5P4Kv");</script>
+  <script src="js/emailjs-config.js"></script>
   <style>
     /* ── STEP PANEL ── */
     .step-panel { display: none; }
@@ -252,9 +252,9 @@
             <div class="form-group full">
               <label style="display:flex;align-items:center;gap:8px;cursor:pointer;">
                 <input type="checkbox" id="agreeTerms" style="width:16px;height:16px;accent-color:var(--forest);">
-                Tôi đã đọc và đồng ý với <a href="#" style="color:var(--forest-3);text-decoration:underline;">chính sách hoàn hủy</a>.
+                Tôi đã đọc và đồng ý với <a href="hinh-thuc-thanh-toan.html" style="color:var(--forest-3);text-decoration:underline;">chính sách hoàn hủy</a>.
               </label>
-              <span class="form-error" id="errTerms">Vui lòng đồng ý với điều khoản dịch vụ.</span>
+              <span class="form-error" id="errTerms">Vui lòng đồng ý với chính sách hoàn hủy.</span>
             </div>
           </div>
         </div>
@@ -291,7 +291,7 @@
           </div>
 
           <div class="summary-row" id="discountRow" style="display:none;">
-            <span class="label" style="color:#16a34a;">🎉 Giảm giá</span>
+            <span class="label" style="color:#16a34a;"> Giảm giá</span>
             <span class="value" id="summaryDiscount" style="color:#16a34a;">-0₫</span>
           </div>
 
@@ -303,10 +303,10 @@
           <button class="submit-btn" id="btnNext" onclick="goToStep2()">
             Tiếp tục → Chọn thanh toán
           </button>
-          <div class="secure-note">🔒 Giao dịch được bảo mật SSL</div>
+          <div class="secure-note"> Giao dịch được bảo mật SSL</div>
           <div class="trust-badges">
-            <span class="trust-badge">✅ Hoàn tiền 100% nếu hủy trước 7 ngày</span>
-            <span class="trust-badge">📞 Hỗ trợ 24/7: 0345 846 390</span>
+            <span class="trust-badge"> Hoàn tiền 100% nếu hủy trước 7 ngày</span>
+            <span class="trust-badge">Hỗ trợ 24/7: 0345 846 390</span>
           </div>
         </div>
       </div>
@@ -347,7 +347,7 @@
             <div class="qr-block">
               <div class="qr-left">
                 <div class="qr-canvas-wrap">
-                  <img src="img/qr-mb-bank.png" alt="QR MB Bank" style="width:160px;height:160px;object-fit:contain;border-radius:8px;">
+                  <img src="img/QR mb bank.jpg" alt="QR MB Bank" style="width:160px;height:160px;object-fit:contain;border-radius:8px;">
                 </div>
                 <span class="qr-badge">QR MB Bank</span>
               </div>
@@ -370,7 +370,7 @@
               </div>
             </div>
             <div class="notice-box green" style="margin-top:12px;">
-              <span class="notice-box-icon">⚡</span>
+             
               <div>Sau khi chuyển khoản, nhân viên Hidden Path sẽ <strong>gọi điện xác nhận</strong> trong 2 giờ làm việc. Vui lòng giữ máy và ghi đúng nội dung chuyển khoản.</div>
             </div>
           </div>
@@ -455,7 +455,7 @@
           <button class="confirm-btn" id="btnConfirm" onclick="submitBooking()">
             ✅ Xác nhận đặt tour
           </button>
-          <div class="secure-note" style="margin-top:10px;">🔒 Giao dịch bảo mật SSL</div>
+          <div class="secure-note" style="margin-top:10px;"> Giao dịch bảo mật SSL</div>
         </div>
       </div>
 
