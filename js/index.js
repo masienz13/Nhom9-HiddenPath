@@ -168,6 +168,8 @@
         .map((tour) => `<option value="${tour.id}">${tour.displayName}</option>`)
         .join("");
 
+    renderDepartureDates("");
+
     if (!document.getElementById("hp-cart-btn-style")) {
       const st = document.createElement("style");
       st.id = "hp-cart-btn-style";
@@ -190,6 +192,37 @@
         }
       });
     });
+  }
+
+  function renderDepartureDates(tourId) {
+    const dateSelect = document.querySelector("#departureDate");
+    if (!dateSelect) return;
+
+    const tour = tours.find((item) => item.id === tourId);
+    const dates = tour?.departureDates || [];
+
+    if (!tour) {
+      dateSelect.innerHTML = '<option value="">Chọn tour trước</option>';
+      dateSelect.disabled = true;
+      return;
+    }
+
+    if (!dates.length) {
+      dateSelect.innerHTML = '<option value="">Chưa có lịch khởi hành</option>';
+      dateSelect.disabled = true;
+      return;
+    }
+
+    dateSelect.disabled = false;
+    dateSelect.innerHTML =
+      '<option value="">Chọn ngày...</option>' +
+      dates
+        .map((item) => {
+          const disabled = item.slots <= 0 ? " disabled" : "";
+          const slotsLabel = item.slots <= 0 ? "Hết chỗ" : `Còn ${item.slots} chỗ`;
+          return `<option value="${item.date}"${disabled}>${item.day} - ${item.date} (${slotsLabel})</option>`;
+        })
+        .join("");
   }
 
   function renderBlogs() {
@@ -224,12 +257,10 @@
     const form = document.querySelector("#quickBooking");
     if (!form) return;
 
-    if (window.jQuery && jQuery.fn.datepicker) {
-      jQuery("#departureDate").datepicker({
-        minDate: 0,
-        dateFormat: "dd/mm/yy",
-      });
-    }
+    const tourSelect = document.querySelector("#tourSelect");
+    tourSelect?.addEventListener("change", (event) => {
+      renderDepartureDates(event.target.value);
+    });
 
     form.addEventListener("submit", (event) => {
       event.preventDefault();

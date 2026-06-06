@@ -1,3 +1,19 @@
+const departureDates2N1D = [
+  { date: "13/06/2026", day: "T7", slots: 12 },
+  { date: "20/06/2026", day: "T7", slots: 8 },
+  { date: "27/06/2026", day: "T7", slots: 5 },
+  { date: "04/07/2026", day: "T7", slots: 3 },
+  { date: "11/07/2026", day: "T7", slots: 10 },
+];
+
+const departureDates3N2D = [
+  { date: "12/06/2026", day: "T6", slots: 12 },
+  { date: "19/06/2026", day: "T6", slots: 8 },
+  { date: "26/06/2026", day: "T6", slots: 5 },
+  { date: "03/07/2026", day: "T6", slots: 3 },
+  { date: "10/07/2026", day: "T6", slots: 10 },
+];
+
 const hiddenPathTours = [
   {
     id: "fansipan",
@@ -17,6 +33,7 @@ const hiddenPathTours = [
     rating: 4.9,
     reviewCount: 28,
     tags: ["featured"],
+    departureDates: departureDates2N1D,
   },
   {
     id: "khang-su-van",
@@ -36,6 +53,7 @@ const hiddenPathTours = [
     rating: 4.9,
     reviewCount: 19,
     tags: ["featured"],
+    departureDates: departureDates3N2D,
   },
   {
     id: "ky-quan-san",
@@ -55,6 +73,7 @@ const hiddenPathTours = [
     rating: 4.9,
     reviewCount: 31,
     tags: ["featured"],
+    departureDates: departureDates3N2D,
   },
   {
     id: "lao-than",
@@ -74,6 +93,7 @@ const hiddenPathTours = [
     rating: 4.8,
     reviewCount: 24,
     tags: ["featured"],
+    departureDates: departureDates2N1D,
   },
   {
     id: "nam-kang-ho-tao",
@@ -93,6 +113,7 @@ const hiddenPathTours = [
     rating: 4.9,
     reviewCount: 16,
     tags: ["featured"],
+    departureDates: departureDates3N2D,
   },
   {
     id: "ngu-chi-son",
@@ -112,6 +133,7 @@ const hiddenPathTours = [
     rating: 4.8,
     reviewCount: 18,
     tags: ["featured"],
+    departureDates: departureDates3N2D,
   },
   {
     id: "nhiu-co-san",
@@ -131,6 +153,7 @@ const hiddenPathTours = [
     rating: 4.9,
     reviewCount: 22,
     tags: ["featured"],
+    departureDates: departureDates2N1D,
   },
   {
     id: "phu-sa-phin",
@@ -150,6 +173,7 @@ const hiddenPathTours = [
     rating: 4.8,
     reviewCount: 20,
     tags: ["featured"],
+    departureDates: departureDates2N1D,
   },
   {
     id: "pu-ta-leng",
@@ -169,6 +193,7 @@ const hiddenPathTours = [
     rating: 4.9,
     reviewCount: 34,
     tags: ["featured"],
+    departureDates: departureDates3N2D,
   },
   {
     id: "ta-lien-son",
@@ -188,6 +213,7 @@ const hiddenPathTours = [
     rating: 4.8,
     reviewCount: 21,
     tags: ["featured"],
+    departureDates: departureDates2N1D,
   },
 ];
 

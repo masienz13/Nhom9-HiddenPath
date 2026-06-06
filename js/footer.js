@@ -43,17 +43,10 @@
 
                   <section>
             <h3>Điều khoản - Chính sách</h3>
-            <a href="huong-dan-dat-tour.html">Hướng dẫn đặt tour</a>
-            <a href="chinh-sach-hoan-huy.html">Chính sách hoàn hủy</a>
-            <a href="hinh-thuc-thanh-toan.html">Hình thức thanh toán</a>
-            <a href="chinh-sach-bao-mat.html">Chính sách bảo mật</a>
-          </section>
-
-          <section>
-            <h3>Thông tin hữu ích</h3>
-            <a href="ve-chung-toi.html">Về chúng tôi</a>
-            <a href="lien-he.html">Liên hệ</a>
-            <a href="blog.html">Tin tức</a>
+            <a href="${basePath}huong-dan-dat-tour.html">Hướng dẫn đặt tour</a>
+            <a href="${basePath}chinh-sach-hoan-huy.html">Chính sách hoàn hủy</a>
+            <a href="${basePath}hinh-thuc-thanh-toan.html">Hình thức thanh toán</a>
+            <a href="${basePath}chinh-sach-bao-mat.html">Chính sách bảo mật</a>
           </section>
 
           <section>
