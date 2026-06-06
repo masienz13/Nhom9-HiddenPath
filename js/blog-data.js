@@ -5,7 +5,7 @@ const hiddenPathBlogPosts = [
     date: "2026-06-03",
     displayDate: "03/06/2026",
     tag: "Kinh nghiệm",
-    image: "img/tours/putaleng.png",
+    image: "img/blog/putaleng-1.jpg",
     summary: "Chuẩn bị thể lực, đồ dùng cá nhân và tinh thần trước khi bước vào hành trình leo núi dài ngày.",
   },
   {
@@ -14,7 +14,7 @@ const hiddenPathBlogPosts = [
     date: "2026-06-02",
     displayDate: "02/06/2026",
     tag: "Trang bị",
-    image: "img/tours/lao than.png",
+    image: "img/blog/gear-1.jpg",
     summary: "Danh sách các vật dụng quan trọng giúp chuyến trekking an toàn, gọn nhẹ và thoải mái hơn.",
   },
   {
@@ -23,7 +23,7 @@ const hiddenPathBlogPosts = [
     date: "2026-06-01",
     displayDate: "01/06/2026",
     tag: "Cung đường",
-    image: "img/tours/Fansipan.png",
+    image: "img/blog/taybac-1.jpg",
     summary: "Gợi ý những cung trekking nổi bật dành cho người yêu thiên nhiên và thích thử thách bản thân.",
   },
   {
@@ -32,7 +32,7 @@ const hiddenPathBlogPosts = [
     date: "2026-05-30",
     displayDate: "30/05/2026",
     tag: "Kinh nghiệm",
-    image: "img/tours/ta lien son.png",
+    image: "img/blog/safety-1.jpg",
     summary: "Các nguyên tắc cơ bản giúp bạn hạn chế rủi ro khi di chuyển trong rừng núi.",
   },
   {
@@ -41,7 +41,7 @@ const hiddenPathBlogPosts = [
     date: "2026-05-29",
     displayDate: "29/05/2026",
     tag: "Trang bị",
-    image: "img/tours/Ky quan san.png",
+    image: "img/blog/gear-1.jpg",
     summary: "Balo phù hợp giúp phân bổ trọng lượng tốt và giảm mệt mỏi khi leo núi nhiều giờ.",
   },
   {
@@ -50,7 +50,7 @@ const hiddenPathBlogPosts = [
     date: "2026-05-28",
     displayDate: "28/05/2026",
     tag: "Cung đường",
-    image: "img/tours/nhiu co san.png",
+    image: "img/blog/nhiucosan-1.jpg",
     summary: "Cung đường nổi bật với biển mây, rừng già và khung cảnh nguyên sơ đặc trưng vùng Tây Bắc.",
   },
 ];
