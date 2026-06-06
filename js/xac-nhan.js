@@ -3,8 +3,7 @@
     const data = raw ? JSON.parse(raw) : null;
 
     const methodLabels = {
-      deposit: 'Đặt cọc 30% — Nhân viên gọi xác nhận',
-      transfer: 'Chuyển khoản toàn bộ',
+      transfer: 'Chuyển khoản ngân hàng',
       momo: 'Ví MoMo',
       cod: 'Thanh toán tiền mặt',
     };
@@ -23,6 +22,7 @@
       document.getElementById('xnTitle').textContent = 'Thanh toán thành công!';
       document.getElementById('xnDesc').textContent = 'Email xác nhận đã được gửi tới ' + data.email + '.';
     } else {
+      // cod
       document.getElementById('xnIcon').textContent = '🎉';
       document.getElementById('xnTitle').textContent = 'Đặt tour thành công!';
       document.getElementById('xnDesc').textContent = 'Nhân viên sẽ gọi tới ' + data.phone + ' trong vòng 2 giờ làm việc.';
@@ -57,19 +57,15 @@
 
     // Next steps
     const stepsMap = {
-      deposit: [
-        { icon: '📞', title: 'Nhân viên gọi điện xác nhận', desc: 'Trong vòng 2 giờ làm việc, nhân viên sẽ gọi tới ' + data.phone + ' để xác nhận chỗ ngồi.' },
-        { icon: '💳', title: 'Chuyển khoản đặt cọc 30%', desc: 'Sau khi xác nhận, bạn thanh toán đặt cọc để giữ chỗ trong 24 giờ.' },
-        { icon: '📧', title: 'Nhận email xác nhận', desc: 'Email chi tiết lịch trình gửi tới ' + data.email + ' sau khi hoàn tất đặt cọc.' },
-        { icon: '🏔', title: 'Chuẩn bị lên đường!', desc: 'Danh sách đồ cần mang và nhắc nhở sẽ gửi 3 ngày trước khởi hành.' },
-      ],
       transfer: [
         { icon: '🏦', title: 'Thực hiện chuyển khoản', desc: 'Chuyển khoản ' + data.total + ' với nội dung HIDDENPATH ' + data.bookingId + '.' },
-        { icon: '✅', title: 'Xác nhận tự động trong 30 phút', desc: 'Sau khi nhận được thanh toán, hệ thống tự động xác nhận và gửi email.' },
+        { icon: '📞', title: 'Nhân viên gọi xác nhận', desc: 'Trong vòng 2 giờ làm việc, nhân viên sẽ gọi tới ' + data.phone + ' để xác nhận đã nhận thanh toán.' },
+        { icon: '📧', title: 'Nhận email xác nhận', desc: 'Email xác nhận chi tiết lịch trình gửi tới ' + data.email + ' sau khi đối chiếu giao dịch.' },
         { icon: '🏔', title: 'Chuẩn bị lên đường!', desc: 'Danh sách đồ cần mang và nhắc nhở sẽ gửi 3 ngày trước khởi hành.' },
       ],
       momo: [
         { icon: '📱', title: 'Kiểm tra xác nhận MoMo', desc: 'Bạn sẽ nhận thông báo qua ví MoMo và email trong vài phút.' },
+        { icon: '📧', title: 'Nhận email xác nhận', desc: 'Email chi tiết đặt tour gửi tới ' + data.email + ' sau khi giao dịch thành công.' },
         { icon: '🏔', title: 'Chuẩn bị lên đường!', desc: 'Danh sách đồ cần mang và nhắc nhở sẽ gửi 3 ngày trước khởi hành.' },
       ],
       cod: [
@@ -79,7 +75,7 @@
       ],
     };
 
-    const steps = stepsMap[data.method] || stepsMap['deposit'];
+    const steps = stepsMap[data.method] || stepsMap['cod'];
     document.getElementById('xnSteps').innerHTML = steps.map(s => `
       <li class="xn-step">
         <span class="xn-step-icon">${s.icon}</span>

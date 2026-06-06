@@ -4,7 +4,7 @@
     let numPeople    = 1;
     let selectedDate = null;
     let discount     = 0;
-    let payMethod    = 'deposit';
+    let payMethod    = 'transfer';
     let qrGenerated  = { transfer: false, momo: false };
 
     const PROMO = { 'HIDDEN10': 0.10, 'TREKKING20': 0.20, 'NEWMEMBER': 0.15 };
@@ -42,7 +42,7 @@
       const container = document.getElementById('dateOptions');
       const days = ['CN','T2','T3','T4','T5','T6','T7'];
       const base = new Date(2025, 6, 12);
-      const dates = Array.from({length: 6}, (_, i) => {
+      const dates = Array.from({length: 9}, (_, i) => {
         const d = new Date(base); d.setDate(base.getDate() + i * 7);
         return { label: `${d.getDate()}/${d.getMonth()+1}`, day: days[d.getDay()], slots: Math.floor(Math.random()*12) };
       });
@@ -114,25 +114,7 @@
       const momoAmtEl = document.getElementById('momoAmt');
       if (momoAmtEl) momoAmtEl.textContent = fmt(total);
 
-      // sidebar step2
-      document.getElementById('cs-tour').textContent   = selectedTour.displayName;
-      document.getElementById('cs-date').textContent   = selectedDate || '--';
-      document.getElementById('cs-people').textContent = numPeople + ' người';
-      document.getElementById('cs-unit').textContent   = fmt(selectedTour.price);
-      document.getElementById('cs-total').textContent  = fmt(total);
-      document.getElementById('cs-deposit').textContent = fmt(dep);
-      document.getElementById('cs-method').textContent = METHOD_LABEL[payMethod];
-      document.getElementById('cs-name').textContent   = document.getElementById('fullName').value || '--';
-      document.getElementById('cs-phone').textContent  = document.getElementById('phone').value || '--';
-
-      const isDeposit = payMethod === 'deposit';
-      document.getElementById('cs-deposit-row').style.display = isDeposit ? '' : 'none';
-      if (disc > 0) {
-        document.getElementById('cs-discount-row').style.display = '';
-        document.getElementById('cs-discount').textContent = '-' + fmt(disc);
-      } else {
-        document.getElementById('cs-discount-row').style.display = 'none';
-      }
+      // sidebar step2 (đã bỏ, chỉ còn nút xác nhận)
 
       const codPhoneEl = document.getElementById('codPhone');
       if (codPhoneEl) codPhoneEl.textContent = document.getElementById('phone').value || 'số điện thoại của bạn';
@@ -247,8 +229,10 @@
       document.getElementById('step1').querySelector('.step-num').textContent = '✓';
       document.getElementById('step2').classList.add('active');
 
-      updateSummary();
-      setTimeout(generateQRs, 100); // generate QRs after render
+      setTimeout(() => {
+        updateSummary();
+        generateQRs();
+      }, 50);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
@@ -297,31 +281,35 @@
 
       const customerEmail = document.getElementById('email').value.trim();
 
-      // Gửi email xác nhận qua EmailJS
-      const sendEmail = customerEmail
-        ? emailjs.send('service_wkjxt9v', 'template_dujlt8p', {
-            to_email:        customerEmail,
-            customer_name:   bookingData.name,
-            customer_phone:  bookingData.phone,
-            tour_name:       bookingData.tourName,
-            departure_date:  bookingData.selectedDate || 'Chưa chọn',
-            num_people:      bookingData.numPeople,
-            total_amount:    bookingData.total + 'đ',
-            payment_method:  methodLabel[payMethod] || payMethod,
-          })
-        : Promise.resolve();
+      // Gửi email xác nhận qua EmailJS — luôn chuyển trang dù mail thành công hay thất bại
+      function redirect() {
+        sessionStorage.setItem('hiddenpath_booking', JSON.stringify(bookingData));
+        window.location.href = 'xac-nhan.html';
+      }
 
-      sendEmail
-        .then(() => {
-          sessionStorage.setItem('hiddenpath_booking', JSON.stringify(bookingData));
-          window.location.href = 'xac-nhan.html';
-        })
-        .catch((err) => {
+      try {
+        const sendEmail = customerEmail
+          ? sendBookingEmail({
+              to_email:        customerEmail,
+              customer_name:   bookingData.name,
+              customer_phone:  bookingData.phone,
+              order_id:        bookingData.bookingId,
+              tour_name:       bookingData.tourName,
+              departure_date:  bookingData.selectedDate || 'Chưa chọn',
+              num_people:      bookingData.numPeople,
+              total_amount:    bookingData.total,
+              payment_method:  methodLabel[payMethod] || payMethod,
+            })
+          : Promise.resolve();
+
+        sendEmail.then(redirect).catch((err) => {
           console.warn('EmailJS error:', err);
-          // Vẫn chuyển trang dù gửi mail thất bại
-          sessionStorage.setItem('hiddenpath_booking', JSON.stringify(bookingData));
-          window.location.href = 'xac-nhan.html';
+          redirect();
         });
+      } catch (err) {
+        console.warn('EmailJS exception:', err);
+        redirect();
+      }
     };
 
     init();
