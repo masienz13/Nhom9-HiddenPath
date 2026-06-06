@@ -83,8 +83,6 @@
       padding: 2px 8px; border-radius: 4px;
       font-size: 10px; font-weight: 900; text-transform: uppercase;
     }
-    .cart-tag-hot { background: #fee2e2; color: #991b1b; }
-    .cart-tag-bs { background: #fef9c3; color: #854d0e; }
     .cart-tag-diff { background: #e6f4ec; color: var(--forest); }
     .cart-item h3 {
       margin: 0 0 6px; font-size: 16px; color: var(--forest); line-height: 1.3;

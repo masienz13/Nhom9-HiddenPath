@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
@@ -14,22 +14,7 @@
   <header-placeholder></header-placeholder>
 
   <main class="tour-page">
-<div class="ticker-wrap">
-        <div class="ticker">
-            <span>Tả Liên Sơn <strong>2996m</strong></span>
-            <span>Ky Quan San <strong>3046m</strong></span>
-            <span>Nhìu Cồ San <strong>2860m</strong></span>
-            <span>Fansipan <strong>3143m</strong></span>
-            <span>Pu Si Lung <strong>3083m</strong></span>
-            <span>Tả Chì Nhù <strong>2979m</strong></span>
-            <span>Lảo Thẩn <strong>2860m</strong></span>
-            <span>Fansipan <strong>3143m</strong></span>
-            <span>Khang Su Văn <strong>3083m</strong></span>
-            <span>Ngũ Chỉ Sơn<strong>2858m</strong></span>
-        </div>
-    </div>
-
-    <div class="tour-hero">
+<div class="tour-hero">
         <img src="../img/tours/Ky quan san.png" alt="Ky Quan San" class="hero-img">
         <div class="hero-overlay"></div>
         
@@ -44,7 +29,9 @@
             <a href="#chi-tiet" class="tab-link active">Chi tiết tour</a>
             <a href="#lich-trinh" class="tab-link">Lịch trình</a>
             <a href="#do-kho" class="tab-link">Độ khó</a>
-            <a href="#chuan-bi" class="tab-link">Chuẩn bị</a>            <span class="tab-underline" aria-hidden="true"></span>
+            <a href="#chuan-bi" class="tab-link">Chuẩn bị</a>
+            <a href="#thu-vien-anh" class="tab-link">Thư viện ảnh</a>
+            <span class="tab-underline" aria-hidden="true"></span>
         </div>
     </div>
 
@@ -213,6 +200,14 @@
                     <div class="check-item">Thẻ BHYT / bảo hiểm du lịch</div>
                 </div>
             </div>
+            <div id="thu-vien-anh" class="section-box tour-gallery">
+                <h2 class="section-title">Thư viện ảnh</h2>
+                <div class="gallery-grid">
+                    <figure class="gallery-item"><img src="../img/tours/kyquanson1.jpg" alt="Thư viện ảnh ky-quan-san 1"></figure>
+                    <figure class="gallery-item"><img src="../img/tours/kyquanson2.jpg" alt="Thư viện ảnh ky-quan-san 2"></figure>
+                    <figure class="gallery-item"><img src="../img/tours/kyquanson3.jpg" alt="Thư viện ảnh ky-quan-san 3"></figure>
+                </div>
+            </div>
 
         </div>
 
@@ -220,15 +215,6 @@
             <div class="booking-card">
                 <div class="price-label">Giá</div>
                 <div class="price-val">4.900.000<sup>đ</sup></div>
-                
-                <div class="form-group">
-                    <label class="form-label">
-                        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-                        Chọn ngày khởi hành
-                    </label>
-                    <input type="date" class="form-control" value="2026-03-27">
-                    <div class="slots">Còn trống: 32</div>
-                </div>
 
                 <div class="form-group">
                     <label class="form-label">
@@ -244,7 +230,10 @@
                     </select>
                 </div>
 
-                <button class="btn-submit">Đặt Tour</button>
+                <div class="booking-actions">
+                    <button class="btn-add-cart booking-cart-btn" type="button" title="Thêm vào giỏ hàng" aria-label="Thêm tour vào giỏ hàng">🛒</button>
+                    <button class="btn-submit" type="button">Đặt Tour</button>
+                </div>
                 <div class="booking-note">Trước khi thanh toán, Quý khách vui lòng liên hệ Hidden Path để xác nhận chi phí và lịch trình khởi hành tour.</div>
                 
                 <div class="contact-box">

@@ -346,6 +346,17 @@ select {
   margin: 0 0 14px;
 }
 
+.footer-mountain-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 24px;
+}
+
+.footer-mountain-list a {
+  margin-bottom: 12px;
+  white-space: nowrap;
+}
+
 .site-footer a:hover {
   color: var(--gold);
 }
@@ -481,6 +492,10 @@ select {
   }
 
   .footer-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-mountain-list {
     grid-template-columns: 1fr;
   }
 

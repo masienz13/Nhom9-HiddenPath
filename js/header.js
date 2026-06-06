@@ -80,12 +80,18 @@ class HeaderPlaceholder extends HTMLElement {
       const query = input.value.trim();
       if (!query) return;
 
-      window.dispatchEvent(
-        new CustomEvent("hiddenpath:tour-search", { detail: { query } })
-      );
+      const catalogPath = `${basePath}chi-tiet-tour-trekking.html`;
+      const isCatalogPage = window.location.pathname.endsWith("/chi-tiet-tour-trekking.html");
 
-      if (!document.body.classList.contains("home-page")) {
-        window.location.href = `${basePath}index.html?search=${encodeURIComponent(query)}`;
+      if (isCatalogPage) {
+        const url = new URL(window.location.href);
+        url.searchParams.set("search", query);
+        history.replaceState(null, "", url);
+        window.dispatchEvent(
+          new CustomEvent("hiddenpath:tour-search", { detail: { query } })
+        );
+      } else {
+        window.location.href = `${catalogPath}?search=${encodeURIComponent(query)}`;
       }
     });
   }

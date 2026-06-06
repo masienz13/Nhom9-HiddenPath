@@ -121,9 +121,6 @@ window.addEventListener('hp:cart-update', (e) => {
       const tour = getTour(item.tourId);
       if (!tour) return '';
       const total = tour.price * item.people;
-      const tagBadge = tour.tags.includes('bestSeller')
-        ? '<span class="cart-tag cart-tag-bs">🏆 Bán chạy</span>'
-        : '<span class="cart-tag cart-tag-hot">🔥 HOT</span>';
       const dateOpts = DATE_OPTIONS.map(d =>
         `<option value="${d}" ${d===item.date?'selected':''}>${d}/2025</option>`
       ).join('');
@@ -133,7 +130,6 @@ window.addEventListener('hp:cart-update', (e) => {
           <div class="cart-item-img" style="background-image:url('${tour.image}')"></div>
           <div class="cart-item-info">
             <div class="cart-item-tags">
-              ${tagBadge}
               <span class="cart-tag cart-tag-diff">${tour.difficulty}</span>
             </div>
             <h3>${tour.displayName}</h3>
