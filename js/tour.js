@@ -83,12 +83,30 @@
   function initBookingButton() {
     const button = document.querySelector(".btn-submit");
     const cartButton = document.querySelector(".booking-cart-btn");
+    const peopleSelect = document.querySelector(".booking-card select");
+
+    const syncPeopleFromUrl = () => {
+      if (!peopleSelect) return;
+
+      const people = new URLSearchParams(window.location.search).get("people");
+      if (!people) return;
+
+      const option = Array.from(peopleSelect.options).find((item) => {
+        const value = item.value.match(/\d+/)?.[0];
+        return value === people;
+      });
+
+      if (option) peopleSelect.value = option.value;
+    };
+
     const getBookingData = () => {
       const tourId = document.body.dataset.tourId;
-      const peopleValue = document.querySelector(".booking-card select")?.value || "";
+      const peopleValue = peopleSelect?.value || "";
       const people = Number(peopleValue.match(/\d+/)?.[0] || 1);
       return { tourId, people };
     };
+
+    syncPeopleFromUrl();
 
     button?.addEventListener("click", () => {
       const params = new URLSearchParams();
