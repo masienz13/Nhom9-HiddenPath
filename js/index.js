@@ -268,11 +268,12 @@
       const date = document.querySelector("#departureDate").value;
       const people = document.querySelector("#peopleSelect").value;
       const params = new URLSearchParams();
-      if (tour) params.set("tour", tour);
       if (date) params.set("date", date);
       if (people) params.set("people", people);
       const suffix = params.toString() ? `?${params.toString()}` : "";
-      window.location.href = `chi-tiet-tour-trekking.html${suffix}`;
+      window.location.href = tour
+        ? `tours/${tour}.html${suffix}`
+        : `chi-tiet-tour-trekking.html${suffix}`;
     });
   }
 
