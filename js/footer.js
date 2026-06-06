@@ -13,20 +13,47 @@
             <p>Email: hiddenpathbooking@gmail.com</p>
             <p>Tổng đài dịch vụ: 1900 2869</p>
             <p>Hotline đặt tour: 0345846390</p>
+            
             <div class="social-list" aria-label="Mạng xã hội">
-              <a href="#" aria-label="Facebook"><img src="${basePath}img/fb.png" alt="fb"></a>
-              <a href="#" aria-label="Instagram"><img src="${basePath}img/ins.png" alt="ig"></a>
-              <a href="#" aria-label="YouTube"><img src="${basePath}img/yt.png" alt="yt"></a>
-              <a href="#" aria-label="TikTok"><img src="${basePath}img/tiktok.png" alt="tiktok"></a>
-            </div>
+            <a href="https://www.facebook.com/profile.php?id=61590654630128"
+              target="_blank"
+              aria-label="Facebook">
+              <img src="img/fb.png" alt="fb">
+            </a>
+
+            <a href="https://www.instagram.com/hidden.path.bookingg/"
+              target="_blank"
+              aria-label="Instagram">
+              <img src="img/ins.png" alt="ig">
+            </a>
+
+            <a href="https://www.youtube.com/@HiddenPath.bookingg"
+              target="_blank"
+              aria-label="YouTube">
+              <img src="img/yt.png" alt="yt">
+            </a>
+
+            <a href="https://www.tiktok.com/@hiddenpathbookingg"
+              target="_blank"
+              aria-label="TikTok">
+              <img src="img/tiktok.png" alt="tiktok">
+            </a>
+          </div>
+                  </section>
+
+                  <section>
+            <h3>Điều khoản - Chính sách</h3>
+            <a href="huong-dan-dat-tour.html">Hướng dẫn đặt tour</a>
+            <a href="chinh-sach-hoan-huy.html">Chính sách hoàn hủy</a>
+            <a href="hinh-thuc-thanh-toan.html">Hình thức thanh toán</a>
+            <a href="chinh-sach-bao-mat.html">Chính sách bảo mật</a>
           </section>
 
           <section>
-            <h3>Điều khoản - Chính sách</h3>
-            <a href="${basePath}huong-dan-dat-tour.html">Hướng dẫn đặt tour</a>
-            <a href="${basePath}chinh-sach-hoan-huy.html">Chính sách hoàn hủy</a>
-            <a href="${basePath}hinh-thuc-thanh-toan.html">Hình thức thanh toán</a>
-            <a href="#">Chính sách bảo mật</a>
+            <h3>Thông tin hữu ích</h3>
+            <a href="ve-chung-toi.html">Về chúng tôi</a>
+            <a href="lien-he.html">Liên hệ</a>
+            <a href="blog.html">Tin tức</a>
           </section>
 
           <section>

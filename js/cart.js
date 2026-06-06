@@ -189,18 +189,8 @@ window.addEventListener('hp:cart-update', (e) => {
 
     document.getElementById('summaryItems').innerHTML = html;
     document.getElementById('subTotal').textContent = formatPrice(sub);
-
-    const disc = Math.round(sub * discountRate);
-    const grand = sub - disc;
-    if (disc > 0) {
-      document.getElementById('discountRow').style.display = '';
-      document.getElementById('discountVal').textContent = '-' + formatPrice(disc);
-    } else {
-      document.getElementById('discountRow').style.display = 'none';
-    }
-    document.getElementById('grandTotal').textContent = formatPrice(grand);
+    document.getElementById('grandTotal').textContent = formatPrice(sub);
   }
-
   function renderRecommend(cartItems) {
     const all = window.hiddenPathTours || [];
     const inCart = cartItems.map(i => i.tourId);

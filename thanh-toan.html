@@ -135,19 +135,8 @@
             <span class="value" id="summaryUnitPrice">--</span>
           </div>
 
-          <div class="promo-row">
-            <div class="promo-input-wrap">
-              <input class="promo-input" id="promoInput" type="text" placeholder="Mã giảm giá">
-              <button class="promo-btn" onclick="applyPromo()">Áp dụng</button>
-            </div>
-            <div class="promo-result" id="promoResult"></div>
-          </div>
-
-          <div class="summary-row" id="discountRow" style="display:none;">
-            <span class="label" style="color:#16a34a;"> Giảm giá</span>
-            <span class="value" id="summaryDiscount" style="color:#16a34a;">-0₫</span>
-          </div>
-
+         
+         
           <div class="summary-total">
             <span class="label">Tổng cộng</span>
             <span class="value" id="summaryTotal">--</span>
@@ -232,7 +221,9 @@
           <div class="pay-panel" id="panel-momo">
             <div class="qr-block" style="background:linear-gradient(135deg,#fff0f6,#fce4ec);border-color:#f48fb1;">
               <div class="qr-left">
-                <div class="qr-canvas-wrap"><div id="qrMomo"></div></div>
+               <div class="qr-canvas-wrap">
+               <img src="img/QR-momo.jpg" alt="QR MoMo" style="width:160px;height:160px;object-fit:contain;border-radius:8px;">
+              </div>
                 <span class="qr-badge" style="background:#d82d8b;">QR MoMo</span>
               </div>
               <div class="qr-right">
@@ -284,27 +275,6 @@
       <!-- Sidebar step 2 -->
       <div class="checkout-sidebar">
         <div class="confirm-summary-card">
-          <h3>📋 Xác nhận đơn hàng</h3>
-          <div class="cs-row"><span class="lbl">Tour</span><span class="val" id="cs-tour" style="max-width:160px;text-align:right;font-size:12px;">--</span></div>
-          <div class="cs-row"><span class="lbl">Ngày khởi hành</span><span class="val" id="cs-date">--</span></div>
-          <div class="cs-row"><span class="lbl">Số người</span><span class="val" id="cs-people">--</span></div>
-          <div class="cs-row"><span class="lbl">Đơn giá</span><span class="val" id="cs-unit">--</span></div>
-          <div class="cs-row" id="cs-discount-row" style="display:none;"><span class="lbl" style="color:#16a34a;">Giảm giá</span><span class="val" id="cs-discount" style="color:#16a34a;">--</span></div>
-          <div class="cs-total">
-            <span class="lbl">Tổng cộng</span>
-            <span class="val" id="cs-total">--</span>
-          </div>
-          <div class="cs-deposit" id="cs-deposit-row">
-            <span class="lbl" style="color:var(--muted);font-size:12px;">Đặt cọc ngay (30%)</span>
-            <span class="val" id="cs-deposit">--</span>
-          </div>
-
-          <hr style="border:none;border-top:1px solid var(--line);margin:4px 0 16px;">
-
-          <div class="cs-row"><span class="lbl">Họ tên</span><span class="val" id="cs-name">--</span></div>
-          <div class="cs-row"><span class="lbl">SĐT</span><span class="val" id="cs-phone">--</span></div>
-          <div class="cs-row"><span class="lbl">Hình thức</span><span class="val" id="cs-method" style="font-size:12px;">--</span></div>
-
           <button class="confirm-btn" id="btnConfirm" onclick="submitBooking()">
             ✅ Xác nhận đặt tour
           </button>

@@ -80,6 +80,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 28px;
+    align-items: stretch;
 }
 
 .blog-card {
@@ -89,6 +90,8 @@
     border-radius: 18px;
     box-shadow: var(--shadow);
     transition: .25s ease;
+    display: flex;
+    flex-direction: column;
 }
 
 .blog-card:hover {
@@ -103,10 +106,15 @@
 
 .blog-content {
     padding: 26px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
+/* GIỮ NGUYÊN TAG BÉ NHƯ CŨ */
 .blog-tag {
     display: inline-block;
+    width: fit-content;
     background: var(--mint);
     color: var(--forest-3);
     border-radius: 999px;
@@ -121,16 +129,21 @@
     color: var(--forest);
     font-size: 25px;
     line-height: 1.22;
+    min-height: 62px;
 }
 
 .blog-content p {
     margin: 0 0 24px;
     color: var(--muted);
     font-size: 16px;
+    line-height: 1.6;
+    min-height: 52px;
 }
 
 .blog-content .btn {
     min-width: 150px;
+    width: fit-content;
+    margin-top: auto;
 }
 
 @media (max-width: 1000px) {
@@ -154,5 +167,10 @@
 
     .blog-card img {
         height: 230px;
+    }
+
+    .blog-content h3,
+    .blog-content p {
+        min-height: auto;
     }
 }
