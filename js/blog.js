@@ -2,50 +2,32 @@ const cards = document.querySelectorAll(".blog-card");
 const buttons = document.querySelectorAll(".blog-tabs button");
 const searchInput = document.getElementById("searchInput");
 
-buttons.forEach(button => {
+let currentFilter = "all";
 
-    button.addEventListener("click", () => {
-
-        buttons.forEach(btn =>
-            btn.classList.remove("active")
-        );
-
-        button.classList.add("active");
-
-        const filter = button.dataset.filter;
-
-        cards.forEach(card => {
-
-            if (
-                filter === "all" ||
-                card.dataset.category === filter
-            ) {
-                card.style.display = "block";
-            } else {
-                card.style.display = "none";
-            }
-
-        });
-
-    });
-
-});
-
-searchInput.addEventListener("keyup", () => {
-
-    const keyword =
-        searchInput.value.toLowerCase();
+function filterPosts() {
+    const keyword = searchInput.value.toLowerCase().trim();
 
     cards.forEach(card => {
+        const matchCategory =
+            currentFilter === "all" ||
+            card.dataset.category === currentFilter;
 
-        const text =
-            card.innerText.toLowerCase();
+        const matchSearch =
+            card.innerText.toLowerCase().includes(keyword);
 
         card.style.display =
-            text.includes(keyword)
-                ? "block"
-                : "none";
-
+            matchCategory && matchSearch ? "flex" : "none";
     });
+}
 
+buttons.forEach(button => {
+    button.addEventListener("click", () => {
+        buttons.forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active");
+
+        currentFilter = button.dataset.filter;
+        filterPosts();
+    });
 });
+
+searchInput.addEventListener("keyup", filterPosts);
