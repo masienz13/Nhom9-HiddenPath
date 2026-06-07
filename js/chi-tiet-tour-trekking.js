@@ -5,7 +5,6 @@
   let viewMode = 'grid'; // grid | list
 
   let filters = {
-    tag: 'all',
     diff: 'all-diff',
     duration: 'all',
     location: 'all',
@@ -16,6 +15,80 @@
   const formatter = new Intl.NumberFormat('vi-VN');
 
   const diffColors = { 1: 'diff-1', 2: 'diff-2', 3: 'diff-3', 4: 'diff-4', 5: 'diff-5' };
+
+  function normalizeText(value) {
+    return String(value || '')
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/đ/g, 'd')
+      .replace(/[^a-z0-9]+/g, ' ')
+      .trim()
+      .replace(/\s+/g, ' ');
+  }
+
+  function compactText(value) {
+    return normalizeText(value).replace(/\s+/g, '');
+  }
+
+  function escapeHTML(value) {
+    return String(value || '').replace(/[&<>"']/g, (char) => ({
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#039;'
+    }[char]));
+  }
+
+  function getTourSearchText(tour) {
+    return [
+      tour.displayName,
+      tour.name,
+      tour.id,
+      tour.location,
+      tour.province,
+      tour.description,
+      tour.altitude,
+      tour.duration,
+      tour.difficulty
+    ].join(' ');
+  }
+
+  function matchesSearch(tour, query) {
+    const normalizedQuery = normalizeText(query);
+    if (!normalizedQuery) return true;
+
+    const tourText = getTourSearchText(tour);
+    const normalizedTour = normalizeText(tourText);
+    const compactQuery = compactText(query);
+    const compactTour = compactText(tourText);
+    const terms = normalizedQuery.split(' ').filter(Boolean);
+
+    return (
+      normalizedTour.includes(normalizedQuery) ||
+      compactTour.includes(compactQuery) ||
+      terms.every((term) => normalizedTour.includes(term))
+    );
+  }
+
+  function updateSearchQueryParam(query) {
+    const url = new URL(window.location.href);
+    if (query) {
+      url.searchParams.set('search', query);
+    } else {
+      url.searchParams.delete('search');
+    }
+    history.replaceState(null, '', url);
+  }
+
+  function scrollToResults() {
+    const target = document.querySelector('.results-bar') || document.querySelector('.filter-bar');
+    if (!target) return;
+    window.setTimeout(() => {
+      window.scrollTo({ top: target.offsetTop - 110, behavior: 'smooth' });
+    }, 80);
+  }
 
   function formatPrice(p) {
     return p.toLocaleString('vi-VN') + '₫';
@@ -53,18 +126,10 @@
   }
 
   function buildCard(tour) {
-    const tagBadge = tour.tags.includes('bestSeller')
-      ? '<span class="tour-badge">🏆 Bán chạy</span>'
-      : tour.tags.includes('hot')
-      ? '<span class="tour-badge hot">🔥 HOT</span>'
-      : '';
-
     return `
       <article class="tour-card" data-id="${tour.id}" data-aos>
         <a href="tours/${tour.id}.html" style="text-decoration:none;display:block;">
-          <div class="tour-image" style="background-image:url('${tour.image}')">
-            ${tagBadge}
-          </div>
+          <div class="tour-image" style="background-image:url('${tour.image}')"></div>
         </a>
         <div class="tour-card-body">
           <div class="tour-meta">
@@ -92,9 +157,6 @@
   function applyFilters() {
     let tours = [...window.hiddenPathTours];
 
-    if (filters.tag !== 'all') {
-      tours = tours.filter(t => t.tags.includes(filters.tag));
-    }
     if (filters.diff !== 'all-diff') {
       const levels = filters.diff.split(',').map(Number);
       tours = tours.filter(t => levels.includes(t.difficultyLevel));
@@ -110,12 +172,7 @@
       tours = tours.filter(t => t.price >= min && t.price <= max);
     }
     if (filters.search) {
-      const q = filters.search.toLowerCase();
-      tours = tours.filter(t =>
-        t.displayName.toLowerCase().includes(q) ||
-        t.location.toLowerCase().includes(q) ||
-        t.description.toLowerCase().includes(q)
-      );
+      tours = tours.filter(t => matchesSearch(t, filters.search));
     }
 
     if (sortBy === 'price-asc') tours.sort((a, b) => a.price - b.price);
@@ -138,10 +195,11 @@
       `Hiển thị <strong>${pageTours.length}</strong> / ${total} tour`;
 
     if (pageTours.length === 0) {
+      const searchText = filters.search ? ` với "${escapeHTML(filters.search)}"` : '';
       grid.innerHTML = `
         <div class="empty-state">
           <div class="empty-state-icon">🏔️</div>
-          <h3>Không tìm thấy tour phù hợp</h3>
+          <h3>Không tìm thấy tour phù hợp${searchText}</h3>
           <p>Hãy thử thay đổi hoặc xóa bộ lọc để xem thêm tour.</p>
           <button class="btn btn-dark" onclick="clearAllFilters()">Xóa bộ lọc</button>
         </div>`;
@@ -198,7 +256,6 @@
     const container = document.getElementById('activeFilterTags');
     const tags = [];
 
-    if (filters.tag !== 'all') tags.push({ key: 'tag', label: filters.tag === 'bestSeller' ? '🏆 Bán chạy' : '🔥 HOT' });
     if (filters.diff !== 'all-diff') tags.push({ key: 'diff', label: `Độ khó: ${filters.diff === '1,2' ? 'Dễ' : filters.diff === '3' ? 'Nâng cao' : 'Thách thức'}` });
     if (filters.duration !== 'all') tags.push({ key: 'duration', label: `${filters.duration}N${filters.duration-1}D` });
     if (filters.location !== 'all') tags.push({ key: 'location', label: document.getElementById('locationFilter').options[document.getElementById('locationFilter').selectedIndex].text });
@@ -211,37 +268,27 @@
   }
 
   window.removeFilter = function(key) {
-    if (key === 'tag') { filters.tag = 'all'; document.querySelectorAll('[data-filter=tag]').forEach(b => b.classList.toggle('active', b.dataset.value === 'all')); }
     if (key === 'diff') { filters.diff = 'all-diff'; document.querySelectorAll('[data-filter=diff]').forEach(b => b.classList.toggle('active', b.dataset.value === 'all-diff')); }
     if (key === 'duration') { filters.duration = 'all'; document.getElementById('durationFilter').value = 'all'; }
     if (key === 'location') { filters.location = 'all'; document.getElementById('locationFilter').value = 'all'; }
     if (key === 'price') { filters.price = 'all'; document.getElementById('priceFilter').value = 'all'; }
-    if (key === 'search') { filters.search = ''; document.getElementById('searchInput').value = ''; }
+    if (key === 'search') { filters.search = ''; document.getElementById('searchInput').value = ''; updateSearchQueryParam(''); }
     applyFilters();
   };
 
   window.clearAllFilters = function() {
-    filters = { tag: 'all', diff: 'all-diff', duration: 'all', location: 'all', price: 'all', search: '' };
+    filters = { diff: 'all-diff', duration: 'all', location: 'all', price: 'all', search: '' };
     document.getElementById('searchInput').value = '';
+    updateSearchQueryParam('');
     document.getElementById('durationFilter').value = 'all';
     document.getElementById('locationFilter').value = 'all';
     document.getElementById('priceFilter').value = 'all';
-    document.querySelectorAll('[data-filter=tag]').forEach(b => b.classList.toggle('active', b.dataset.value === 'all'));
     document.querySelectorAll('[data-filter=diff]').forEach(b => b.classList.toggle('active', b.dataset.value === 'all-diff'));
     applyFilters();
   };
 
   // Event listeners
   document.getElementById('clearFilters').addEventListener('click', clearAllFilters);
-
-  document.querySelectorAll('[data-filter=tag]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      filters.tag = btn.dataset.value;
-      document.querySelectorAll('[data-filter=tag]').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      applyFilters();
-    });
-  });
 
   document.querySelectorAll('[data-filter=diff]').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -265,7 +312,11 @@
   let searchTimer;
   document.getElementById('searchInput').addEventListener('input', e => {
     clearTimeout(searchTimer);
-    searchTimer = setTimeout(() => { filters.search = e.target.value.trim(); applyFilters(); }, 300);
+    searchTimer = setTimeout(() => {
+      filters.search = e.target.value.trim();
+      updateSearchQueryParam(filters.search);
+      applyFilters();
+    }, 300);
   });
 
   document.querySelectorAll('.sort-btn').forEach(btn => {
@@ -293,8 +344,6 @@
   function updateCounts() {
     const all = window.hiddenPathTours;
     document.getElementById('countAll').textContent = all.length;
-    document.getElementById('countBS').textContent = all.filter(t => t.tags.includes('bestSeller')).length;
-    document.getElementById('countHot').textContent = all.filter(t => t.tags.includes('hot')).length;
     document.getElementById('totalToursCount').textContent = all.length + ' tour';
   }
 
@@ -302,5 +351,22 @@
   injectCartBtnStyle();
 
   updateCounts();
+
+  window.addEventListener('hiddenpath:tour-search', (event) => {
+    const query = event.detail?.query?.trim() || '';
+    filters.search = query;
+    document.getElementById('searchInput').value = query;
+    updateSearchQueryParam(query);
+    applyFilters();
+    scrollToResults();
+  });
+
+  const initialQuery = new URLSearchParams(window.location.search).get('search');
+  if (initialQuery) {
+    filters.search = initialQuery.trim();
+    document.getElementById('searchInput').value = filters.search;
+    window.setTimeout(scrollToResults, 120);
+  }
+
   applyFilters();
 })();

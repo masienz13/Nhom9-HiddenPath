@@ -18,6 +18,7 @@
     /* ── INIT ── */
     const params  = new URLSearchParams(window.location.search);
     const tourId  = params.get('tour');
+    const dateParam = params.get('date');
 
     function init() {
       const tours = window.hiddenPathTours || [];
@@ -40,26 +41,28 @@
     /* ── DATES ── */
     function renderDates() {
       const container = document.getElementById('dateOptions');
-      const days = ['CN','T2','T3','T4','T5','T6','T7'];
-      const base = new Date(2025, 6, 12);
-      const dates = Array.from({length: 9}, (_, i) => {
-        const d = new Date(base); d.setDate(base.getDate() + i * 7);
-        return { label: `${d.getDate()}/${d.getMonth()+1}`, day: days[d.getDay()], slots: Math.floor(Math.random()*12) };
-      });
-      container.innerHTML = dates.map((d, i) => {
-        const full = d.slots === 0, urgent = d.slots > 0 && d.slots <= 3;
-        return `<div class="date-opt ${full?'sold-out':''} ${i===0&&!full?'selected':''}"
-          data-date="${d.label}" onclick="${full?'':'selectDate(this)'}" title="${full?'Hết chỗ':''}">
+      const dates = selectedTour?.departureDates || [];
+      if (!dates.length) {
+        selectedDate = null;
+        container.innerHTML = '<p class="form-hint">Tour này chưa có lịch khởi hành.</p>';
+        updateSummary();
+        return;
+      }
+
+      const selected = dates.find(d => d.date === dateParam && d.slots > 0) || dates.find(d => d.slots > 0);
+      selectedDate = selected ? selected.date : null;
+
+      container.innerHTML = dates.map((d) => {
+        const full = d.slots <= 0, urgent = d.slots > 0 && d.slots <= 3;
+        return `<div class="date-opt ${full?'sold-out':''} ${d.date===selectedDate?'selected':''}"
+          data-date="${d.date}" onclick="${full?'':'selectDate(this)'}" title="${full?'Hết chỗ':''}">
           <span class="date-day">${d.day}</span>
-          <span class="date-full">${d.label}</span>
+          <span class="date-full">${d.date}</span>
           <span class="date-slots" style="color:${urgent?'#f97316':'inherit'}">${full?'Hết chỗ':'Còn '+d.slots+' chỗ'}</span>
         </div>`;
       }).join('');
-      const first = container.querySelector('.date-opt:not(.sold-out)');
-      if (first) selectedDate = first.dataset.date;
       updateSummary();
     }
-
     window.selectDate = function(el) {
       document.querySelectorAll('.date-opt').forEach(d => d.classList.remove('selected'));
       el.classList.add('selected');

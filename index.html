@@ -21,19 +21,25 @@
     <section class="mountain-ticker" aria-label="Các cung núi nổi bật">
       <div class="ticker-track">
         <span>Fansipan <strong>3143m</strong></span>
+        <span>Khang Su Văn <strong>3012m</strong></span>
         <span>Ky Quan San <strong>3046m</strong></span>
+        <span>Lảo Thẩn <strong>2860m</strong></span>
+        <span>Nam Kang Ho Tao <strong>2881m</strong></span>
+        <span>Ngũ Chỉ Sơn <strong>2858m</strong></span>
+        <span>Nhìu Cồ San <strong>2965m</strong></span>
+        <span>Phu Sa Phìn <strong>2868m</strong></span>
         <span>Pu Ta Leng <strong>3049m</strong></span>
         <span>Tả Liên Sơn <strong>2996m</strong></span>
-        <span>Tả Chì Nhù <strong>2979m</strong></span>
-        <span>Lảo Thẩn <strong>2860m</strong></span>
-        <span>Nhìu Cồ San <strong>2965m</strong></span>
         <span>Fansipan <strong>3143m</strong></span>
+        <span>Khang Su Văn <strong>3012m</strong></span>
         <span>Ky Quan San <strong>3046m</strong></span>
+        <span>Lảo Thẩn <strong>2860m</strong></span>
+        <span>Nam Kang Ho Tao <strong>2881m</strong></span>
+        <span>Ngũ Chỉ Sơn <strong>2858m</strong></span>
+        <span>Nhìu Cồ San <strong>2965m</strong></span>
+        <span>Phu Sa Phìn <strong>2868m</strong></span>
         <span>Pu Ta Leng <strong>3049m</strong></span>
         <span>Tả Liên Sơn <strong>2996m</strong></span>
-        <span>Tả Chì Nhù <strong>2979m</strong></span>
-        <span>Lảo Thẩn <strong>2860m</strong></span>
-        <span>Nhìu Cồ San <strong>2965m</strong></span>
       </div>
     </section>
 
@@ -55,7 +61,9 @@
             </label>
             <label>
               <span>Ngày khởi hành</span>
-              <input id="departureDate" name="date" type="text" placeholder="Chọn ngày..." autocomplete="off">
+              <select id="departureDate" name="date" disabled>
+                <option value="">Chọn tour trước</option>
+              </select>
             </label>
             <label>
               <span>Số người</span>
@@ -77,20 +85,20 @@
     <section class="stats-section" aria-label="Số liệu Hidden Path">
       <div class="container stats-grid">
         <div class="stat-item">
-          <strong class="stat-number" data-target="5000">0+</strong>
-          <span>Khách hàng hài lòng</span>
+          <strong class="stat-number" data-target="10">0+</strong>
+          <span>Tour leo núi</span>
         </div>
         <div class="stat-item">
-          <strong class="stat-number" data-target="12">0+</strong>
-          <span>Năm kinh nghiệm</span>
+          <strong class="stat-number" data-target="3">0+</strong>
+          <span>Miền núi Tây Bắc</span>
         </div>
         <div class="stat-item">
           <strong class="stat-number" data-target="48">0+</strong>
-          <span>Cung leo núi</span>
+          <span>Lịch trình khởi hành</span>
         </div>
         <div class="stat-item">
-          <strong class="stat-number" data-target="200">0+</strong>
-          <span>HDV chuyên nghiệp</span>
+          <strong class="stat-number" data-target="20">0+</strong>
+          <span>HDV địa phương</span>
         </div>
       </div>
     </section>
@@ -131,29 +139,18 @@
       </div>
     </section>
 
-    <section class="tour-section section-pad" id="bestSeller">
+    <section class="tour-section section-pad" id="featuredToursSection">
       <div class="container">
         <div class="section-heading">
-          <h2>Tour bán chạy</h2>
+          <h2>Tour nổi bật</h2>
           <a href="chi-tiet-tour-trekking.html">Xem tất cả</a>
         </div>
-        <div class="tour-grid" id="bestSellerTours"></div>
-      </div>
-    </section>
-
-    <section class="tour-section hot-section section-pad">
-      <div class="container">
-        <div class="section-heading">
-          <h2>Tour HOT trong tháng</h2>
-          <a href="chi-tiet-tour-trekking.html">Xem tất cả</a>
-        </div>
-        <div class="tour-grid" id="hotTours"></div>
+        <div class="tour-grid" id="featuredTours"></div>
         <div class="center-action">
           <a class="btn btn-primary" href="chi-tiet-tour-trekking.html">Xem tất cả tour</a>
         </div>
       </div>
     </section>
-
     <section class="blog-section section-pad">
       <div class="container">
         <div class="section-heading">
@@ -206,7 +203,7 @@
           <h2>Cùng Hidden Path Chinh Phục Những Đỉnh Núi Cao Nhất Việt Nam</h2>
           <p>Hidden Path tiên phong trong hành trình chinh phục núi cao, khám phá thiên nhiên nguyên sơ và lan tỏa tinh thần trekking tại Việt Nam.</p>
         </div>
-        <a class="btn btn-primary" href="#quickBooking">Đặt tour ngay</a>
+        <a class="btn btn-primary" href="chi-tiet-tour-trekking.html">Đặt tour ngay</a>
       </div>
     </section>
   </main>
@@ -217,6 +214,7 @@
   <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js"></script>
   <script src="js/tours-data.js"></script>
   <script src="js/cart.js"></script>
+  <script src="js/blog-data.js"></script>
   <script src="js/header.js"></script>
   <script src="js/footer.js"></script>
   <script src="js/index.js"></script>

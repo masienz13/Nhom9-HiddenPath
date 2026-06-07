@@ -1,0 +1,229 @@
+.guide-page {
+  min-height: 100vh;
+  background: var(--cream);
+  padding-bottom: 80px;
+}
+
+.guide-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 72px 0 58px;
+  background: linear-gradient(135deg, var(--forest) 0%, #1a4a2c 62%, #0d2918 100%);
+}
+
+.guide-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.035'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM36 4V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.guide-hero-inner {
+  position: relative;
+  z-index: 1;
+  width: min(calc(100% - 80px), 900px);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.guide-eyebrow {
+  display: inline-flex;
+  margin-bottom: 16px;
+  padding: 6px 16px;
+  border: 1px solid rgba(255, 255, 255, .22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .1);
+  color: rgba(255, 255, 255, .82);
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.guide-hero h1 {
+  margin: 0 0 14px;
+  color: var(--gold);
+  font-size: 52px;
+  line-height: 1.08;
+}
+
+.guide-hero p {
+  max-width: 620px;
+  margin: 0 auto;
+  color: rgba(255, 255, 255, .76);
+  font-size: 17px;
+}
+
+.guide-content {
+  width: min(calc(100% - 80px), 980px);
+  margin: 48px auto 0;
+}
+
+.guide-step {
+  display: grid;
+  grid-template-columns: 86px 1fr;
+  gap: 24px;
+  margin-bottom: 22px;
+  padding: 30px;
+  border: 1.5px solid var(--line);
+  border-radius: 16px;
+  background: var(--white);
+  box-shadow: 0 10px 30px rgba(20, 51, 31, .06);
+}
+
+.step-number {
+  width: 70px;
+  height: 70px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  background: var(--forest);
+  color: var(--gold);
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.step-body h2 {
+  margin: 0 0 12px;
+  color: var(--forest);
+  font-size: 24px;
+  line-height: 1.25;
+}
+
+.step-body p {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.step-body p:last-child {
+  margin-bottom: 0;
+}
+
+.pending-link {
+  display: grid;
+  gap: 4px;
+  margin: 16px 0;
+  padding: 16px 18px;
+  border: 1px dashed rgba(47, 112, 76, .36);
+  border-radius: 12px;
+  background: #f0f9f4;
+}
+
+.pending-link strong {
+  color: var(--forest);
+  font-size: 14px;
+}
+
+.pending-link span {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.bank-box {
+  margin: 18px 0;
+  padding: 24px 26px;
+  border: 1.5px solid rgba(47, 112, 76, .22);
+  border-radius: 16px;
+  background: linear-gradient(135deg, #f0f9f4, #e6f4ec);
+}
+
+.bank-box h3 {
+  margin: 0 0 14px;
+  color: var(--forest);
+  font-size: 17px;
+}
+
+.bank-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(47, 112, 76, .14);
+}
+
+.bank-row:last-child {
+  border-bottom: 0;
+}
+
+.bank-row span {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.bank-row strong {
+  color: var(--ink);
+  font-size: 14px;
+  text-align: right;
+}
+
+.guide-note {
+  margin-top: 34px;
+  padding: 34px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--forest), #1f5a38);
+  text-align: center;
+}
+
+.guide-note h2 {
+  margin: 0 0 10px;
+  color: var(--gold);
+  font-size: 30px;
+}
+
+.guide-note p {
+  max-width: 680px;
+  margin: 0 auto 22px;
+  color: rgba(255, 255, 255, .78);
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+.guide-note strong {
+  color: var(--white);
+}
+
+.guide-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 760px) {
+  .guide-hero-inner,
+  .guide-content {
+    width: min(calc(100% - 36px), 980px);
+  }
+
+  .guide-hero h1 {
+    font-size: 36px;
+  }
+
+  .guide-step {
+    grid-template-columns: 1fr;
+    padding: 24px;
+  }
+
+  .step-number {
+    width: 58px;
+    height: 58px;
+    font-size: 20px;
+  }
+
+  .bank-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .bank-row strong {
+    text-align: left;
+  }
+
+  .guide-note {
+    padding: 28px 22px;
+  }
+}

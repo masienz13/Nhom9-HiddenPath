@@ -1,11 +1,12 @@
 class HeaderPlaceholder extends HTMLElement {
   connectedCallback() {
+    const basePath = window.location.pathname.includes("/tours/") ? "../" : "";
     this.innerHTML = `
       <header class="site-header">
         <div class="header-inner">
-          <a class="brand" href="index.html" aria-label="Hidden Path trang chủ">
+          <a class="brand" href="${basePath}index.html" aria-label="Hidden Path trang chủ">
             <span class="brand-logo-wrap">
-              <img class="brand-logo" src="img/logo.png" alt="Hidden Path logo">
+              <img class="brand-logo" src="${basePath}img/logo.png" alt="Hidden Path logo">
             </span>
             <span class="brand-copy">
               <span class="brand-name">Hidden Path</span>
@@ -18,11 +19,11 @@ class HeaderPlaceholder extends HTMLElement {
           </button>
 
           <nav class="main-nav" aria-label="Điều hướng chính">
-            <a href="index.html" data-page="index">Trang chủ</a>
-            <a href="chi-tiet-tour-trekking.html" data-page="tour">Tour Trekking</a>
-            <a href="ve-chung-toi.html" data-page="about">Về chúng tôi</a>
-            <a href="blog.html" data-page="blog">Blog</a>
-            <a href="lien-he.html" data-page="contact">Liên hệ</a>
+            <a href="${basePath}index.html" data-page="index">Trang chủ</a>
+            <a href="${basePath}chi-tiet-tour-trekking.html" data-page="tour">Tour Trekking</a>
+            <a href="${basePath}ve-chung-toi.html" data-page="about">Về chúng tôi</a>
+            <a href="${basePath}blog.html" data-page="blog">Blog</a>
+            <a href="${basePath}lien-he.html" data-page="contact">Liên hệ</a>
           </nav>
 
           <form class="header-search" role="search">
@@ -33,7 +34,7 @@ class HeaderPlaceholder extends HTMLElement {
             </button>
           </form>
 
-          <a class="cart-icon-btn" href="cart.html" aria-label="Giỏ hàng">
+          <a class="cart-icon-btn" href="${basePath}cart.html" aria-label="Giỏ hàng">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
             <span class="cart-badge" style="display:none;">0</span>
           </a>
@@ -79,12 +80,18 @@ class HeaderPlaceholder extends HTMLElement {
       const query = input.value.trim();
       if (!query) return;
 
-      window.dispatchEvent(
-        new CustomEvent("hiddenpath:tour-search", { detail: { query } })
-      );
+      const catalogPath = `${basePath}chi-tiet-tour-trekking.html`;
+      const isCatalogPage = window.location.pathname.endsWith("/chi-tiet-tour-trekking.html");
 
-      if (!document.body.classList.contains("home-page")) {
-        window.location.href = `index.html?search=${encodeURIComponent(query)}`;
+      if (isCatalogPage) {
+        const url = new URL(window.location.href);
+        url.searchParams.set("search", query);
+        history.replaceState(null, "", url);
+        window.dispatchEvent(
+          new CustomEvent("hiddenpath:tour-search", { detail: { query } })
+        );
+      } else {
+        window.location.href = `${catalogPath}?search=${encodeURIComponent(query)}`;
       }
     });
   }

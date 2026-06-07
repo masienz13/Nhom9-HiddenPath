@@ -1,0 +1,58 @@
+const hiddenPathBlogPosts = [
+  {
+    id: "bai-1",
+    title: "Kinh nghiệm trekking Pu Ta Leng lần đầu",
+    date: "2026-06-03",
+    displayDate: "03/06/2026",
+    tag: "Kinh nghiệm",
+    image: "img/blog/putaleng-1.jpg",
+    summary: "Chuẩn bị thể lực, đồ dùng cá nhân và tinh thần trước khi bước vào hành trình leo núi dài ngày.",
+  },
+  {
+    id: "bai-2",
+    title: "Đồ cần mang khi leo núi",
+    date: "2026-06-02",
+    displayDate: "02/06/2026",
+    tag: "Trang bị",
+    image: "img/blog/gear-1.jpg",
+    summary: "Danh sách các vật dụng quan trọng giúp chuyến trekking an toàn, gọn nhẹ và thoải mái hơn.",
+  },
+  {
+    id: "bai-3",
+    title: "Top 3 cung đường đẹp Tây Bắc",
+    date: "2026-06-01",
+    displayDate: "01/06/2026",
+    tag: "Cung đường",
+    image: "img/blog/taybac-1.jpg",
+    summary: "Gợi ý những cung trekking nổi bật dành cho người yêu thiên nhiên và thích thử thách bản thân.",
+  },
+  {
+    id: "bai-4",
+    title: "Lưu ý an toàn khi đi trekking",
+    date: "2026-05-30",
+    displayDate: "30/05/2026",
+    tag: "Kinh nghiệm",
+    image: "img/blog/safety-1.jpg",
+    summary: "Các nguyên tắc cơ bản giúp bạn hạn chế rủi ro khi di chuyển trong rừng núi.",
+  },
+  {
+    id: "bai-5",
+    title: "Cách chọn balo trekking phù hợp",
+    date: "2026-05-29",
+    displayDate: "29/05/2026",
+    tag: "Trang bị",
+    image: "img/blog/gear-1.jpg",
+    summary: "Balo phù hợp giúp phân bổ trọng lượng tốt và giảm mệt mỏi khi leo núi nhiều giờ.",
+  },
+  {
+    id: "bai-6",
+    title: "Nhìu Cồ San có gì đặc biệt?",
+    date: "2026-05-28",
+    displayDate: "28/05/2026",
+    tag: "Cung đường",
+    image: "img/blog/nhiucosan-1.jpg",
+    summary: "Cung đường nổi bật với biển mây, rừng già và khung cảnh nguyên sơ đặc trưng vùng Tây Bắc.",
+  },
+];
+
+window.hiddenPathBlogPosts = hiddenPathBlogPosts;

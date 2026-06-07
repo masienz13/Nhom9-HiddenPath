@@ -10,7 +10,7 @@
       subtitle:
         "Trải nghiệm hành trình đi xuyên qua cánh rừng nguyên sinh,đắm mình trong màu xanh của thiên nhiên, nghe tiếng gió reo, ngắm dòng suối chảy, trượt lên những mỏm đá cũ kĩ nhuốm màu rêu phong của thời gian.",
       meta: "3N2D | HDV bản địa | Đa dạng trải nghiệm",
-      image: "img/tours/putaleng.png",
+      image: "img/tours/putaleng2.jpg",
     },
     {
       label: "Trekking",
@@ -19,7 +19,7 @@
       subtitle:
         "Cung đường thử thách với biển mây bồng bềnh, rừng trúc và bình minh trên sống núi.",
       meta: "3N2D | HDV bản địa | Porter hỗ trợ",
-      image: "img/tours/ky quan san.png",
+      image: "img/tours/kyquanson3.jpg",
     },
     {
       label: "Trekking",
@@ -28,33 +28,10 @@
       subtitle:
         "Hành trình chạm nóc nhà Đông Dương dành cho người mới bắt đầu và nhóm bạn yêu trải nghiệm.",
       meta: "2N1D | Lịch trình tối ưu | Đảm bảo an toàn",
-      image: "img/tours/fansipan.png",
+      image: "img/tours/fansipan1.jpg",
     },
   ];
 
-  const blogPosts = [
-    {
-      title: "Kinh nghiệm trekking Tây Bắc lần đầu",
-      tag: "Kinh nghiệm",
-      image: "img/blog-beginner.jpg",
-      summary:
-        "Chuẩn bị thể lực, lịch trình và tâm lý để chuyến leo núi đầu tiên an toàn, vui và đáng nhớ.",
-    },
-    {
-      title: "Checklist đồ cần mang khi leo núi",
-      tag: "Trang bị",
-      image: "img/blog-gear.jpg",
-      summary:
-        "Những món đồ cần thiết cho tour 2N1D và 3N2D, từ giày, áo mưa đến thuốc cá nhân.",
-    },
-    {
-      title: "Top cung đường săn mây đẹp ở Tây Bắc",
-      tag: "Cung đường",
-      image: "img/blog-route.jpg",
-      summary:
-        "Gợi ý các đỉnh núi có biển mây đẹp, phù hợp từng mức kinh nghiệm và mùa trong năm.",
-    },
-  ];
 
   let currentSlide = 0;
   let slideTimer;
@@ -137,18 +114,14 @@
     slideTimer = window.setInterval(() => goToSlide(currentSlide + 1), 5000);
   }
 
-  function createTourCard(tour, badge) {
-    const badgeHtml = badge === 'Tour bán chạy'
-      ? '<span class="tour-badge">🏆 Bán chạy</span>'
-      : '<span class="tour-badge hot">🔥 HOT</span>';
-
+  function createTourCard(tour) {
     return `
       <article class="tour-card" data-tour-name="${tour.displayName.toLowerCase()}">
         <a class="tour-image" href="tours/${tour.id}.html" data-bg="${tour.image}" aria-label="${tour.displayName}">
-          ${badgeHtml}
+          <span class="tour-badge">Nổi bật</span>
           <div class="tour-rating">
             <span class="star-icon">★</span>
-            ${tour.rating || '4.9'} <span style="opacity:0.7;font-size:10px">(${tour.reviewCount || '12'})</span>
+            ${tour.rating || "4.9"} <span style="opacity:0.7;font-size:10px">(${tour.reviewCount || "12"})</span>
           </div>
         </a>
         <div class="tour-card-body">
@@ -175,19 +148,14 @@
   }
 
   function renderTours() {
-    const bestSeller = document.querySelector("#bestSellerTours");
-    const hot = document.querySelector("#hotTours");
+    const featured = document.querySelector("#featuredTours");
     const select = document.querySelector("#tourSelect");
-    if (!bestSeller || !hot || !select) return;
+    if (!featured || !select) return;
 
-    bestSeller.innerHTML = tours
-      .filter((tour) => tour.tags.includes("bestSeller"))
-      .map((tour) => createTourCard(tour, "Tour bán chạy"))
-      .join("");
-
-    hot.innerHTML = tours
-      .filter((tour) => tour.tags.includes("hot"))
-      .map((tour) => createTourCard(tour, "Tour hot"))
+    featured.innerHTML = tours
+      .filter((tour) => tour.tags.includes("featured"))
+      .slice(0, 6)
+      .map(createTourCard)
       .join("");
 
     document.querySelectorAll(".tour-image").forEach((image) => {
@@ -200,25 +168,25 @@
         .map((tour) => `<option value="${tour.id}">${tour.displayName}</option>`)
         .join("");
 
-    // Inject add-to-cart button styles
-    if (!document.getElementById('hp-cart-btn-style')) {
-      const st = document.createElement('style');
-      st.id = 'hp-cart-btn-style';
+    renderDepartureDates("");
+
+    if (!document.getElementById("hp-cart-btn-style")) {
+      const st = document.createElement("style");
+      st.id = "hp-cart-btn-style";
       st.textContent = `.tour-card-actions{display:flex;align-items:center;gap:8px;}.btn-add-cart{background:#fff;border:2px solid #2d6a4f;color:#2d6a4f;border-radius:8px;width:38px;height:38px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s;flex-shrink:0;}.btn-add-cart:hover{background:#2d6a4f;color:#fff;}.btn-add-cart.added{background:#2d6a4f;color:#fff;}`;
       document.head.appendChild(st);
     }
 
-    // Add to cart click handler
-    document.querySelectorAll('.btn-add-cart').forEach(btn => {
-      btn.addEventListener('click', (e) => {
+    document.querySelectorAll(".btn-add-cart").forEach(btn => {
+      btn.addEventListener("click", (e) => {
         e.preventDefault();
         const tourId = btn.dataset.tourId;
-        const today = new Date().toLocaleDateString('vi-VN');
+        const today = new Date().toLocaleDateString("vi-VN");
         if (window.HiddenCart) {
           window.HiddenCart.add(tourId, today, 1);
-          btn.classList.add('added');
-          btn.title = 'Đã thêm vào giỏ!';
-          setTimeout(() => { btn.classList.remove('added'); btn.title = 'Thêm vào giỏ hàng'; }, 1500);
+          btn.classList.add("added");
+          btn.title = "Đã thêm vào giỏ!";
+          setTimeout(() => { btn.classList.remove("added"); btn.title = "Thêm vào giỏ hàng"; }, 1500);
         } else {
           window.location.href = `thanh-toan.html?tour=${tourId}`;
         }
@@ -226,18 +194,53 @@
     });
   }
 
+  function renderDepartureDates(tourId) {
+    const dateSelect = document.querySelector("#departureDate");
+    if (!dateSelect) return;
+
+    const tour = tours.find((item) => item.id === tourId);
+    const dates = tour?.departureDates || [];
+
+    if (!tour) {
+      dateSelect.innerHTML = '<option value="">Chọn tour trước</option>';
+      dateSelect.disabled = true;
+      return;
+    }
+
+    if (!dates.length) {
+      dateSelect.innerHTML = '<option value="">Chưa có lịch khởi hành</option>';
+      dateSelect.disabled = true;
+      return;
+    }
+
+    dateSelect.disabled = false;
+    dateSelect.innerHTML =
+      '<option value="">Chọn ngày...</option>' +
+      dates
+        .map((item) => {
+          const disabled = item.slots <= 0 ? " disabled" : "";
+          const slotsLabel = item.slots <= 0 ? "Hết chỗ" : `Còn ${item.slots} chỗ`;
+          return `<option value="${item.date}"${disabled}>${item.day} - ${item.date} (${slotsLabel})</option>`;
+        })
+        .join("");
+  }
+
   function renderBlogs() {
     const grid = document.querySelector("#blogPreview");
     if (!grid) return;
 
-    grid.innerHTML = blogPosts
+    const latestPosts = [...(window.hiddenPathBlogPosts || [])]
+      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .slice(0, 3);
+
+    grid.innerHTML = latestPosts
       .map(
         (post) => `
           <article class="blog-card">
-            <a class="blog-thumb" href="blog.html" data-bg="${post.image}" aria-label="${post.title}"></a>
+            <a class="blog-thumb" href="blog-detail.html?id=${post.id}" data-bg="${post.image}" aria-label="${post.title}"></a>
             <div class="blog-body">
               <span>${post.tag}</span>
-              <h3><a href="blog.html">${post.title}</a></h3>
+              <h3><a href="blog-detail.html?id=${post.id}">${post.title}</a></h3>
               <p>${post.summary}</p>
             </div>
           </article>
@@ -254,12 +257,10 @@
     const form = document.querySelector("#quickBooking");
     if (!form) return;
 
-    if (window.jQuery && jQuery.fn.datepicker) {
-      jQuery("#departureDate").datepicker({
-        minDate: 0,
-        dateFormat: "dd/mm/yy",
-      });
-    }
+    const tourSelect = document.querySelector("#tourSelect");
+    tourSelect?.addEventListener("change", (event) => {
+      renderDepartureDates(event.target.value);
+    });
 
     form.addEventListener("submit", (event) => {
       event.preventDefault();
@@ -267,11 +268,12 @@
       const date = document.querySelector("#departureDate").value;
       const people = document.querySelector("#peopleSelect").value;
       const params = new URLSearchParams();
-      if (tour) params.set("tour", tour);
       if (date) params.set("date", date);
       if (people) params.set("people", people);
       const suffix = params.toString() ? `?${params.toString()}` : "";
-      window.location.href = `chi-tiet-tour-trekking.html${suffix}`;
+      window.location.href = tour
+        ? `tours/${tour}.html${suffix}`
+        : `chi-tiet-tour-trekking.html${suffix}`;
     });
   }
 
@@ -339,7 +341,7 @@
         }
       }
 
-      document.querySelector("#bestSeller").scrollIntoView({ behavior: "smooth" });
+      document.querySelector("#featuredToursSection").scrollIntoView({ behavior: "smooth" });
     }
 
     window.addEventListener("hiddenpath:tour-search", (event) => {

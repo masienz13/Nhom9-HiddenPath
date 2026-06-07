@@ -367,7 +367,6 @@
   background: var(--paper);
 }
 
-.hot-section,
 .blog-section {
   background: var(--cream);
 }
@@ -427,7 +426,6 @@
   text-transform: uppercase;
 }
 
-.tour-badge.hot { background: #f45d35; color: #fff; }
 
 /* Rating badge on image */
 .tour-rating {
