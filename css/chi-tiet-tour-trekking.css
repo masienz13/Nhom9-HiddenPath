@@ -52,7 +52,7 @@
   background: var(--white);
   border-bottom: 1px solid var(--line);
   position: sticky;
-  top: 86px;
+  top: var(--header-height, 86px);
   z-index: 100;
   box-shadow: 0 4px 20px rgba(20,51,31,0.08);
 }
@@ -405,4 +405,18 @@
   .catalog-hero-inner, .filter-bar-inner, .results-bar, .active-filters, .catalog-body {
     width: min(calc(100% - 36px), 1750px);
   }
+}
+
+/* MOBILE OVERRIDE - filter-bar top và scroll */
+@media (max-width: 767px) {
+  .filter-bar {
+    top: 60px; /* header mobile height */
+  }
+  .filter-bar-inner {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .filter-bar-inner::-webkit-scrollbar { display: none; }
 }

@@ -97,13 +97,17 @@
 
     goToSlide(0);
     restartHeroTimer();
+
+    // Recalculate on resize/orientation change
+    window.addEventListener('resize', () => goToSlide(currentSlide));
   }
 
   function goToSlide(index) {
     const track = document.querySelector(".hero-track");
     const dots = document.querySelectorAll(".hero-dots button");
     currentSlide = (index + heroSlides.length) % heroSlides.length;
-    track.style.transform = `translateX(-${currentSlide * 100}%)`;
+    const heroWidth = track.parentElement.offsetWidth;
+    track.style.transform = `translateX(-${currentSlide * heroWidth}px)`;
     dots.forEach((dot, dotIndex) => {
       dot.classList.toggle("is-active", dotIndex === currentSlide);
     });

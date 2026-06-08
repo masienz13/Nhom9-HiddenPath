@@ -54,7 +54,7 @@ class HeaderPlaceholder extends HTMLElement {
     if (!document.getElementById('hp-cart-icon-style')) {
       const st = document.createElement('style');
       st.id = 'hp-cart-icon-style';
-      st.textContent = `.cart-icon-btn{position:relative;display:flex;align-items:center;color:inherit;text-decoration:none;margin-left:8px;padding:4px;}.cart-icon-btn svg{width:22px;height:22px;}.cart-badge{position:absolute;top:-6px;right:-8px;background:#e53e3e;color:#fff;border-radius:50%;min-width:18px;height:18px;font-size:11px;font-weight:700;display:flex!important;align-items:center;justify-content:center;padding:0 3px;line-height:1;}`;
+      st.textContent = `.cart-icon-btn{position:relative!important;display:flex;align-items:center;color:inherit;text-decoration:none;margin-left:8px;padding:4px;}.cart-icon-btn svg{width:22px;height:22px;}.cart-badge{position:absolute;top:-6px;right:-8px;background:#e53e3e;color:#fff;border-radius:50%;min-width:18px;height:18px;font-size:11px;font-weight:700;display:flex!important;align-items:center;justify-content:center;padding:0 3px;line-height:1;}`;
       document.head.appendChild(st);
     }
 
