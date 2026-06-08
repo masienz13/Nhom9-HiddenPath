@@ -158,6 +158,7 @@ select {
 
 .header-inner {
   width: min(calc(100% - 80px), var(--container));
+  height: 100%;
   margin: 0 auto;
   display: grid;
   grid-template-columns: auto 1fr auto auto auto auto;
@@ -395,9 +396,80 @@ select {
   object-position: center;
 }
 
+/* ── Cart button ── */
+.cart-btn,
+.cart-icon-btn {
+  position: relative !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--white);
+  color: var(--ink);
+  flex-shrink: 0;
+  text-decoration: none;
+  transition: border-color .2s, background .2s;
+}
+.cart-btn:hover,
+.cart-icon-btn:hover {
+  border-color: var(--forest-3);
+  background: #f0f9f4;
+}
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 100px;
+  background: #e53e3e;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--white);
+  z-index: 1;
+}
+
+/* Chặn horizontal scroll */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+/* ══════════════════════════════════════
+   ZOOM: thu nhỏ toàn trang trên desktop
+   Tắt hoàn toàn trên mobile / tablet
+   ══════════════════════════════════════ */
+
+/* Desktop: áp dụng zoom thu nhỏ */
+@media (min-width: 761px) {
+  html {
+    zoom: 0.75;
+  }
+}
+
+/* Mobile & tablet: tắt zoom, reset về bình thường */
+@media (max-width: 760px) {
+  html {
+    zoom: 1;
+  }
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════ */
+
 @media (max-width: 1180px) {
   .header-inner {
     grid-template-columns: auto auto;
+    padding: 8px 18px;
   }
 
   .brand {
@@ -421,6 +493,7 @@ select {
     background: var(--white);
     border-top: 1px solid var(--line);
     box-shadow: var(--shadow);
+    z-index: 100;
   }
 
   .main-nav.is-open {
@@ -506,56 +579,4 @@ select {
     width: 100%;
     padding: 0 20px;
   }
-}
-
-/* ── Cart button — hỗ trợ cả .cart-btn (cũ) và .cart-icon-btn (header.js) ── */
-.cart-btn,
-.cart-icon-btn {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border: 1px solid var(--line);
-  border-radius: 5px;
-  background: var(--white);
-  color: var(--ink);
-  flex-shrink: 0;
-  text-decoration: none;
-  transition: border-color .2s, background .2s;
-}
-.cart-btn:hover,
-.cart-icon-btn:hover {
-  border-color: var(--forest-3);
-  background: #f0f9f4;
-}
-.cart-badge {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  min-width: 18px;
-  height: 18px;
-  padding: 0 4px;
-  border-radius: 100px;
-  background: #e53e3e;
-  color: #fff;
-  font-size: 10px;
-  font-weight: 900;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid var(--white);
-  z-index: 1;
-}
-
-/* Chặn horizontal scroll do ticker-track width: max-content */
-html, body {
-  overflow-x: hidden;
-  max-width: 100%;
-}
-
-/* Đảm bảo cart-icon-btn luôn có position: relative để badge gắn đúng */
-.cart-icon-btn {
-  position: relative !important;
 }

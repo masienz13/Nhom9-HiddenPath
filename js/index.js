@@ -11,6 +11,7 @@
         "Trải nghiệm hành trình đi xuyên qua cánh rừng nguyên sinh,đắm mình trong màu xanh của thiên nhiên, nghe tiếng gió reo, ngắm dòng suối chảy, trượt lên những mỏm đá cũ kĩ nhuốm màu rêu phong của thời gian.",
       meta: "3N2D | HDV bản địa | Đa dạng trải nghiệm",
       image: "img/tours/putaleng2.jpg",
+      link: "tours/pu-ta-leng.html",
     },
     {
       label: "Trekking",
@@ -20,6 +21,7 @@
         "Cung đường thử thách với biển mây bồng bềnh, rừng trúc và bình minh trên sống núi.",
       meta: "3N2D | HDV bản địa | Porter hỗ trợ",
       image: "img/tours/kyquanson3.jpg",
+      link: "tours/ky-quan-san.html",
     },
     {
       label: "Trekking",
@@ -29,6 +31,7 @@
         "Hành trình chạm nóc nhà Đông Dương dành cho người mới bắt đầu và nhóm bạn yêu trải nghiệm.",
       meta: "2N1D | Lịch trình tối ưu | Đảm bảo an toàn",
       image: "img/tours/fansipan1.jpg",
+      link: "tours/fansipan.html", 
     },
   ];
 
@@ -58,7 +61,7 @@
               <p class="hero-subtitle">${slide.subtitle}</p>
               <p class="hero-meta">${slide.meta}</p>
               <div class="hero-actions">
-                <a class="btn btn-primary" href="#quickBooking">Xem tour ngay</a>
+                <a class="btn btn-primary" href="${slide.link}">Xem tour ngay</a>
                 <a class="btn btn-ghost" href="lien-he.html">Liên hệ tư vấn</a>
               </div>
             </div>
