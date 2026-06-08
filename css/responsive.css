@@ -1,7 +1,7 @@
 /* ============================================
    RESPONSIVE.CSS
    Breakpoints:
-   - Mobile (iPhone):     < 768px
+   - Mobile (iPhone):     320px – 767px
    - Tablet:              768px – 1024px
    - Laptop:              1025px – 1440px
    - Desktop:             > 1440px
@@ -9,108 +9,337 @@
 
 /* ============================================
    MOBILE – max-width: 767px
-   Dành cho iPhone và điện thoại nhỏ
    ============================================ */
-@media (max-width: 767px) {
-  /* Container */
+@media screen and (min-width: 320px) and (max-width: 767px) {
+
+  /* ── Container ── */
   .container {
-    width: 100%;
-    padding: 0 16px;
+    width: calc(100% - 32px);
+    padding: 0;
+    margin: 0 auto;
   }
 
-  /* Navigation */
-  .navbar {
+  /* ── HEADER ──────────────────────────────────────────────
+     style.css dùng .header-inner với:
+       grid-template-columns: auto 1fr auto auto auto auto
+     Trên mobile override thành 2 cột: [brand | icons]
+     .header-search ẩn, .nav-toggle hiện bằng !important
+  ──────────────────────────────────────────────────────── */
+
+  .site-header {
+    height: auto !important;
+  }
+
+  /* Header mobile: flexbox — ổn định, không bị lệch mỗi lần resize */
+  .header-inner {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 0 8px !important;
+    padding: 10px 16px !important;
+    min-height: 60px !important;
+    width: 100% !important;
+  }
+
+  /* Brand: chiếm hết space còn lại, đẩy các icon về bên phải */
+  .brand {
+    flex: 1 1 0 !important;
+    min-width: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    grid-column: unset !important;
+    grid-row: unset !important;
+  }
+
+  .brand-logo-wrap {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+  }
+
+  .brand-logo {
+    width: 38px;
+    height: 38px;
+  }
+
+  .brand-name { font-size: 20px; }
+  .brand-subtitle { font-size: 10px; }
+
+  /* Search — ẩn hoàn toàn */
+  .header-search {
+    display: none !important;
+  }
+
+  /* Cart — flex item bên phải */
+  .cart-icon-btn {
+    flex: 0 0 auto !important;
+    order: 2 !important;
+    margin: 0 !important;
+    position: static !important;
+    grid-column: unset !important;
+    grid-row: unset !important;
+  }
+
+  /* Toggle — flex item bên phải, sau cart */
+  .nav-toggle {
+    display: flex !important;
+    flex: 0 0 auto !important;
+    order: 3 !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 40px !important;
+    height: 40px !important;
+    grid-column: unset !important;
+    grid-row: unset !important;
+  }
+
+  /* main-nav: full width, xuống dòng khi is-open */
+  .main-nav {
+    order: 4 !important;
+    flex: 0 0 100% !important;
+    grid-column: unset !important;
+    grid-row: unset !important;
+  }
+
+  /* main-nav dropdown */
+  .main-nav {
+    position: static !important; /* bỏ absolute của style.css 1180px */
+    display: none;
     flex-direction: column;
-    padding: 12px 16px;
-  }
-
-  .nav-menu {
-    display: none; /* Ẩn menu, hiện hamburger */
-    flex-direction: column;
     width: 100%;
-    gap: 8px;
+    box-shadow: none !important;
+    border-top: 1px solid var(--line);
+    padding: 8px 0 !important;
   }
 
-  .nav-menu.open {
+  .main-nav.is-open {
     display: flex;
   }
 
-  .hamburger {
-    display: block;
+  .main-nav a {
+    padding: 12px 0;
+    font-size: 0.9rem;
   }
 
-  /* Grid – về 1 cột */
-  .grid-2,
-  .grid-3,
-  .grid-4 {
-    grid-template-columns: 1fr;
+  /* ── MOUNTAIN TICKER ── */
+  .mountain-ticker {
+    font-size: 0.8rem;
+    padding: 6px 0;
   }
 
-  /* Typography */
-  h1 { font-size: 1.75rem; }
-  h2 { font-size: 1.4rem;  }
-  h3 { font-size: 1.2rem;  }
-  p  { font-size: 0.95rem; }
-
-  /* Flexbox – xếp dọc */
-  .flex-row {
-    flex-direction: column;
+  /* ── HERO ── */
+  .hero {
+    height: auto;
+    min-height: 100svh;
+    overflow: visible;
   }
 
-  /* Ảnh full width */
-  img {
-    width: 100%;
+  .hero-track,
+  .hero-slide {
+    min-height: 100svh;
     height: auto;
   }
 
-  /* Card */
-  .card {
-    width: 100%;
+  /* Nội dung slide */
+  .hero-slide-inner,
+  .hero-content,
+  .hero-slide > div,
+  .hero-slide-content {
+    padding: 32px 20px 120px !important;
+    max-width: 100% !important;
+  }
+
+  .hero h1,
+  .hero-slide h1,
+  .hero-content h1 {
+    font-size: clamp(2rem, 10vw, 2.8rem);
+    line-height: 1.1;
+    margin-bottom: 12px;
+    word-break: break-word;
+  }
+
+  .hero p,
+  .hero-slide p,
+  .hero-content p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    max-width: 100%;
+    word-break: break-word;
+  }
+
+  /* Nút CTA trong hero — ngang hàng, KHÔNG full-width
+     (override .btn { width:100% } của style.css @640px) */
+  .hero-actions,
+  .hero-cta,
+  .hero-slide .btn-group,
+  .hero-slide-inner .btn-group {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .hero-actions .btn,
+  .hero-cta .btn,
+  .hero-slide .btn,
+  .hero-content .btn {
+    width: auto !important;   /* override width:100% của style.css */
+    flex: 1;
+    min-width: 120px;
+    min-height: 48px;
+    padding: 0 16px;
+    font-size: 0.8rem;
+  }
+
+  /* ── QUICK BOOKING ── */
+  .quick-booking-section {
+    padding: 24px 0;
+  }
+
+  .quick-booking {
+    padding: 20px 16px;
+  }
+
+  .quick-booking h2 {
+    font-size: 1.2rem;
     margin-bottom: 16px;
   }
 
-  /* Button */
-  .btn {
+  .booking-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .booking-grid .btn {
     width: 100%;
-    text-align: center;
-    padding: 12px;
+    min-height: 48px;
   }
 
-  /* Sidebar – ẩn hoặc xếp dọc */
-  .sidebar {
-    width: 100%;
-    margin-bottom: 24px;
-  }
+  /* ── STATS ── */
+  .stats-section { padding: 24px 0; }
 
-  .content-area {
-    width: 100%;
-  }
-
-  /* Hero section */
-  .hero {
-    padding: 0;
-    text-align: center;
-  }
-
-  /* Table – cho phép cuộn ngang */
-  .table-wrapper {
-    overflow-x: auto;
-  }
-
-  /* Footer */
-  .footer {
-    flex-direction: column;
-    text-align: center;
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
     gap: 16px;
   }
+
+  .stat-item { text-align: center; }
+
+  .stat-number { font-size: 2rem; }
+
+  /* ── ABOUT ── */
+  .about-section { padding: 32px 0; }
+
+  .about-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px;
+  }
+
+  .about-copy h2 { font-size: 1.6rem; }
+
+  .benefit-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+
+  .benefit-card { padding: 16px; }
+  .benefit-card h3 { font-size: 1rem; }
+
+  /* ── TOUR GRID ── */
+  .tour-section { padding: 32px 0; }
+
+  .section-heading {
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between;
+    margin-bottom: 16px !important;
+  }
+
+  .section-heading h2 { font-size: 1.3rem !important; }
+
+  .tour-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+  }
+
+  .center-action { margin-top: 20px; }
+
+  .center-action .btn {
+    width: auto !important;
+    padding: 0 32px;
+  }
+
+  /* ── BLOG ── */
+  .blog-section { padding: 32px 0; }
+
+  .blog-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+  }
+
+  /* ── FAQ ── */
+  .faq-section { padding: 32px 0; }
+
+  .faq-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px;
+  }
+
+  .faq-copy h2 { font-size: 1.4rem; }
+
+  /* ── CTA ── */
+  .cta-section { padding: 40px 0; }
+
+  .cta-inner {
+    flex-direction: column !important;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .cta-inner h2 { font-size: 1.3rem; }
+
+  .cta-inner .btn {
+    width: auto !important;
+    padding: 0 32px;
+  }
+
+  /* ── TYPOGRAPHY ── */
+  h2 { font-size: 1.4rem; }
+  h3 { font-size: 1.1rem; }
+  p  { font-size: 0.95rem; line-height: 1.6; }
+
+  /* ── GRID CHUNG ── */
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── BTN CHUNG ── */
+  /* KHÔNG override width:100% ở đây — chỉ fix từng trường hợp cụ thể */
+
+  /* ── FOOTER ── */
+  .footer-inner {
+    grid-template-columns: 1fr !important;
+    gap: 32px;
+  }
+
+  .footer-mountain-list {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── SECTION PAD ── */
+  .section-pad { padding: 32px 0; }
 }
 
 /* ============================================
    TABLET – 768px đến 1024px
-   Dành cho iPad, máy tính bảng
    ============================================ */
 @media (min-width: 768px) and (max-width: 1024px) {
-  /* Container */
   .container {
     width: 100%;
     padding: 0 24px;
@@ -118,181 +347,129 @@
     margin: 0 auto;
   }
 
-  /* Navigation */
-  .navbar {
+  .site-header .header-inner {
     padding: 14px 24px;
   }
 
-  .hamburger {
-    display: block; /* Vẫn dùng hamburger trên tablet đứng */
+  .main-nav {
+    display: none;
   }
 
-  /* Grid – về 2 cột */
-  .grid-2 {
-    grid-template-columns: repeat(2, 1fr);
+  .main-nav.is-open {
+    display: flex;
   }
 
-  .grid-3 {
-    grid-template-columns: repeat(2, 1fr);
+  .nav-toggle {
+    display: flex !important;
   }
 
-  .grid-4 {
-    grid-template-columns: repeat(2, 1fr);
+  .header-search {
+    display: none;
   }
 
-  /* Typography */
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+
   h1 { font-size: 2rem;   }
   h2 { font-size: 1.6rem; }
   h3 { font-size: 1.3rem; }
   p  { font-size: 1rem;   }
 
-  /* Sidebar layout */
-  .sidebar {
-    width: 240px;
-  }
-
-  .content-area {
-    flex: 1;
-  }
-
-  /* Card */
-  .card {
-    width: calc(50% - 16px);
-  }
-
-  /* Hero section */
-  .hero {
-    padding: 0;
-  }
-
-  /* Button */
-  .btn {
-    padding: 10px 24px;
-  }
+  .sidebar { width: 240px; }
+  .content-area { flex: 1; }
+  .card { width: calc(50% - 16px); }
+  .btn { padding: 10px 24px; }
 }
 
 /* ============================================
    LAPTOP – 1025px đến 1440px
-   Dành cho laptop 13" – 15"
    ============================================ */
 @media (min-width: 1025px) and (max-width: 1440px) {
-  /* Container */
   .container {
     max-width: 1200px;
     padding: 0 32px;
     margin: 0 auto;
   }
 
-  /* Navigation */
-  .navbar {
+  .site-header .header-inner {
     padding: 16px 32px;
-    flex-direction: row;
-    align-items: center;
   }
 
-  .nav-menu {
+  .main-nav {
     display: flex;
     flex-direction: row;
     gap: 24px;
+    position: static;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    width: auto;
   }
 
-  .hamburger {
-    display: none;
+  .main-nav a {
+    padding: 0;
+    border-bottom: none;
   }
 
-  /* Grid */
-  .grid-2 {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .nav-toggle { display: none !important; }
+  .header-search { display: flex; }
 
-  .grid-3 {
-    grid-template-columns: repeat(3, 1fr);
-  }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
 
-  .grid-4 {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  /* Typography */
   h1 { font-size: 2.5rem; }
   h2 { font-size: 2rem;   }
   h3 { font-size: 1.5rem; }
   p  { font-size: 1rem;   }
 
-  /* Sidebar layout */
-  .sidebar {
-    width: 260px;
-  }
-
-  /* Hero section */
-  .hero {
-    padding: 0;
-  }
-
-  /* Button */
-  .btn {
-    padding: 10px 28px;
-  }
+  .sidebar { width: 260px; }
+  .btn { padding: 10px 28px; }
 }
 
 /* ============================================
    DESKTOP – > 1440px
-   Dành cho màn hình lớn, 4K
    ============================================ */
 @media (min-width: 1441px) {
-  /* Container */
   .container {
     max-width: 1400px;
     padding: 0 48px;
     margin: 0 auto;
   }
 
-  /* Navigation */
-  .navbar {
+  .site-header .header-inner {
     padding: 20px 48px;
   }
 
-  .nav-menu {
+  .main-nav {
     display: flex;
     flex-direction: row;
     gap: 32px;
-  }
-
-  .hamburger {
-    display: none;
-  }
-
-  /* Grid */
-  .grid-2 {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .grid-3 {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .grid-4 {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  /* Typography */
-  h1 { font-size: 3rem;   }
-  h2 { font-size: 2.4rem; }
-  h3 { font-size: 1.75rem;}
-  p  { font-size: 1.1rem; }
-
-  /* Sidebar */
-  .sidebar {
-    width: 300px;
-  }
-
-  /* Hero section */
-  .hero {
+    position: static;
     padding: 0;
+    border: none;
+    box-shadow: none;
+    width: auto;
   }
 
-  /* Button */
-  .btn {
-    padding: 12px 36px;
+  .main-nav a {
+    padding: 0;
+    border-bottom: none;
   }
+
+  .nav-toggle { display: none !important; }
+  .header-search { display: flex; }
+
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+  h1 { font-size: 3rem;    }
+  h2 { font-size: 2.4rem;  }
+  h3 { font-size: 1.75rem; }
+  p  { font-size: 1.1rem;  }
+
+  .sidebar { width: 300px; }
+  .btn { padding: 12px 36px; }
 }
