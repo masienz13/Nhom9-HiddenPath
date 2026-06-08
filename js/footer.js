@@ -14,29 +14,29 @@
             <p>Tổng đài dịch vụ: 1900 2869</p>
             <p>Hotline đặt tour: 0345846390</p>
             
-            <div class="social-list" aria-label="Mạng xã hội">
+          <div class="social-list" aria-label="Mạng xã hội">
             <a href="https://www.facebook.com/profile.php?id=61590654630128"
               target="_blank"
               aria-label="Facebook">
-              <img src="img/fb.png" alt="fb">
+              <img src="${basePath}img/fb.png" alt="fb">
             </a>
 
             <a href="https://www.instagram.com/hidden.path.bookingg/"
               target="_blank"
               aria-label="Instagram">
-              <img src="img/ins.png" alt="ig">
+              <img src="${basePath}img/ins.png" alt="ig">
             </a>
 
             <a href="https://www.youtube.com/@HiddenPath.bookingg"
               target="_blank"
               aria-label="YouTube">
-              <img src="img/yt.png" alt="yt">
+              <img src="${basePath}img/yt.png" alt="yt">
             </a>
 
             <a href="https://www.tiktok.com/@hiddenpathbookingg"
               target="_blank"
               aria-label="TikTok">
-              <img src="img/tiktok.png" alt="tiktok">
+              <img src="${basePath}img/tiktok.png" alt="tiktok">
             </a>
           </div>
                   </section>
